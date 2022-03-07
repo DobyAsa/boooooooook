@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>校园书籍交易平台首页</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/dist/css/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/index.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/animate.css}"/>
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}">
+</head>
+
+<body>
+<!--导航部分  begin-->
+<div th:replace="common/header :: nav"></div>
+<!--导航部分 end-->
+
+
+<div class="container">
+    <ol class="breadcrumb">
+        <li><a class="praise">密码修改</a></li>
+    </ol>
+</div>
+<div class="container">
+<!--个人信息begin-->
+    <div>
+        <form class="layui-form" action="" id="userInfo">
+            <div class="layui-form-item">
+                <label class="layui-form-label">旧密码</label>
+                <div class="layui-input-block">
+                    <input type="text" id="oldPwd" name="oldPwd" required  lay-verify="required" placeholder="请输入标题" th:value="${session.user.password}" autocomplete="off" class="layui-input" disabled="disabled">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">新密码</label>
+                <div class="layui-input-block">
+                    <input type="text" id="newPwd" name="email" required  lay-verify="required" placeholder="请输入新密码"  autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit lay-filter="formDemo" type="button" th:onclick="pwdChange()" >确认修改</button>
+<!--                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                    <button type="reset" class="layui-btn layui-btn-primary" th:onclick="pwdChange()">密码修改</button>-->
+                </div>
+            </div>
+        </form>
+    </div>
+
+<!--个人信息end-->
+    <hr>
+    <!--首页底部信息 begin-->
+    <div th:replace="common/footer :: footer"></div>
+</div>
+<!--首页底部信息end-->
+<!--图书内容部分end-->
+
+<!-- 登录模态框（Modal） -->
+<!-- 注册modal end/.modal -->
+<div th:replace="common/bookModal :: bookModal"></div>
+
+<script src="dist/js/jquery.min.js" th:src="@{/dist/js/jquery.min.js}"></script>
+<script src="js/carousel.js" th:src="@{/js/carousel.js}" type="text/javascript" charset="utf-8"></script>
+<script src="dist/js/bootstrap.min.js" th:src="@{/dist/js/bootstrap.min.js}"></script>
+<script src="js/wow.js" th:src="@{/js/wow.js}"></script>
+<script th:src="@{/js/login_reg.js}"></script>
+<script th:src="@{/layui/layui.js}"></script>
+
+<script th:inline="javascript">
+    //获取应用路径
+    var contextPath = [[${#request.getContextPath()}]];
+</script>
+<script>
+/*    //Demo
+    layui.use('form', function(){
+        var form = layui.form;
+
+        //监听提交
+        form.on('submit(formDemo)', function(data){
+            layer.msg(JSON.stringify(data.field));
+            return false;
+        });
+    });*/
+</script>
+<!-- 引入 layui.js 的 <script> 标签最好放置在 html 末尾 -->
+<script type="text/javascript">
+    if (!(/msie [6|7|8|9]/i.test(navigator.userAgent))) {
+        new WOW().init();
+    }
+    ;
+
+    $(function () {
+        $("#selected").load(contextPath + "/book/getBookData", buildQuery(1, 1));
+        $("#recommended").load(contextPath + "/book/getBookData", buildQuery(1, 2));
+        $("#bargain").load(contextPath + "/book/getBookData", buildQuery(1, 3));
+    });
+
+    //分页之加载上下页数据
+    function loadData(page, category) {
+        if (category == 1) {
+            $("#selected").load(contextPath + "/book/getBookData", buildQuery(page, category));
+        } else if (category == 2) {
+            $("#recommended").load(contextPath + "/book/getBookData", buildQuery(page, category));
+        } else if (category == 3) {
+            $("#bargain").load(contextPath + "/book/getBookData", buildQuery(page, category));
+        }
+    };
+
+    function buildQuery(page, category) {
+        var query = {};
+        query.page = typeof page == "undefined" ? 1 : page;
+        query.category = category;
+        return query;
+    };
+
+    //根据图书名搜索
+    function searchBookName() {
+        var inputBookName = $("#inputBookName").val();
+        if (inputBookName != ''){
+            window.location.href = contextPath + "/book/searchBook?inputBookName=" + inputBookName;
+        }else alert('请输入图书名')
+    }
+
+    //密码修改
+    function pwdChange() {
+        var newPwd = $("#newPwd").val();
+
+        layer.confirm('确定修改？', {
+            icon:3,
+            btn: ['确定', '取消']
+        }, function(index, layero){
+            //按钮【按钮一】的回调
+            $.ajax({
+                url: contextPath + "/user/pwdChange",
+                method: "post",
+                data: {"newPwd":newPwd},
+                success: function (data) {
+                    if (data == 'success') {
+                        layer.msg('修改成功，请重新登录', {
+                            icon: 1,
+                            time: 2000 //2秒关闭（如果不配置，默认是3秒）
+                        }, function(){
+                            window.location.href = contextPath + "/book/index";
+                        });
+                    } else layer.msg('修改失败')
+                }
+            })
+        }, function(index){
+            return ;
+        });
+
+    }
+    //禁止a标签点击
+    $(".praise").attr("disabled",true).css("pointer-events","none");
+</script>
+</body>
+
+</html>
