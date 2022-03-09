@@ -37,7 +37,7 @@ function del() {
 	for(var i = 0; i < cks.length; i++) {
 		if(cks[i].checked) {
 			count++;
-			ids +=cks[i].value + ",";
+			ids +=cks[i].value + ",";//拼接id
 		}
 	}
 	if(count == 0) {

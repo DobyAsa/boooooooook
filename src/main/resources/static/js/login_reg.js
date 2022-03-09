@@ -37,22 +37,57 @@ function register() {
 
 //用户登录
 function login() {
+
     var datas = $("#loginForm").serialize();
-    $.ajax({
-        url: contextPath + "/user/login",
-        data:datas,
-        method:"post",
-        success:function (data) {
-            $("#userTip").css("display","none");
-            $("#pwdTip").css("display","none");
-            if(data == 100){
-                $("#loginModal").modal('hide');
-                window.location.href = contextPath + "/book/index";
-            }  else if(data == 101) {
-                $("#userTip").css("display","block");
-            } else {
-                $("#pwdTip").css("display","block");
+//通过名字获取  getElementsByName
+
+        var obj1 = document.getElementsByName("sex");
+        for(var i=0; i<obj1.length; i ++){
+            if(obj1[i].checked){
+                // console.log(obj1[i].value);
+                if (obj1[i].value == 'user'){
+                    $.ajax({
+                        url: contextPath + "/user/login",
+                        data:datas,
+                        method:"post",
+                        success:function (data) {
+                            $("#userTip").css("display","none");
+                            $("#pwdTip").css("display","none");
+                            if(data == 100){
+                                $("#loginModal").modal('hide');
+                                window.location.href = contextPath + "/book/index";
+                            }  else if(data == 101) {
+                                $("#userTip").css("display","block");
+                            } else {
+                                $("#pwdTip").css("display","block");
+                            }
+                        }
+                    })
+                }else {
+                    $.ajax({
+                        url: contextPath + "/admin/login",
+                        data:datas,
+                        method:"post",
+                        success:function (data) {
+                            $("#userTip").css("display","none");
+                            $("#pwdTip").css("display","none");
+                            if(data == 100){
+                                $("#loginModal").modal('hide');
+                                // window.location.href = contextPath + "/book/index";
+                                window.location.href = contextPath + "/admin/toBookAdmin";
+                            }  else if(data == 101) {
+                                $("#userTip").css("display","block");
+                            } else {
+                                $("#pwdTip").css("display","block");
+                            }
+                        }
+                    })
+                }
             }
+
         }
-    })
+
+    ///////////////////////////////////////////////////////////
+
+
 }

@@ -1,7 +1,9 @@
 package com.book.bookshop;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.book.bookshop.entity.Book;
 import com.book.bookshop.entity.User;
+import com.book.bookshop.entity.enums.Category;
 import com.book.bookshop.mapper.BookMapper;
 import com.book.bookshop.mapper.CartMapper;
 import com.book.bookshop.mapper.OrderItemMapper;
@@ -105,8 +107,7 @@ class BookShopApplicationTests {
 
     @Test
     public void tes1t() {
-        String path = this.getClass().getResource("/static").getPath();
-        System.err.println("path：" + path);
+
     }
     @Test
     public void te2s1t() {

@@ -1,7 +1,9 @@
 package com.book.bookshop.entity.enums;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
+import lombok.Data;
 import lombok.Getter;
+import lombok.Setter;
 
 /**
  * @Author:yizhongwei
@@ -18,6 +20,6 @@ public enum  Category {
 
 
     @EnumValue//标记数据库存的值是code
-    private final int code;
-    private final String desc;
+    private  int code;
+    private  String desc;
 }
