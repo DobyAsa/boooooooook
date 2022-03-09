@@ -107,7 +107,7 @@ class BookShopApplicationTests {
 
     @Test
     public void tes1t() {
-
+        System.out.println(19/3+1);
     }
     @Test
     public void te2s1t() {
@@ -116,7 +116,5 @@ class BookShopApplicationTests {
         System.out.println(p);
         System.out.println(path2);
     }
-
-
 
 }
