@@ -20,7 +20,7 @@
 				<div class="table-responsive" id="imgDiv">
 					<table class="table table-hover table-striped" style="vertical-align:middle;">
 						<thead>
-						<tr>
+<!--						<tr>
 							<td colspan="8">
 								<label class="text-primary">显示条数:</label>
 								<select id="cartSzie" class="form-control" style="display: inline" onchange="displaySize(this)">
@@ -30,7 +30,7 @@
 									<option value="8">8</option>
 								</select>
 							</td>
-						</tr>
+						</tr>-->
 						<tr class="text-success success">
 							<th style="width: 30px;"><input type="checkbox" id="selectAll" onclick="selectAll(this)"></th>
 							<th id="sequence">序号</th>
@@ -107,12 +107,16 @@
 				<div class="row text-center">
 					<div class="col-md-12">
 						<ul class="pagination">
-							<li><a href="javascript:void(0)" th:onclick="loadData(1,6)">首页</a></li>
-							<li class="disabled"><a href="javascript:void(0)" th:onclick="loadData([[${pre}]],[[${pageSize}]])">&laquo;</a></li>
+							<li><a href="javascript:void(0)" th:onclick="loadData(1,[[${pageSize}]])">首页</a></li>
+							<li  th:classappend="${cur==1} ? 'disabled':''">
+								<a href="javascript:void(0)" th:style="${cur == 1} ? 'pointer-events:none':''" th:onclick="loadData([[${pre}]],[[${pageSize}]])">&laquo;</a>
+							</li>
 							<li th:each="i:${#numbers.sequence(1,pages)}" th:class="${cur == i} ? 'active' : ''">
 								<a href="javascript:void(0)" th:text="${i}" th:onclick="loadData([[${i}]],[[${pageSize}]])">1</a>
 							</li>
-							<li><a href="javascript:void(0)" th:onclick="loadData([[${next}]],[[${pageSize}]])">&raquo;</a></li>
+							<li th:classappend="${cur== pages} ? 'disabled':''">
+								<a th:style="${cur == pages} ? 'pointer-events:none':''" href="javascript:void(0)" th:onclick="loadData([[${next}]],[[${pageSize}]])">&raquo;</a>
+							</li>
 							<li><a href="javascript:void(0)" style="border: 1px solid #ddd;" th:onclick="loadData([[${pages}]],[[${pageSize}]])">尾页</a></li>
 							<li><a style="border: 0px;margin-left: 0px;" th:text="${'当前页' + cur + '/' + pages + '总页'}">当前页3/5总页</a></li>
 							<li>
@@ -120,7 +124,7 @@
 								<div id="search" class="input-group" style="positon:relative;">
 									<input id="inputPage" type="text" class="form-control" placeholder="跳转指定页" />
 									<span class="input-group-btn">
-									<button class="btn btn-info btn-search" th:onclick="goPage([[${pageSize}]])">GO</button>
+									<button class="btn btn-info btn-search" th:onclick="goPage([[${pageSize}]],[[${pages}]])">GO</button>
 								</span>
 								</div>
 							</li>

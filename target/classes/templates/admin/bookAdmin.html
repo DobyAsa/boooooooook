@@ -37,7 +37,7 @@
 		<script th:inline="javascript">
 			//获取应用路径
 			var contextPath = [[${#request.getContextPath()}]];
-
+			var pages = [[${pages}]];
 		</script>
 		<script type="text/javascript">
 			if(!(/msie [6|7|8|9]/i.test(navigator.userAgent))) {
@@ -90,21 +90,46 @@
 		th {text-align: center}
 	</style>
 	</body>
-	<script>
-		//分页js
+	<script>//分页js
+		//页面加载时执行
+
 		$(function () {
-			$("#allBooksData").load(contextPath + "/admin/getBookListByPage",queryData(1,''))
+
+
+			$("#allBooksData").load(contextPath + "/admin/getBookListByPage",queryData(1,''));
+			//存储购物记录的id
+			var ids = '';
+			var thirdModel = document.getElementById("third_del");
+			//判断是否选择了商品
+			var count = 0;
+			//获取所有的checkbox
+			var cks = document.getElementsByName("cks");
+			//遍历
+			for(var i = 0; i < cks.length; i++) {
+				if(cks[i].checked) {
+					count++;
+					ids += cks[i].value + ",";
+				}
+			}
+			sessionStorage.setItem("ids",ids);
 		})
 
 		function loadData(page,pageSize) {
 			$("#allBooksData").load(contextPath + "/admin/getBookListByPage",queryData(page,pageSize))
 
 		}
-
 		//跳转到指定页
-		function goPage(pageSize) {
-			var page = $("#inputPage").val();
-			$("#allBooksData").load(contextPath + "/admin/getBookListByPage",queryData(page,pageSize))
+		function goPage(pageSize,pages) {
+			var inputPage = $("#inputPage").val();
+			if (inputPage==''){
+				layer.msg('请输入页码', {icon: 7,anim:6});
+				return;
+			}
+			if (inputPage > pages) {//如果输入的页数大于总页数
+				layer.msg('超出总页数！总页数：'+pages, {icon: 7,anim:6});
+				return;
+			}
+			$("#allBooksData").load(contextPath + "/admin/getBookListByPage",queryData(inputPage,pageSize))
 
 		}
 
@@ -113,16 +138,12 @@
 			$("#allBooksData").load(contextPath + "/admin/getBookListByPage",queryData(1,obj.value))
 		}
 		//查询
-		function queryData(page, pageSize,orderNum,tradeStatus,orderBy,startTime,endTime) {
+		function queryData(page, pageSize) {
 			var query = {};
 			query.page = page;
-			query.pageSize = pageSize == '' ? 3 : pageSize;
-			query.orderNum = orderNum == undefined ? '' : orderNum;
-			query.tradeStatus = tradeStatus == undefined ? '' : tradeStatus;
-			query.orderBy = orderBy == undefined ? '' : orderBy;
-			query.startTime = startTime == undefined ? '' : startTime;
-			query.endTime = endTime == undefined ? '' : endTime;
+			query.pageSize = pageSize == '' ? 4 : pageSize;
 			return query;
 		}
+
 	</script>
 </html>
