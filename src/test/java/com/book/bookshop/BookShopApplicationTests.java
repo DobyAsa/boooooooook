@@ -107,6 +107,8 @@ class BookShopApplicationTests {
 
     @Test
     public void tes1t() {
+        String picName = "白底圆头.png";
+
         System.out.println(19/3+1);
     }
     @Test
