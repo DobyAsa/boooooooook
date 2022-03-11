@@ -34,4 +34,7 @@ public class Book extends Model<Book> {
     @TableField(exist = false)
     private String cate;
 
+    @TableField(exist = false)
+    private double originalPrice;
+
 }

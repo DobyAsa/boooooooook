@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.book.bookshop.entity.*;
 import com.book.bookshop.entity.enums.Category;
+import com.book.bookshop.entity.enums.Suit;
 import com.book.bookshop.service.AdminService;
 import com.book.bookshop.service.BookService;
 import org.mybatis.logging.LoggerFactory;
@@ -13,9 +14,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
@@ -31,7 +34,7 @@ import java.util.logging.Logger;
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
-//    Logger logger = LoggerFactory.getLogger(Object.class);
+    //    Logger logger = LoggerFactory.getLogger(Object.class);
 //    Logger l = Logger.getLogger(AdminController.class)
     @Autowired
     private AdminService adminService;
@@ -85,7 +88,7 @@ public class AdminController {
 
     @RequestMapping("/toAddBook")
     public String toAddBook() {
-    return "admin/addBook";
+        return "admin/addBook";
     }
 
 
@@ -99,17 +102,45 @@ public class AdminController {
         System.out.println(book.getName());
         System.out.println(bookPic.getOriginalFilename());
         System.out.println(book.getPublisher());*/
-        String bookPicName = bookPic.getOriginalFilename();
+
         if (book.getCate().equals("精选图书")) book.setCategory(Category.SELECTTED);
         if (book.getCate().equals("推荐图书")) book.setCategory(Category.RECOMMEND);
         if (book.getCate().equals("特价图书")) book.setCategory(Category.BARGAGIN);
         book.setPublishDate(new Date());
         book.setAuthorLoc("中国");
+        book.setSuit(Suit.YES);
+        String bookPicName = bookPic.getOriginalFilename();
         book.setImgUrl(bookPicName);
         String filePath = "D:/images/";
         File dest = new File(filePath + bookPicName);
         bookPic.transferTo(dest);
         bookService.save(book);
+        return "admin/bookAdmin";
+    }
+
+    //跳转至更新图书页面
+    @RequestMapping("/toUpdateBook")
+    public String toUpdateBook(Model model, @RequestParam("bookId") Integer id,HttpSession session) {
+        Book book = bookService.getById(id);
+        book.setOldPrice(book.getNewPrice());
+        session.setAttribute("oldPrice",book.getOldPrice());
+        model.addAttribute("book", book);
+        System.out.println(book);
+        return "admin/updateBook";
+    }
+
+    //更新图书
+    @RequestMapping("/updateBook")
+    public String updateBook(Book book, MultipartFile bookPic,HttpSession session) throws IOException {
+        System.out.println(book);
+        System.out.println(bookPic.getOriginalFilename());
+        String bookPicName = bookPic.getOriginalFilename();
+        book.setImgUrl(bookPicName);
+        String filePath = "D:/images/";
+        File dest = new File(filePath + bookPicName);
+        book.setOldPrice((double)session.getAttribute("oldPrice"));
+        bookPic.transferTo(dest);
+        bookService.updateById(book);
         return "admin/bookAdmin";
     }
 }

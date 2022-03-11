@@ -33,7 +33,7 @@ public class Upload {
         try {
             file.transferTo(dest);
             System.out.println("success");
-            return "上传成功";
+            return "success";
         } catch (Exception e) {
             e.printStackTrace();
         }

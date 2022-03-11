@@ -5,9 +5,44 @@
     <title>Title</title>
 </head>
 <body>
-<form method="post" th:action="@{/upload}" enctype="multipart/form-data">
-    <input type="file" name="bookPic"><br>
-    <input type="submit" value="提交">
+<!--<form method="post" th:action="@{/upload}" enctype="multipart/form-data">-->
+<form>
+    <input type="file" name="bookPic" id="bookPic"><br>
+<!--    <input type="submit" value="提交">-->
+    <input type="button" value="提交" th:onclick="upload()">
 </form>
 </body>
+<script src="js/details.js" th:src="@{/js/details.js}" type="text/javascript" charset="utf-8"></script>
+<script src="js/cart.js" th:src="@{/js/cart.js}" type="text/javascript" charset="utf-8"></script>
+<script src="dist/js/jquery.min.js" th:src="@{/dist/js/jquery.min.js}"></script>
+<script src="js/carousel.js" th:src="@{/js/carousel.js}" type="text/javascript" charset="utf-8"></script>
+<script src="dist/js/bootstrap.min.js" th:src="@{/dist/js/bootstrap.min.js}"></script>
+<script src="js/wow.js" th:src="@{/js/wow.js}"></script>
+<script th:src="@{/layui/layui.js}"></script>
+<script>
+    function upload() {
+        // 创建formData对象，用于保存ajax上传的参数信息
+        var formData = new FormData();
+        // 获取要上传的文件file
+        var files = document.getElementById('bookPic').files;
+        var file = files[0];
+        formData.append("file",file);
+        $.ajax({
+            method: "POST",
+            url:"/book/upload",
+            data:{"bookPic":formData},
+            // 下面三个参数要指定，如果不指定，会报一个JQuery的错误
+            processData : false,// 必须，设置不转换为string，默认为true
+            contentType : 'multipart/form-data',
+            cache: false,
+            success: function(data) {
+                if(data.uploadFlag==true){
+                    alert("success")
+                }else{
+                    alert("上传出错");
+                }
+            }
+        });
+    }
+</script>
 </html>

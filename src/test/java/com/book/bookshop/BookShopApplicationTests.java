@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -106,10 +107,10 @@ class BookShopApplicationTests {
     }
 
     @Test
-    public void tes1t() {
-        String picName = "白底圆头.png";
-
-        System.out.println(19/3+1);
+    public void tes1t(HttpServletRequest request) {
+    String path = request.getServletContext().getRealPath("/");
+    String uploadPath = path + "/statics/images/";
+        System.out.println(uploadPath);
     }
     @Test
     public void te2s1t() {

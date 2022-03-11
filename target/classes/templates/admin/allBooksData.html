@@ -71,7 +71,7 @@
 								<a th:href="@{/admin/touUpdateProductPage(proId=${product.proId})}" class="btn btn-info">修改</a>
 								<a th:href="@{/admin/doDeleteProductPage(proId=${product.proId})}" class="btn btn-danger">删除</a>
 -->
-								<a class="btn btn-info">修改</a>
+								<a class="btn btn-info" th:href="@{/admin/toUpdateBook(bookId=${book.id})}">修改</a>
 								<br>
 								<a th:onclick="deleteBook([[${book.id}]])"  class="btn btn-danger">删除</a>
 							</td>
