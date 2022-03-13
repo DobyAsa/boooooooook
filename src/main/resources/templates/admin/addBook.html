@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title>后台管理页面</title>
+		<link rel="stylesheet" type="text/css" th:href="@{/css/cart.css}" />
+		<link rel="stylesheet" type="text/css" th:href="@{/dist/css/bootstrap.min.css}">
+		<link rel="stylesheet" type="text/css" th:href="@{/css/index.css}"/>
+		<link rel="stylesheet" type="text/css" th:href="@{/css/animate.css}"/>
+		<link rel="stylesheet" th:href="@{/layui/css/layui.css}">
+
+	</head>
+
+	<body>
+	<!--导航部分  begin-->
+	<div th:replace="common/header :: nav"></div>
+	<!--导航部分 end-->
+
+	<div class="container">
+		<!--左边-->
+		<div class="col-md-8 col-sm-12" style="width:100%">
+			<!--左边-->
+			<ol class="breadcrumb">
+				<li>
+					<a href="#" class="text-success"><span class="glyphicon glyphicon-heart"></span>&nbsp;&nbsp;我的宝贝</a>
+				</li>
+			</ol>
+
+			<!--购物车表格 begin-->
+			<div class="table-responsive" id="imgDiv">
+				<form class="layui-form" method="post" th:action="@{/admin/addBook}" required  lay-verify="required" enctype="multipart/form-data">
+					<div class="layui-form-item">
+						<label class="layui-form-label">ISBN</label>
+						<div class="layui-input-block">
+							<input type="text" name="isbn"    placeholder="请输入ISBN" required  lay-verify="required" autocomplete="off" class="layui-input">
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<label class="layui-form-label">书名</label>
+						<div class="layui-input-block">
+							<input type="text" name="name"    placeholder="请输入书名" required  lay-verify="required" autocomplete="off" class="layui-input">
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<label class="layui-form-label">作者</label>
+						<div class="layui-input-block">
+							<input type="text" name="author"    placeholder="请输入作者" required  lay-verify="required" autocomplete="off" class="layui-input">
+						</div>
+					</div>
+
+					<div class="layui-form-item">
+						<label class="layui-form-label">出版社</label>
+						<div class="layui-input-block">
+							<input type="text" name="publisher"    placeholder="请输入出版社" required  lay-verify="required" autocomplete="off" class="layui-input">
+						</div>
+					</div>
+
+					<div class="layui-form-item">
+						<label class="layui-form-label">价格</label>
+						<div class="layui-input-block">
+							<input type="text" name="newPrice"    placeholder="请输入价格" required  lay-verify="required" autocomplete="off" class="layui-input">
+						</div>
+					</div>
+
+					<div class="layui-form-item">
+						<label class="layui-form-label">请选择图片</label>
+						<div class="layui-input-block">
+							<input type="file" name="bookPic" class="layui-btn">
+						</div>
+					</div>
+
+					<div class="layui-form-item">
+						<label class="layui-form-label">分类</label>
+						<div class="layui-input-block">
+							<input type="radio" name="cate" value="精选图书" title="精选图书" checked>
+							<input type="radio" name="cate" value="推荐图书" title="推荐图书">
+							<input type="radio" name="cate" value="特价图书" title="特价图书" >
+						</div>
+					</div>
+					<div class="layui-form-item layui-form-text">
+						<label class="layui-form-label">简介</label>
+						<div class="layui-input-block">
+							<textarea name="info" placeholder="请输入内容" required  lay-verify="required" class="layui-textarea"></textarea>
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<div class="layui-input-block">
+							<!-- <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button> -->
+							<input type="submit" class="layui-btn" lay-submit value="提交">
+							<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+						</div>
+					</div>
+				</form>
+			</div>
+			<!--购物车 end-->
+
+		</div>
+
+
+	</div>
+
+
+		<!--首页底部信息 begin-->
+		<div class="container">
+
+		<div th:replace="common/footer :: footer"></div>
+		</div>
+		<!--end-->
+
+		<!--引入js文件-->
+		<script src="js/details.js" th:src="@{/js/details.js}" type="text/javascript" charset="utf-8"></script>
+		<script src="js/cart.js" th:src="@{/js/cart.js}" type="text/javascript" charset="utf-8"></script>
+		<script src="dist/js/jquery.min.js" th:src="@{/dist/js/jquery.min.js}"></script>
+		<script src="js/carousel.js" th:src="@{/js/carousel.js}" type="text/javascript" charset="utf-8"></script>
+		<script src="dist/js/bootstrap.min.js" th:src="@{/dist/js/bootstrap.min.js}"></script>
+		<script src="js/wow.js" th:src="@{/js/wow.js}"></script>
+		<script th:src="@{/layui/layui.js}"></script>
+		<script th:inline="javascript">
+			//获取应用路径
+			var contextPath = [[${#request.getContextPath()}]];
+			var pages = [[${pages}]];
+		</script>
+		<script type="text/javascript">
+			if(!(/msie [6|7|8|9]/i.test(navigator.userAgent))) {
+				new WOW().init();
+			};
+			//根据图书名搜索
+
+
+		</script>
+
+	<style type="text/css">
+		td {text-align: center}
+		th {text-align: center}
+	</style>
+	</body>
+
+</html>
