@@ -19,7 +19,7 @@ public class OrderItem extends Model<OrderItem> {
     private Integer bookId;
     private Integer count;
 
-    //图书对象
+    //是否映射数据库图书对象
     @TableField(exist = false)
     private Book book;
 }

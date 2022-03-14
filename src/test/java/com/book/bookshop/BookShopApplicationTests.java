@@ -2,6 +2,8 @@ package com.book.bookshop;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.book.bookshop.entity.Book;
+import com.book.bookshop.entity.Order;
+import com.book.bookshop.entity.OrderItem;
 import com.book.bookshop.entity.User;
 import com.book.bookshop.entity.enums.Category;
 import com.book.bookshop.mapper.BookMapper;
@@ -9,6 +11,8 @@ import com.book.bookshop.mapper.CartMapper;
 import com.book.bookshop.mapper.OrderItemMapper;
 import com.book.bookshop.mapper.OrderMapper;
 import com.book.bookshop.service.BookService;
+import com.book.bookshop.service.OrderItemService;
+import com.book.bookshop.service.OrderService;
 import com.book.bookshop.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +40,11 @@ class BookShopApplicationTests {
     private BookService bookService;
     @Autowired
     private BookMapper bookMapper;
+    @Autowired
+    private OrderItemService orderItemService;
+    @Autowired
+    private OrderService orderService;
+
     @Test
     void findBooks() {
         userService.list().forEach(System.out::println);
@@ -57,7 +66,7 @@ class BookShopApplicationTests {
 
     @Test
     public void findOrderList() {
-       // System.out.println(orderMapper.findOrderAndOrderDetailListByUser(5));
+        // System.out.println(orderMapper.findOrderAndOrderDetailListByUser(5));
         ;
 		/*		OrderQueryVo orderQueryVo = new OrderQueryVo();
 		orderQueryVo.setUserId(1);
@@ -97,25 +106,39 @@ class BookShopApplicationTests {
         }
         System.out.println(orderIds);
     }
+
     @Test
     public void t1est() throws InterruptedException {
-        for(int i = 0;;i++){
-            Thread.sleep(i*1000);
-            System.out.println(i+"秒已过");
-
+        Integer orderId = 31;
+        System.out.println(orderId);
+        Order order = orderService.getById(orderId);
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.eq("order_id", orderId);
+        List<OrderItem> items = orderItemService.list(queryWrapper);
+        double price = 0.0;
+        String booksName = "";
+        for (OrderItem item : items) {
+            Integer bookId = orderItemService.getById(item.getId()).getBookId();
+            Book book = bookService.getById(bookId);
+            price += item.getCount() * book.getNewPrice();
+            booksName += book.getName() + "、";
         }
+        System.out.println(booksName);
+        System.out.println(price);
     }
 
     @Test
-    public void tes1t(HttpServletRequest request) {
-    String path = request.getServletContext().getRealPath("/");
-    String uploadPath = path + "/statics/images/";
-        System.out.println(uploadPath);
+    public void tes1t() {
+        QueryWrapper<OrderItem> queryWrapper = new QueryWrapper();
+//        queryWrapper.and(wrapper -> wrapper.eq("asd","asd").ne("asd","asd"));
+        queryWrapper.eq("id", 38).eq("order_id", 35);
+        System.out.println(orderItemMapper.selectOne(queryWrapper));
     }
+
     @Test
     public void te2s1t() {
         String p = this.getClass().getResource("/static/images/").getPath();
-        String path2 =  this.getClass().getClassLoader().getResource("static/images/").getPath();
+        String path2 = this.getClass().getClassLoader().getResource("static/images/").getPath();
         System.out.println(p);
         System.out.println(path2);
     }

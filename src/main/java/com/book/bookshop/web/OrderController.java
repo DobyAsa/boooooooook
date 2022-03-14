@@ -2,13 +2,13 @@ package com.book.bookshop.web;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.book.bookshop.entity.*;
-import com.book.bookshop.service.AddressService;
-import com.book.bookshop.service.CartService;
-import com.book.bookshop.service.OrderItemService;
-import com.book.bookshop.service.OrderService;
+import com.book.bookshop.service.*;
+import com.book.bookshop.utils.AlipayUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.w3c.dom.ls.LSOutput;
@@ -33,7 +33,15 @@ public class OrderController {
     private OrderService orderService;
     @Autowired
     private OrderItemService orderItemService;
+    @Autowired
+    private BookService bookService;
 
+    @Autowired
+    public void setAlipayUtil(AlipayUtil alipayUtil) {
+        this.alipayUtil = alipayUtil;
+    }
+
+    private AlipayUtil alipayUtil;
     /**
      * 确认订单
      */
@@ -84,7 +92,7 @@ public class OrderController {
     @RequestMapping("/deleteAll")
     @ResponseBody
     public String deleteAll() {
-        //先把orderitem的条数删除，避免外键异常
+        //清空，避免外键异常
         orderItemService.remove(new QueryWrapper<>());
         if (orderService.remove(new QueryWrapper<>())) {
             return "success";
@@ -112,7 +120,63 @@ public class OrderController {
         return "orderData";
     }
 
+/*    @RequestMapping("/orderPay")
+    public String orderPay(Integer orderId){
+        System.out.println(orderId);
+        Order order = orderService.getById(orderId);
+//        List<OrderItem> items = order.getOrderItems();
+        String ids = "26,27,28";
+        List<OrderItem> items = (List<OrderItem>) orderItemService.listByIds(Arrays.asList(ids.split(",")));
+        System.out.println(items);
+*//*        double price = 0.0;
+        String booksName = "";
+        for (OrderItem item:items) {
+            price += item.getCount() * item.getBook().getNewPrice();
+            booksName+=item.getBook().getName()+" ";
+        }
+        order.setTotalPrice(price);*//*//计算订单总金额
+//        String form = alipayUtil.pay(order.getOrderNum(),String.valueOf(order.getTotalPrice()),booksName);
+        String form = alipayUtil.pay(order.getOrderNum(),"666"," 白夜行 斗罗大陆");
+        order.setOrderStatus("2");
+        orderService.updateById(order);
+        return "index";
+    }*/
 
+    @RequestMapping("/orderPay")
+    public String orderPay(Integer orderId,Model model){
+        /*买家账号 ftwbqx4717@sandbox.com
+         登录密码111111*/
+        Order order = orderService.getById(orderId);
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.eq("order_id",orderId);
+        List<OrderItem> items = orderItemService.list(queryWrapper);
+
+        double price = 0.0;
+        String booksName = "";
+        for (OrderItem item:items) {
+            Integer bookId = orderItemService.getById(item.getId()).getBookId();
+            Book book = bookService.getById(bookId);
+            price += item.getCount() * book.getNewPrice();
+            booksName+=book.getName()+"、";
+        }
+        String form = alipayUtil.pay(order.getOrderNum(),String.valueOf(price),booksName);
+        model.addAttribute("form",form);
+        order.setOrderStatus("2");
+        orderService.updateById(order);
+        return "pay";
+    }
+
+    @GetMapping("/return")
+    public String returnNotice(String out_trade_no, Model model){
+        String query = alipayUtil.query(out_trade_no);
+        model.addAttribute("query", query);
+        return "query";
+    }
+
+    @PostMapping("/notify")
+    public void notifyUrl(String trade_no, String total_amount, String trade_status){
+        System.err.println("支付宝订单编号：" + trade_no + ", 订单金额： " + total_amount + ",订单状态：" + trade_status);
+    }
 
 }
 

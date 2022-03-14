@@ -61,26 +61,27 @@
 				<tr class="active">
 					<th>序号</th>
 					<th>图片</th>
-					<th>图片名称</th>
+					<th>书名</th>
 					<th>单价(元)</th>
 					<th>数量</th>
 					<th>实付款(元)</th>
 					<th>付款日期</th>
-					<th>交易状态</th>
+					<th>状态/操作</th>
 				</tr>
 				</thead>
 				<tbody>
-				<tr class="warning" th:each="items:${order.orderItems}">
+				<tr class="warning" th:each="items,iter:${order.orderItems}">
 					<td th:text="${items.book.id}">1001</td>
 					<td><img th:src="@{'/public/' + ${items.book.imgUrl}}" src="images/yuannideqingchunbufumengxiang.jpg"></td>
 					<td th:text="${items.book.name}">愿你的青春不负梦想</td>
 					<td th:text="${items.book.newPrice}">80.0</td>
 					<td th:text="${items.count}">2</td>
-<!--					<td th:text="${items.count * items.book.newPrice}">160.0</td>-->
 					<td th:text="${#numbers.formatDecimal(items.count * items.book.newPrice, 0, 1)}">160.0</td>
 					<td th:text="${#calendars.format(order.createDate,'dd/MM/yyyy')}">01/08/2017</td>
-					<td th:if="${order.orderStatus == '1'}">待支付</td>
-					<td th:if="${order.orderStatus == '2'}">已支付</td>
+					<td th:if="${order.orderStatus == '1'&&iter.first}"><a href="#" th:onclick="orderPay([[${order.id}]])">点击支付</a></td>
+					<td th:if="${order.orderStatus == '1'&& !iter.first}"></td>
+					<td th:if="${order.orderStatus == '2'&&iter.first}">已支付</td>
+					<td th:if="${order.orderStatus == '2'&& !iter.first}"></td>
 				</tr>
 				</tbody>
 			</table>
@@ -91,11 +92,15 @@
 				<div class="col-md-12">
 					<ul class="pagination">
 						<li><a href="javascript:void(0)" th:onclick="loadData(1)">首页</a></li>
-						<li class="disabled"><a href="javascript:void(0)" th:onclick="loadData([[${pre}]],[[${pageSize}]])">&laquo;</a></li>
-						<li th:each="i:${#numbers.sequence(1,pages)}" th:class="${cur == i} ? 'active' : ''">
-							<a href="javascript:void(0)" th:text="${i}" th:onclick="loadData([[${i}]],[[${pageSize}]])">1</a>
+						<li >
+							<a href="javascript:void(0)" th:style="${cur == 1} ? 'pointer-events:none':''" th:onclick="loadData([[${pre}]],[[${pageSize}]])">&laquo;</a>
 						</li>
-						<li><a href="javascript:void(0)" th:onclick="loadData([[${next}]],[[${pageSize}]])">&raquo;</a></li>
+						<li th:each="i:${#numbers.sequence(1,pages)}" th:class="${cur == i} ? 'active' : ''">
+							<a href="javascript:void(0)"  th:text="${i}" th:onclick="loadData([[${i}]],[[${pageSize}]])">1</a>
+						</li>
+						<li>
+							<a href="javascript:void(0)" th:style="${cur == pages} ? 'pointer-events:none':''" th:onclick="loadData([[${next}]],[[${pageSize}]])">&raquo;</a>
+						</li>
 						<li><a href="javascript:void(0)" style="border: 1px solid #ddd;" th:onclick="loadData([[${pages}]],[[${pageSize}]])">尾页</a></li>
 						<li><a style="border: 0px;margin-left: 0px;" th:text="${'当前页' + cur + '/' + pages + '总页'}">当前页3/5总页</a></li>
 						<li>

@@ -8,6 +8,8 @@
 	<link rel="stylesheet" type="text/css" href="css/animate.css" th:href="@{/css/animate.css}" />
 	<link rel="stylesheet" type="text/css" href="css/bootstrap-datetimepicker.min.css" th:href="@{/css/bootstrap-datetimepicker.min.css}"/>
 	<link rel="stylesheet" type="text/css" href="css/order_list.css" th:href="@{/css/order_list.css}"/>
+	<link rel="stylesheet" th:href="@{/layui/css/layui.css}">
+
 </head>
 
 	<body>
@@ -280,7 +282,9 @@
 		<script src="dist/js/bootstrap.min.js" th:src="@{/dist/js/bootstrap.min.js}"></script>
 		<script src="js/moment.js" th:src="@{/js/moment.js}" type="text/javascript" charset="utf-8"></script>
 		<script src="js/bootstrap-datetimepicker.js" th:src="@{/js/bootstrap-datetimepicker.js}" type="text/javascript" charset="utf-8"></script>
-		<script th:inline="javascript">
+		<script th:src="@{/layui/layui.js}"></script>
+
+	<script th:inline="javascript">
 			//获取应用路径
 			var contextPath = [[${#request.getContextPath()}]];
 		</script>
@@ -349,6 +353,8 @@
 					}
 				})
 			}
+
+
 		}
 
 		$(function () {
@@ -405,6 +411,24 @@
 			if (inputBookName != ''){
 				window.location.href = contextPath + "/book/searchBook?inputBookName=" + inputBookName;
 			}else alert('请输入图书名')
+		}
+		//订单支付支付
+		function orderPay(orderId){
+
+			layer.msg('正在跳转至支付页面...', {
+				icon: 16,
+				time: 2000 //2秒关闭（如果不配置，默认是3秒）
+			}, function(){
+/*				$.ajax({
+					url:contextPath + "/order/orderPay",
+					method:"get",
+					 data:{"orderId":orderId},
+					success:function (data) {
+
+					}
+				})*/
+				location.href = contextPath +"/order/orderPay?orderId=" + orderId;
+			});
 		}
 		</script>
 
