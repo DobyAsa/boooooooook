@@ -41,8 +41,9 @@ public class UserController {
     //用户登录
     @ResponseBody
     @PostMapping("/login")
-    public String login(User user , HttpSession session){
-        return userService.loginCheck(user,session);
+    public String login(User user , HttpSession session,Model model,String code){
+        return userService.loginCheck(user,session,model,code);
+
     }
 
     //注销

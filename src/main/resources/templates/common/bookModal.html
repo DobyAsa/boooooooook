@@ -40,12 +40,30 @@
                         </div>
 
                         <div class="form-group has-feedback">
+                            <label class="col-sm-2 control-label">验证码</label>
+                            <div class="col-sm-5">
+                                <p class="txtL txt">
+                                    <input class="code form-control" type="text"  name="code" id="code" value="" placeholder="请输入验证码">
+                                    <img  id="mycode" th:src="@{/getCode}" height="34px">
+                                </p>
+                                <p style="font-size: 15px">
+                                    <a href="javascript:refreshCode()" >看不清? 换一张</a>
+                                </p>
+
+                            </div>
+                            <div class="col-sm-3" id="codeTip" style="padding-top: 10px; display: none">
+                                <label class="alert-danger">验证码不正确</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group has-feedback">
                             <label class="col-sm-2 control-label">角色</label>
                             <div class="col-sm-5">
                                 <input type="radio" name="sex" value="user" title="普通用户" checked>普通用户
                                 <input type="radio" name="sex" value="admin " title="管理员" >管理员
                             </div>
                         </div>
+
                         <!--                        <div class="form-group">
                                                     <div class="col-sm-offset-2 col-sm-10">
                                                         <div class="checkbox">
@@ -157,3 +175,4 @@
         </div>
     </div>
 </article>
+

@@ -53,11 +53,14 @@ function login() {
                         success:function (data) {
                             $("#userTip").css("display","none");
                             $("#pwdTip").css("display","none");
+                            $("#codeTip").css("display","none");
                             if(data == 100){
                                 $("#loginModal").modal('hide');
                                 window.location.href = contextPath + "/book/index";
                             }  else if(data == 101) {
                                 $("#userTip").css("display","block");
+                            }   else if(data == 103){
+                                $("#codeTip").css("display","block");
                             } else {
                                 $("#pwdTip").css("display","block");
                             }
@@ -71,13 +74,16 @@ function login() {
                         success:function (data) {
                             $("#userTip").css("display","none");
                             $("#pwdTip").css("display","none");
+                            $("#codeTip").css("display","none");
                             if(data == 100){
                                 $("#loginModal").modal('hide');
                                 // window.location.href = contextPath + "/book/index";
                                 window.location.href = contextPath + "/admin/toBookAdmin";
-                            }  else if(data == 101) {
+                            }  else if(data == 101) { //用户名不存在
                                 $("#userTip").css("display","block");
-                            } else {
+                            }   else if(data == 103){ //验证码错误
+                                $("#codeTip").css("display","block");
+                            } else if (data == 102) { //密码错
                                 $("#pwdTip").css("display","block");
                             }
                         }
@@ -86,8 +92,5 @@ function login() {
             }
 
         }
-
-    ///////////////////////////////////////////////////////////
-
 
 }

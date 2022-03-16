@@ -6,6 +6,7 @@ import com.book.bookshop.entity.User;
 import com.book.bookshop.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import javax.servlet.http.HttpSession;
 
@@ -32,17 +33,24 @@ public class UserService extends ServiceImpl<UserMapper, User> {
     }
 
     //用户登录验证
-    public String loginCheck(User loginUser, HttpSession session){
+    public String loginCheck(User loginUser, HttpSession session, Model model,String code){
+        //获取生成的验证码
+        String code1 = (String)session.getAttribute("code");
+        //无视大小写
         QueryWrapper queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("username", loginUser.getUsername());
         User user = userMapper.selectOne(queryWrapper);
         if (user==null){
             return "101";//用户不存在
         }else {//否则用户存在
-            if (loginUser.getPassword().equals((user.getPassword()))){
+            if (!code1.equalsIgnoreCase(code)){//
+//            model.addAttribute("msg","验证码输入错误");
+                return "103";//验证码错误
+            } else if (loginUser.getPassword().equals((user.getPassword()))){
                 session.setAttribute("user",user);
                 return "100";//密码正确 正常登录
-            } else {
+            }
+            else {
                 return "102";//密码错误
             }
         }

@@ -7,6 +7,7 @@
     <link rel="stylesheet" type="text/css" th:href="@{/dist/css/bootstrap.min.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/index.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/animate.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/login.css}"/>
 </head>
 
 <body>
@@ -106,68 +107,12 @@
             window.location.href = contextPath + "/book/searchBook?inputBookName=" + inputBookName;
         }else alert('请输入图书名')
     }
-/*    //验证用户名是否存在
-    function checkUser(obj) {
-        $.ajax({
-            url: contextPath + "/user/checkUserName",
-            method: "post",
-            data: {"username": obj.value},
-            success: function (data) {
-                $("#msg").css("display", "block");
 
-                if (data == 102) {//102表示用户已存在
-                    $("#tip").html("用户名不合法");
-                    $("#tip").removeClass("alert-success");
-                    $("#tip").addClass("alert-danger");
-                } else {
-                    $("#tip").html("用户名可以注册");
-                    $("#tip").removeClass("alert-danger");
-                    $("#tip").addClass("alert-success");
-                }
-            }
-        })
-    };
-
-    //用户注册
-    function register() {
-        var datas = $("#regForm").serialize();
-        $.ajax({
-            url: contextPath + "/user/register",
-            method: "post",
-            data: datas,
-            success: function (data) {
-                if (data == 'success') {
-                    alert('注册成功');
-                    $("#register").modal('hide');
-                }
-            }
-        })
+    //刷新验证码
+    function refreshCode(){
+        $("#mycode").attr("src","/book/getCode?time="+new Date().getTime());
     }
 
-    //用户登录
-    function login() {
-        var datas = $("#loginForm").serialize();
-        $.ajax({
-            url: contextPath + "/user/login",
-            method: "post",
-            data: datas,
-            success: function (data) {
-                $("#userTip").css("display", "none");
-                $("#pwdTip").css("display", "none");
-
-                if (data == 100) {
-
-                    $("#register").modal('hide');
-
-                    window.location.href = contextPath + "/book/index";
-                } else if (data == 101) {//用户不存在
-                    $("#userTip").css("display", "block");
-                } else {//密码错误
-                    $("#pwdTip").css("display", "block");
-                }
-            }
-        })
-    }*/
 </script>
 </body>
 

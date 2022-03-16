@@ -166,7 +166,7 @@ public class OrderController {
         return "pay";
     }
 
-    @GetMapping("/return")
+/*    @GetMapping("/return")
     public String returnNotice(String out_trade_no, Model model){
         String query = alipayUtil.query(out_trade_no);
         model.addAttribute("query", query);
@@ -176,7 +176,7 @@ public class OrderController {
     @PostMapping("/notify")
     public void notifyUrl(String trade_no, String total_amount, String trade_status){
         System.err.println("支付宝订单编号：" + trade_no + ", 订单金额： " + total_amount + ",订单状态：" + trade_status);
-    }
+    }*/
 
 }
 
