@@ -8,6 +8,7 @@ import com.book.bookshop.entity.enums.Category;
 import com.book.bookshop.entity.enums.Suit;
 import com.book.bookshop.service.AdminService;
 import com.book.bookshop.service.BookService;
+import com.book.bookshop.service.UserService;
 import org.mybatis.logging.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -40,11 +41,13 @@ public class AdminController {
     @Autowired
     private BookService bookService;
 
+    @Autowired
+    private UserService userService;
     //管理员登录
     @ResponseBody
     @PostMapping("/login")
-    public String login(Admin admin, HttpSession session) {
-        return adminService.loginCheck(admin, session);
+    public String login(Admin admin, HttpSession session,String code) {
+        return adminService.loginCheck(admin, session,code);
     }
 
     //去后台管理首页
@@ -70,6 +73,7 @@ public class AdminController {
         model.addAttribute("cur", page);
         model.addAttribute("pages", iPage.getPages());
         model.addAttribute("pageSize", pageSize);
+        model.addAttribute("total",iPage.getTotal());
         return "admin/allBooksData";
     }
 
@@ -94,13 +98,6 @@ public class AdminController {
     //添加商品
     @RequestMapping("/addBook")
     public String toAddBook(Book book, MultipartFile bookPic) throws IOException {
-/*        System.out.println(book.getIsbn());
-        System.out.println(book.getCate());
-        System.out.println(book.getNewPrice());
-        System.out.println(book.getAuthor());
-        System.out.println(book.getName());
-        System.out.println(bookPic.getOriginalFilename());
-        System.out.println(book.getPublisher());*/
 
         if (book.getCate().equals("精选图书")) book.setCategory(Category.SELECTTED);
         if (book.getCate().equals("推荐图书")) book.setCategory(Category.RECOMMEND);
@@ -147,12 +144,54 @@ public class AdminController {
     @RequestMapping("/deleteBooks")
     @ResponseBody
     public String deleteBooks(String ids){
-        System.out.println(ids);
         boolean flag = bookService.removeByIds(Arrays.asList(ids.split(",")));
         if (flag)
             return "success";
         else return "fail";
 
+    }
+    @RequestMapping("/toAllUsers")
+    public String toAllUsers(Model model){
+        List<User> userList = userService.list();
+        model.addAttribute("userList",userList);
+        return "admin/allUsers";
+    }
+    @RequestMapping("/forbidUser")
+    @ResponseBody
+    public String forbidUser(Integer userId){
+        User user = userService.getById(userId);
+        user.setState(2);
+        if (userService.saveOrUpdate(user)){
+            return "success";
+        }else {
+            return "fail";
+        }
+    }
+
+    @RequestMapping("/unforbidUser")
+    @ResponseBody
+    public String unforbidUser(Integer userId){
+        User user = userService.getById(userId);
+        user.setState(1);
+        if (userService.saveOrUpdate(user)){
+            return "success";
+        }else {
+            return "fail";
+        }
+    }
+
+    @RequestMapping("/deleteUsers")
+    @ResponseBody
+    public String deleteUsers(String ids){
+        List<User> users = (List<User>) userService.listByIds(Arrays.asList(ids.split(",")));
+        for (User user:users){
+            user.setState(2);
+        }
+        if (userService.saveOrUpdateBatch(users)){
+            return "success";
+        }else {
+            return "fail";
+        }
     }
 
 }

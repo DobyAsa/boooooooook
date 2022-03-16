@@ -37,15 +37,12 @@ function register() {
 
 //用户登录
 function login() {
-
     var datas = $("#loginForm").serialize();
 //通过名字获取  getElementsByName
-
         var obj1 = document.getElementsByName("sex");
         for(var i=0; i<obj1.length; i ++){
             if(obj1[i].checked){
-                // console.log(obj1[i].value);
-                if (obj1[i].value == 'user'){
+                if (obj1[i].value == 'user'){//普通用户
                     $.ajax({
                         url: contextPath + "/user/login",
                         data:datas,
@@ -61,12 +58,15 @@ function login() {
                                 $("#userTip").css("display","block");
                             }   else if(data == 103){
                                 $("#codeTip").css("display","block");
-                            } else {
+                            }   else if (data == 104){
+                                layer.msg('该账号已被封禁！', {icon: 2,anim:6});
+                            }
+                                else {
                                 $("#pwdTip").css("display","block");
                             }
                         }
                     })
-                }else {
+                }else {//管理员
                     $.ajax({
                         url: contextPath + "/admin/login",
                         data:datas,
@@ -92,8 +92,5 @@ function login() {
             }
 
         }
-
-    ///////////////////////////////////////////////////////////
-
 
 }

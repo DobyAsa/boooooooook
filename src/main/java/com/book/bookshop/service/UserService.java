@@ -28,34 +28,33 @@ public class UserService extends ServiceImpl<UserMapper, User> {
         User user = userMapper.selectOne(queryWrapper);
         if (user == null) {
             return "101";
-        }
-        else return "102";
+        } else return "102";
     }
 
     //用户登录验证
-    public String loginCheck(User loginUser, HttpSession session, Model model,String code){
+    public String loginCheck(User loginUser, HttpSession session,String code) {
         //获取生成的验证码
-        String code1 = (String)session.getAttribute("code");
-        //无视大小写
+        String code1 = (String) session.getAttribute("code");
         QueryWrapper queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("username", loginUser.getUsername());
         User user = userMapper.selectOne(queryWrapper);
-        if (user==null){
+        if (user == null) {
             return "101";//用户不存在
-        }else {//否则用户存在
-            if (!code1.equalsIgnoreCase(code)){//
+        } else {//否则用户存在
+            if (!code1.equalsIgnoreCase(code)) {//// 无视大小写
 //            model.addAttribute("msg","验证码输入错误");
                 return "103";//验证码错误
-            } else if (loginUser.getPassword().equals((user.getPassword()))){
-                session.setAttribute("user",user);
-                return "100";//密码正确 正常登录
+            } else if (user.getState()==2){
+                return "104";//该账号被封禁
             }
-            else {
+            else if (loginUser.getPassword().equals((user.getPassword()))) {
+                session.setAttribute("user", user);
+                return "100";//密码正确 正常登录
+            } else {
                 return "102";//密码错误
             }
         }
     }
-
 
 
 }

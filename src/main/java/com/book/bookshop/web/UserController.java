@@ -1,15 +1,17 @@
 package com.book.bookshop.web;
 
-import com.book.bookshop.entity.User;
-import com.book.bookshop.service.UserService;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.book.bookshop.entity.*;
+import com.book.bookshop.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
  * @Author:yizhongwei
@@ -23,7 +25,21 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    //验证用户是否存在
+    @Autowired
+    private OrderService orderService;
+
+    @Autowired
+    private OrderItemService orderItemService;
+
+    @Autowired
+    private BookService bookService;
+
+    @Autowired
+    private AddressService addressService;
+
+    @Autowired
+    private CommentService commentService;
+    //验证用户是否存zai
     @ResponseBody
     @PostMapping("/checkUserName")
     public String checkUserName(String username) {
@@ -41,8 +57,9 @@ public class UserController {
     //用户登录
     @ResponseBody
     @PostMapping("/login")
-    public String login(User user , HttpSession session,Model model,String code){
-        return userService.loginCheck(user,session,model,code);
+    public String login(User user , HttpSession session,String code){
+
+        return userService.loginCheck(user,session,code);
 
     }
 
@@ -97,4 +114,50 @@ public class UserController {
             return "fail";
     }
 
+    @RequestMapping("/toComment")
+    public String toComment(Integer orderId, Model model,HttpSession session){
+        Order order = orderService.getById(orderId);
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.eq("order_id",orderId);
+        List<OrderItem> items = orderItemService.list(queryWrapper);
+
+        double price = 0.0;
+        List<Book> books = new ArrayList<>();
+        for (OrderItem item:items) {
+            Integer bookId = orderItemService.getById(item.getId()).getBookId();
+            Book book = bookService.getById(bookId);
+            item.setBook(book);
+            price += item.getCount() * book.getNewPrice();
+            books.add(book);
+        }
+        order.setOrderItems(items);
+        order.setTotalPrice(price);
+        User user = (User)session.getAttribute("user");
+        order.setUser(user);
+        Address address = addressService.getById(order.getAddressId());
+        order.setAddress(address);
+        model.addAttribute("order",order);
+        session.setAttribute("booksOfComment",books);
+        return "commentPage";
+    }
+
+    @RequestMapping("/comment")
+    public String comment(HttpSession session ,String content){
+        List<Book> booksOfComment = (List<Book>)session.getAttribute("booksOfComment");
+        User user = (User)session.getAttribute("user");
+        System.out.println(content);
+        System.out.println(booksOfComment);
+        List<Comment> comments = new ArrayList<>();
+        for (Book book:booksOfComment){
+           Comment comment = new Comment();
+            comment.setBookId(book.getId());
+            comment.setContent(content);
+            comment.setCreateTime(new Date());
+            comment.setUserId(user.getId());
+            comments.add(comment);
+        }
+        commentService.saveBatch(comments);
+        return "order_list";
+
+    }
 }

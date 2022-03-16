@@ -86,7 +86,100 @@
 		<!--购物车 begin-->
 		<!--外层div-->
 
-		<div id="allBooksData"></div>
+<!--		<div id="allUsersData"></div>-->
+	<div class="container">
+		<!--左边-->
+		<div class="col-md-8 col-sm-12" style="width:100%">
+			<!--左边-->
+			<ol class="breadcrumb">
+				<li>
+					<a href="#" class="text-success"><span class="glyphicon glyphicon-heart"></span>&nbsp;&nbsp;商品管理</a>
+				</li>
+			</ol>
+
+			<!--购物车表格 begin-->
+			<div class="table-responsive" id="imgDiv">
+				<table class="table table-hover table-striped" style="vertical-align:middle;">
+					<thead>
+					<!--						<tr>
+                                                <td colspan="8">
+                                                    <label class="text-primary">显示条数:</label>
+                                                    <select id="cartSzie" class="form-control" style="display: inline" onchange="displaySize(this)">
+                                                        <option value="2">2</option>
+                                                        <option value="4">4</option>
+                                                        <option value="6" selected>6</option>
+                                                        <option value="8">8</option>
+                                                    </select>
+                                                </td>
+                                            </tr>-->
+					<tr class="text-success success">
+						<th style="width: 30px;">
+							<input type="checkbox" id="selectAll" onclick="selectAll(this)">
+							<!--								<input type="checkbox" id="testId" onclick="selectAll(this)">-->
+						</th>
+						<th id="sequence">序号</th>
+						<th>用户名</th>
+						<th>密码</th>
+						<th>邮箱</th>
+						<th>电话</th>
+						<th>公司</th>
+						<th>操作</th>
+					</tr>
+					</thead>
+					<tbody id="tby" th:each="user,iter:${userList}">
+					<tr>
+						<td style="width: 30px;">
+							<input type="checkbox" name="cks"  th:value="${user.id}" >
+							<!--								<input type="checkbox" name="cks" onclick="cks(this)" name="testName" value="${item.id}">-->
+						</td>
+						<td th:text="${user.id}">1001</td>
+						<td th:text="${user.username}">腾讯传</td>
+						<td th:text="${user.password}">作者</td>
+						<td th:text="${user.email}">黑龙江科学技术出版社</td>
+						<td th:text="${user.phone}">分类</td>
+						<!--							<span th:switch="${book.cate}">
+                                                        <td th:case="'SELECTTED'">精选图书</td>
+                                                        <td th:case="'RECOMMEND'">精选图书</td>
+                                                        <td th:case="'BARGAGIN'">精选图书</td>
+                                                    </span>-->
+						<td th:text="${user.company}">原价</td>
+
+
+						<td th:if="${user.state == 1}">
+							<a th:onclick="forbidUser([[${user.id}]])"  class="btn btn-success">封号</a>
+						</td>
+						<td th:if="${user.state == 2}">
+							<a th:onclick="unforbidUser([[${user.id}]])"  class="btn btn-danger">解封</a>
+						</td>
+
+					</tr>
+
+					</tbody>
+					<tfoot>
+					<tr>
+						<td colspan="5"></td>
+						<td class="text-success">总数量:</td>
+						<td class="text-success">20本</td>
+					</tr>
+					<tr style="background-color: white;">
+
+						<td><button class="btn btn-success" data-toggle="modal" data-target="#myModal" th:onclick="deleteUsers()">批量封号</button></td>
+						<td colspan="4"></td>
+						<!--							<td>
+                                                        <a href="confirm_order.html" class="btn btn-warning">结算商品</a>
+                                                    </td>-->
+					</tr>
+					</tfoot>
+				</table>
+			</div>
+			<!--购物车 end-->
+
+		</div>
+
+		<!--分页begin-->
+
+		<!--分页end-->
+	</div>
 		<div class="container">
 			<!--首页底部信息 begin-->
 			<div th:replace="common/footer :: footer"></div>
@@ -110,46 +203,7 @@
 			if(!(/msie [6|7|8|9]/i.test(navigator.userAgent))) {
 				new WOW().init();
 			};
-			//根据图书名搜索
-			function searchBookName() {
-				var inputBookName = $("#inputBookName").val();
-				if (inputBookName != ''){
-					window.location.href = contextPath + "/book/searchBook?inputBookName=" + inputBookName;
-				}else alert('请输入图书名')
-			}
 
-
-			//预览图书简介
-			function displayInfo(info) {
-				layer.open({
-					title: '简介'
-					,content: info
-					,area: '500px'
-				});
-
-			}
-
-			//删除图书
-			function deleteBook(bookId){
-				layer.confirm('确定删除？', {
-					icon:3,
-					btn: ['确定', '取消']
-				}, function(index, layero){
-					//按钮【按钮一】的回调
-					$.ajax({
-						url: contextPath + "/admin/deleteBook",
-						method: "post",
-						data: {"bookId":bookId},
-						success: function (data) {
-							if (data == 'success') {
-								window.location.href = contextPath + "/admin/toBookAdmin"
-							} else layer.msg('修改失败')
-						}
-					})
-				}, function(index){
-					return ;
-				});
-			}
 		</script>
 
 	<style type="text/css">
@@ -158,80 +212,8 @@
 	</style>
 	</body>
 	<script>
-		//分页js
-		//页面加载时执行
-		var ids ='';
-		var bookIds = new Set();
-	$(function () {
-			$("#allBooksData").load(contextPath + "/admin/getBookListByPage",queryData(1,''));
-/*			if (sessionStorage.getItem("ids") != null){
-				alert(sessionStorage.getItem("ids") );
-			}*/
-			//存储购物记录的id
-/*			var ids = sessionStorage.getItem("ids");
-			// var thirdModel = document.getElementById("third_del");
-			//判断是否选择了商品
-			var count = 0;
-			//获取所有的checkbox
-			var cks = document.getElementsByName("cks");
-			//遍历
-			for(var i = 0; i < cks.length; i++) {
-				if(cks[i].checked) {
-					count++;
-					ids += cks[i].value + ",";
-				}
-			}
-			sessionStorage.setItem("ids",ids);*/
-			for (var x of bookIds) { // 遍历Set
-				// alert(x);
-				document.getElementsByName("cks").checked = true;
-			}
-
-		})
-
-
-		//跳转到指定页
-		function goPage(pageSize,pages) {
-			var inputPage = $("#inputPage").val();
-			if (inputPage==''){
-				layer.msg('请输入页码', {icon: 7,anim:6});
-				return;
-			}
-			if (inputPage > pages) {//如果输入的页数大于总页数
-				layer.msg('超出总页数！总页数：'+pages, {icon: 7,anim:6});
-				return;
-			}
-			$("#allBooksData").load(contextPath + "/admin/getBookListByPage",queryData(inputPage,pageSize))
-
-		}
-
-		//修改指定每页显示的记录数
-		function loadDataBySize(obj) {
-			$("#allBooksData").load(contextPath + "/admin/getBookListByPage",queryData(1,obj.value))
-		}
-		//查询
-		function queryData(page, pageSize) {
-			var query = {};
-			query.page = page;
-			query.pageSize = pageSize == '' ? 4 : pageSize;
-			return query;
-
-		}
-		function cks(obj) {
-/*			if (obj.checked){
-			bookIds.add(obj.value);
-		}*/
-	}
-	function loadData(page,pageSize) {
-		$("#allBooksData").load(contextPath + "/admin/getBookListByPage",queryData(page,pageSize));
-/*		for (var i = 0;i<bookIds.size;i++){
-			document.getElementsByName("cks")[i].value.checked=true;
-			alert(bookIds.size)
-		}*/
-
-	}
-
-		function deleteBooks(){
+		//批量封号
+		function deleteUsers(){
 			//存储购物记录的id
 			var ids = '';
 			var thirdModel = document.getElementById("third_del");
@@ -244,46 +226,86 @@
 				if(cks[i].checked) {
 					count++;
 					ids += cks[i].value + ",";
-					bookIds.add(cks[i].value);
+					// bookIds.add(cks[i].value);
 				}
 			}
 			// var s = new Array();
-			for(var x of bookIds){
-				console.log(x)
-			}
+			// for(var x of bookIds){
+			// 	console.log(x)
+			// }
 
 			if (ids==''){
-				layer.msg('请勾选图书！');
+				layer.msg('请勾选账号！');
 				return;
 			}
-			layer.confirm('确定删除？', {
+			layer.confirm('确定封禁？', {
 				icon:3,
 				btn: ['确定', '取消']
 			}, function(index, layero){
 				//按钮【按钮一】的回调
 				$.ajax({
-					url:contextPath + "/admin/deleteBooks",
+					url:contextPath + "/admin/deleteUsers",
 					data:{"ids":ids},
 					type:"post",
 					success:function (data) {
 						if (data=="success"){
-							layer.msg('删除成功', {
-								icon: 1,
-								time: 2000 //2秒关闭（如果不配置，默认是3秒）
-							}, function(){
-								//do something
-								location.href = contextPath +"/admin/toBookAdmin"
-							});
+							location.href = contextPath + "/admin/toAllUsers";
+
 						}
-						else layer.msg("删除失败")
+						else layer.msg("封号失败")
 
 					}
 				})
 			}, function(index){
 				return ;
 			});
+		//封号
+		}
+		function forbidUser(userId) {
+			layer.confirm('确定封号？', {
+				icon:3,
+				btn: ['确定', '取消']
+			}, function(index, layero){
+				//按钮【按钮一】的回调
+				$.ajax({
+					url:contextPath + "/admin/forbidUser",
+					data:{"userId":userId},
+					type:"post",
+					success:function (data) {
+						if (data=="success"){
+							location.href = contextPath + "/admin/toAllUsers";
+						}
+						else layer.msg("封号失败")
 
-	}
+					}
+				})
+			}, function(index){
+				return ;
+			});
+		}
+		//解封
+		function unforbidUser(userId) {
+			layer.confirm('确定解封？', {
+				icon:3,
+				btn: ['确定', '取消']
+			}, function(index, layero){
+				//按钮【按钮一】的回调
+				$.ajax({
+					url:contextPath + "/admin/unforbidUser",
+					data:{"userId":userId},
+					type:"post",
+					success:function (data) {
+						if (data=="success"){
+							location.href = contextPath + "/admin/toAllUsers";
+						}
+						else layer.msg("解封失败")
+
+					}
+				})
+			}, function(index){
+				return ;
+			});
+		}
 	</script>
 
 <!--	<script>

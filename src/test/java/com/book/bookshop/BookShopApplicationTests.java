@@ -1,19 +1,13 @@
 package com.book.bookshop;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.book.bookshop.entity.Book;
-import com.book.bookshop.entity.Order;
-import com.book.bookshop.entity.OrderItem;
-import com.book.bookshop.entity.User;
+import com.book.bookshop.entity.*;
 import com.book.bookshop.entity.enums.Category;
 import com.book.bookshop.mapper.BookMapper;
 import com.book.bookshop.mapper.CartMapper;
 import com.book.bookshop.mapper.OrderItemMapper;
 import com.book.bookshop.mapper.OrderMapper;
-import com.book.bookshop.service.BookService;
-import com.book.bookshop.service.OrderItemService;
-import com.book.bookshop.service.OrderService;
-import com.book.bookshop.service.UserService;
+import com.book.bookshop.service.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -44,7 +38,8 @@ class BookShopApplicationTests {
     private OrderItemService orderItemService;
     @Autowired
     private OrderService orderService;
-
+    @Autowired
+    private CommentService commentService;
     @Test
     void findBooks() {
         userService.list().forEach(System.out::println);
@@ -143,4 +138,16 @@ class BookShopApplicationTests {
         System.out.println(path2);
     }
 
+    @Test
+    public void asdas(){
+        Book book = bookService.getById(1);
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.eq("book_id",1);
+        List<Comment> comments = commentService.list(queryWrapper);
+        for (Comment comment:comments){
+            User user = userService.getById(comment.getUserId());
+            comment.setUsername(user.getUsername());
+        }
+        System.out.println(comments);
+    }
 }

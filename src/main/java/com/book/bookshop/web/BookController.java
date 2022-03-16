@@ -4,7 +4,11 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.book.bookshop.entity.Book;
+import com.book.bookshop.entity.Comment;
+import com.book.bookshop.entity.User;
 import com.book.bookshop.service.BookService;
+import com.book.bookshop.service.CommentService;
+import com.book.bookshop.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,7 +26,10 @@ import java.util.List;
 public class BookController {
     @Autowired
     private BookService bookService;
-
+    @Autowired
+    private CommentService commentService;
+    @Autowired
+    private UserService userService;
     //跳转到首页
     @RequestMapping("/index")
     public String toindex() {
@@ -74,6 +81,15 @@ public class BookController {
     @RequestMapping("/detail")
     public String bookDetail(Integer id,Model model){
         Book book = bookService.getById(id);
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.eq("book_id",id);
+        List<Comment> comments = commentService.list(queryWrapper);
+        for (Comment comment:comments){
+            User user = userService.getById(comment.getUserId());
+            comment.setUsername(user.getUsername());
+        }
+        model.addAttribute("commentCount",comments.size());
+        model.addAttribute("comments",comments);
         model.addAttribute("book",book);
         return "details";
     }

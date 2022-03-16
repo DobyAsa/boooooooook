@@ -8,7 +8,7 @@
         <div class="row" id="love">
             <div class="col-sm-12 col-md-12 wow fadeInRight animated">
                 <div class="thumbnail">
-                    <a href="details.html"><img th:src="@{/images/xiaodaolifencunzhijian.jpg }" style="height: 200px; "
+                    <a th:href="@{/book/detail(id=11)}"><img th:src="@{/images/xiaodaolifencunzhijian.jpg }" style="height: 200px; "
                                                 alt="通用的占位符缩略图 "></a>
                     <div class="caption ">
                         <h3>小道理：分寸之间</h3>
@@ -17,7 +17,7 @@
             </div>
             <div class="col-sm-12 col-md-12 wow fadeInRight animated">
                 <div class="thumbnail ">
-                    <a href="details.html"><img th:src="@{/images/NO SECRETS.jpg} " style="height: 200px; "
+                    <a th:href="@{/book/detail(id=${12})}"><img th:src="@{/images/NO SECRETS.jpg} " style="height: 200px; "
                                                 alt="通用的占位符缩略图 "></a>
                     <div class="caption ">
                         <h3>名创优品没有秘密</h3>
@@ -26,21 +26,14 @@
             </div>
             <div class="col-sm-12 col-md-12 wow fadeInRight animated">
                 <div class="thumbnail ">
-                    <a href="details.html"><img th:src="@{/images/maichanpinjiushimaiziji.jpg}" style="height: 200px; "
+                    <a th:href="@{/book/detail(id=${19})}"><img th:src="@{/images/maichanpinjiushimaiziji.jpg}" style="height: 200px; "
                                                 alt="通用的占位符缩略图 "></a>
                     <div class="caption ">
                         <h3>卖产品就是卖自己</h3>
                     </div>
                 </div>
             </div>
-            <div>
-                <ul class="pager ">
-                    <li>
-                        <a href="# " onclick="pageUp() ">&larr;上一页</a>
-                        <a href="# " onclick="pageDown() ">下一页 &rarr;</a>
-                    </li>
-                </ul>
-            </div>
+
         </div>
     </div>
 </article>

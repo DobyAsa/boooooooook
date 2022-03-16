@@ -94,7 +94,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#ios" data-toggle="tab"> <span class="badge pull-right">50</span>累计评价</a>
+                            <a href="#ios" data-toggle="tab"> <span class="badge pull-right" th:text="${commentCount}">50</span>累计评价</a>
                         </li>
                     </ul>
                     <div id="myTabContent" class="tab-content">
@@ -105,16 +105,13 @@
                             <div class="row">
                                 <div class="col-sm-12 col-md-6">
                                     <ul class="nav navbar-collapse" style="line-height: 3" ;>
-                                        <li class="text-info">产品名称：愿你的青春不负梦想</li>
-                                        <li class="text-info">是否是套装: 否</li>
-                                        <li class="text-info">书名:愿你的青春不负梦想</li>
-                                        <li class="text-info">定价: 36.00元</li>
-                                        <li class="text-info">出版社名称: 湖南文艺出版社</li>
-                                        <li class="text-info">出版时间: 2017年01月</li>
-                                        <li class="text-info">作者: 俞敏洪</li>
-                                        <li class="text-info">作者地区: 中国</li>
-                                        <li class="text-info">书名: 愿你的青春不负梦想</li>
-                                        <li class="text-info">ISBN编号: 9787540478612</li>
+                                        <li class="text-info">书名:<span th:text="${book.name}"></span></li>
+                                        <li class="text-info">定价: <span th:text="${book.newPrice}"></span>元</li>
+                                        <li class="text-info">出版社名称: <span th:text="${book.publisher}"></span>湖南文艺出版社</li>
+                                        <li class="text-info">出版时间: <span th:text="${#calendars.format(book.publishDate,'yyyy-MM-dd HH:mm:ss')}"></span>2017年01月</li>
+                                        <li class="text-info">作者: <span th:text="${book.author}"></span>俞敏洪</li>
+                                        <li class="text-info">作者地区: <span th:text="${book.authorLoc}"></span>中国</li>
+                                        <li class="text-info">ISBN编号: <span th:text="${book.isbn}"></span>9787540478612</li>
                                     </ul>
                                 </div>
                                 <span class="visible-sm visible-xs"><hr></span>
@@ -124,27 +121,21 @@
                         </div>
                         <div class="tab-pane fade" id="ios">
                             <p>
-                            <ul class="list-group">
-                                <li class="list-group-item"><span class="text-info">小明:</span><span
-                                        class="text-success ">这真的是一本好书<img src="images/emotions/1.gif "></span></li>
-                                <li class="list-group-item"><span class="text-info">success:</span><span
-                                        class="text-danger ">书的质量很差<img src="images/emotions/2.gif "></span></li>
-                                <li class="list-group-item"><span class="text-info">叶老师:</span><span
-                                        class="text-success ">很值得初学者学习<img src="images/emotions/13.gif "></span></li>
-                                <li class="list-group-item"><span class="text-info">amdin:</span><span
-                                        class="text-danger ">被坑大发了.<img src="images/emotions/17.gif "></span></li>
-                                <li class="list-group-item"><span class="text-info">rose:</span><span
-                                        class="text-danger ">卖家态度恶劣.<img src="images/emotions/11.gif "></span></li>
+                            <ul class="list-group" th:each="comment:${comments}">
+                                <li class="list-group-item">
+                                    <span class="text-info" th:text="${comment.username}+'： '">小明:</span>
+                                    <span class="text-success " th:text="${comment.content}">这真的是一本好书</span>
+                                </li>
                             </ul>
                             </p>
-                            <p>
+<!--                            <p>
                             <ul class="pager">
                                 <li>
                                     <a href="# ">&larr;上一页</a>
                                     <a href="# ">下一页 &rarr;</a>
                                 </li>
                             </ul>
-                            </p>
+                            </p>-->
                         </div>
                     </div>
                     <!--tab选项卡 end-->
@@ -156,18 +147,6 @@
 
     <!--右边-->
     <div class="col-md-4 col-sm-3 col-xs-8">
-        <ol class="breadcrumb ">
-            <li>
-                <a href="# " class="text-success "><span class="glyphicon glyphicon-shopping-cart "></span>我的购物车</a>
-            </li>
-            <li>
-                <a href="# ">个商品</a>
-            </li>
-            <li>
-                <a href="# ">总价100元</a>
-            </li>
-        </ol>
-
         <!--猜你喜欢-->
         <div th:replace="common/guessLike :: guessLike"></div>
     </div>

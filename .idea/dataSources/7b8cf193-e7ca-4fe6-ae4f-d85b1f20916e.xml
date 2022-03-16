@@ -1178,22 +1178,29 @@
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="286" parent="223" name="email">
+    <column id="286" parent="223" name="state">
       <Position>4</Position>
-      <DataType>varchar(255)|0s</DataType>
+      <Comment>状态</Comment>
+      <DataType>int(1)|0s</DataType>
+      <DefaultExpression>1</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="287" parent="223" name="phone">
+    <column id="287" parent="223" name="email">
       <Position>5</Position>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="288" parent="223" name="company">
+    <column id="288" parent="223" name="phone">
       <Position>6</Position>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="289" parent="223" name="PRIMARY">
+    <column id="289" parent="223" name="company">
+      <Position>7</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <key id="290" parent="223" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
