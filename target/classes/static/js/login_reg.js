@@ -37,6 +37,8 @@ function register() {
 
 //用户登录
 function login() {
+    var username = $("#username").val();
+
     var datas = $("#loginForm").serialize();
 //通过名字获取  getElementsByName
         var obj1 = document.getElementsByName("sex");
@@ -59,7 +61,17 @@ function login() {
                             }   else if(data == 103){
                                 $("#codeTip").css("display","block");
                             }   else if (data == 104){
-                                layer.msg('该账号已被封禁！', {icon: 2,anim:6});
+                                // layer.msg('该账号已被封禁！', {icon: 2,anim:6});
+                                layer.confirm('账号已被封禁,是否申诉？', {
+                                    icon:3,
+                                    btn: ['是', '否']
+                                }, function(index, layero){
+                                    //按钮【按钮一】的回调
+                                    alert(username)
+                                    location.href = contextPath + "/user/toAppeal?username=" + username;
+                                }, function(index){
+                                    return ;
+                                });
                             }
                                 else {
                                 $("#pwdTip").css("display","block");

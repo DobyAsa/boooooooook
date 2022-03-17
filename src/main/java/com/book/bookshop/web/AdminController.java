@@ -7,6 +7,7 @@ import com.book.bookshop.entity.*;
 import com.book.bookshop.entity.enums.Category;
 import com.book.bookshop.entity.enums.Suit;
 import com.book.bookshop.service.AdminService;
+import com.book.bookshop.service.AppealService;
 import com.book.bookshop.service.BookService;
 import com.book.bookshop.service.UserService;
 import org.mybatis.logging.LoggerFactory;
@@ -43,6 +44,8 @@ public class AdminController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private AppealService appealService;
     //管理员登录
     @ResponseBody
     @PostMapping("/login")
@@ -150,12 +153,15 @@ public class AdminController {
         else return "fail";
 
     }
+    //去到全部用户管理页面
     @RequestMapping("/toAllUsers")
     public String toAllUsers(Model model){
         List<User> userList = userService.list();
         model.addAttribute("userList",userList);
         return "admin/allUsers";
     }
+
+    //封号
     @RequestMapping("/forbidUser")
     @ResponseBody
     public String forbidUser(Integer userId){
@@ -167,7 +173,7 @@ public class AdminController {
             return "fail";
         }
     }
-
+    //解封
     @RequestMapping("/unforbidUser")
     @ResponseBody
     public String unforbidUser(Integer userId){
@@ -179,7 +185,7 @@ public class AdminController {
             return "fail";
         }
     }
-
+    //删除用户
     @RequestMapping("/deleteUsers")
     @ResponseBody
     public String deleteUsers(String ids){
@@ -193,5 +199,44 @@ public class AdminController {
             return "fail";
         }
     }
+    //去到全部申诉页面
+    @RequestMapping("/toAppealList")
+    public String toAppealList(Model model){
+        List<Appeal> appealList = appealService.list();
+        for (Appeal appeal:appealList){
+            User user = userService.getById(appeal.getUserId());
+            appeal.setUsername(user.getUsername());
+        }
+        model.addAttribute("appealList",appealList);
+        return "admin/appealList";
+    }
+    //申诉批准通过
+    @RequestMapping("/approve")
+    @ResponseBody
+    public String approve(Integer userId,Integer appealId){
+        User user = userService.getById(userId);
+        user.setState(1);
+        Appeal appeal = appealService.getById(appealId);
+        appeal.setState(2);
+        if (userService.updateById(user)&&appealService.updateById(appeal)){
+            return "success";
+        }
+        return "fail";
+
+    }
+    //申诉批准不通过
+    @RequestMapping("/disapprove")
+    @ResponseBody
+    public String disapprove(Integer userId,Integer appealId){
+        User user = userService.getById(userId);
+        user.setState(2);
+        Appeal appeal = appealService.getById(appealId);
+        appeal.setState(3);
+        if (userService.updateById(user)&&appealService.updateById(appeal)){
+            return "success";
+        }
+        return "fail";
+    }
+
 
 }

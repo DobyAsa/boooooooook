@@ -6,6 +6,7 @@ import com.book.bookshop.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
@@ -21,24 +22,20 @@ import java.util.List;
 @Controller
 @RequestMapping("/user")
 public class UserController {
-
     @Autowired
     private UserService userService;
-
     @Autowired
     private OrderService orderService;
-
     @Autowired
     private OrderItemService orderItemService;
-
     @Autowired
     private BookService bookService;
-
     @Autowired
     private AddressService addressService;
-
     @Autowired
     private CommentService commentService;
+    @Autowired
+    private AppealService appealService;
     //验证用户是否存zai
     @ResponseBody
     @PostMapping("/checkUserName")
@@ -58,7 +55,6 @@ public class UserController {
     @ResponseBody
     @PostMapping("/login")
     public String login(User user , HttpSession session,String code){
-
         return userService.loginCheck(user,session,code);
 
     }
@@ -114,6 +110,7 @@ public class UserController {
             return "fail";
     }
 
+    //跳到订单评论页面
     @RequestMapping("/toComment")
     public String toComment(Integer orderId, Model model,HttpSession session){
         Order order = orderService.getById(orderId);
@@ -138,15 +135,16 @@ public class UserController {
         order.setAddress(address);
         model.addAttribute("order",order);
         session.setAttribute("booksOfComment",books);
+        session.setAttribute("orderOfComment",order);
         return "commentPage";
     }
 
+    //点击评论
     @RequestMapping("/comment")
     public String comment(HttpSession session ,String content){
         List<Book> booksOfComment = (List<Book>)session.getAttribute("booksOfComment");
+        Order order = (Order)session.getAttribute("orderOfComment");
         User user = (User)session.getAttribute("user");
-        System.out.println(content);
-        System.out.println(booksOfComment);
         List<Comment> comments = new ArrayList<>();
         for (Book book:booksOfComment){
            Comment comment = new Comment();
@@ -157,7 +155,32 @@ public class UserController {
             comments.add(comment);
         }
         commentService.saveBatch(comments);
+        order.setOrderStatus("3");
+        orderService.updateById(order);
         return "order_list";
 
+    }
+
+    @RequestMapping( value = "/toAppeal" ,method=RequestMethod.GET)
+    public String toAppeal(String username,Model model){
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.eq("username",username);
+        User user = userService.getOne(queryWrapper);
+        model.addAttribute("user",user);
+        return "appealPage";
+    }
+
+    @RequestMapping( value = "/appeal" ,method=RequestMethod.POST)
+    @ResponseBody
+    public String appeal(Integer userId,String appealReason){
+        Appeal appeal = new Appeal();
+        appeal.setUserId(userId);
+        appeal.setAppealReason(appealReason);
+        appeal.setCreateDate(new Date());
+        appeal.setState(1);
+        if (appealService.save(appeal)){
+            return "success";
+        } else
+        return "fail";
     }
 }

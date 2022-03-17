@@ -74,13 +74,13 @@
 					<th>数量</th>
 					<th>实付款(元)</th>
 					<th>付款日期</th>
-					<th>状态/操作</th>
+					<th>状态</th>
 				</tr>
 				</thead>
 				<tbody>
 				<tr class="warning" th:each="items,iter:${order.orderItems}">
 					<td th:text="${items.book.id}">1001</td>
-					<td><img th:src="@{'/public/' + ${items.book.imgUrl}}" src="images/yuannideqingchunbufumengxiang.jpg"></td>
+					<td><a th:href="@{/book/detail(id=${items.bookId})}"><img th:src="@{'/public/' + ${items.book.imgUrl}}" src="images/yuannideqingchunbufumengxiang.jpg"></a></td>
 					<td th:text="${items.book.name}">愿你的青春不负梦想</td>
 					<td th:text="${items.book.newPrice}">80.0</td>
 					<td th:text="${items.count}">2</td>
@@ -89,7 +89,9 @@
 					<td th:if="${order.orderStatus == '1'&&iter.first}">待支付</td>
 					<td th:if="${order.orderStatus == '1'&& !iter.first}"></td>
 					<td th:if="${order.orderStatus == '2'&&iter.first}">已支付</td>
-					<td th:if="${order.orderStatus == '2'&& !iter.first}"></td>
+					<td th:if="${order.orderStatus == '2'&& !iter.first}">
+					<td th:if="${order.orderStatus == '3'&&iter.first}">已评价</td>
+					<td th:if="${order.orderStatus == '3'&& !iter.first}"></td>
 				</tr>
 				</tbody>
 			</table>
