@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.book.bookshop.entity.User;
 import com.book.bookshop.mapper.UserMapper;
+import jdk.nashorn.internal.runtime.regexp.RegExp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -30,7 +31,16 @@ public class UserService extends ServiceImpl<UserMapper, User> {
             return "101";
         } else return "102";
     }
-
+    //验证邮箱是否存在
+    public String checkEmail(String email) {
+        QueryWrapper queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("email", email);
+        User user = userMapper.selectOne(queryWrapper);
+        if (user == null) {
+            //不存在
+            return "101";
+        } else return "100";
+    }
     //用户登录验证
     public String loginCheck(User loginUser, HttpSession session,String code) {
         //获取生成的验证码
@@ -47,13 +57,26 @@ public class UserService extends ServiceImpl<UserMapper, User> {
             } else if (user.getState()==2){
                 return "104";//该账号被封禁
             }
-            else if (loginUser.getPassword().equals((user.getPassword()))) {
+            else if (loginUser.getPassword().equals((user.getPassword())) && !user.getUsername().equals("admin")) {
                 session.setAttribute("user", user);
                 return "100";//密码正确 正常登录
             } else {
                 return "102";//密码错误
             }
         }
+    }
+
+    //邮箱登录验证
+    public String emailLoginCheck(String inputCode, String email,HttpSession session){
+        String realCode = (String) session.getAttribute("eCode");
+        if (!realCode.equals(inputCode)){
+            return "101";//验证码错误
+        }
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("email",email);
+        User user = userMapper.selectOne(queryWrapper);
+        session.setAttribute("user",user);
+        return "100";
     }
 
 

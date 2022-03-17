@@ -10,6 +10,8 @@ import com.book.bookshop.service.AdminService;
 import com.book.bookshop.service.AppealService;
 import com.book.bookshop.service.BookService;
 import com.book.bookshop.service.UserService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.mybatis.logging.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -199,7 +201,7 @@ public class AdminController {
             return "fail";
         }
     }
-    //去到全部申诉页面
+    //去到全部申诉记录页面
     @RequestMapping("/toAppealList")
     public String toAppealList(Model model){
         List<Appeal> appealList = appealService.list();
@@ -236,6 +238,13 @@ public class AdminController {
             return "success";
         }
         return "fail";
+    }
+
+    //删除申诉记录
+    @RequestMapping("/deleteAppeal")
+    public String disapprove(Integer appealId,Model model){
+        appealService.removeById(appealId);
+       return this.toAppealList(model);
     }
 
 

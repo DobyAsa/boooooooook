@@ -20,7 +20,6 @@
                         <div class="form-group has-feedback">
                             <label class="col-sm-2 control-label">用户名</label>
                             <div class="col-sm-5">
-
                                 <input type="text" class="form-control" name="username" id="username" placeholder="请输入用户名">
                                 <span class="glyphicon glyphicon-user form-control-feedback"></span>
                             </div>
@@ -84,6 +83,52 @@
             <!-- /.modal-content -->
         </div>
     </div>
+    <!-- 邮箱登录模态框 -->
+    <div class="modal fade" id="emailLoginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="emailLoginModalLabel">
+                        邮箱登录
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <!--邮箱登录的form表单-->
+                    <form id="emailLoginForm" class="form-horizontal" role="form" action="">
+                        <div class="form-group has-feedback">
+                            <label class="col-sm-2 control-label">邮箱</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" name="username" id="emailLogin" placeholder="请输入邮箱" th:onblur="|checkEmail(this)|">
+                                <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                            </div>
+                            <div class="col-sm-3" id="emailTip" style="padding-top: 10px; display: none">
+                                <label class="alert-danger">邮箱不存在</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group has-feedback">
+                            <label class="col-sm-2 control-label" style="padding-right: 10px;">邮箱验证码</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" id="inputCode" placeholder="请输入验证码">
+                                <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                            </div>
+                            <a href="javascript:void(0)" class="btn btn-info" th:onclick="sendCode()">发送验证码</a>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                            <input type="button" class="btn btn-primary" value="登录" th:onclick="|doEmailLogin()|">
+                        </div>
+                    </form>
+                    <!--form结束-->
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+    </div>
     <!-- 注册modal end/.modal -->
     <div class="modal fade" id="register" tabindex="-1" role="dialog" aria-labelledby="regModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -134,7 +179,7 @@
                         <div class="form-group has-feedback">
                             <label class="col-sm-2 control-label">邮箱</label>
                             <div class="col-sm-5">
-                                <input type="email" name="email" class="form-control" id="email" placeholder="合法邮箱格式">
+                                <input type="email" name="email" th:onblur="|checkRegEmail()|" class="form-control" id="email" placeholder="合法邮箱格式">
                                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
                             </div>
                         </div>

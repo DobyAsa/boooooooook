@@ -3,6 +3,7 @@ package com.book.bookshop.web;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.book.bookshop.entity.*;
 import com.book.bookshop.service.*;
+import com.book.bookshop.utils.Email;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,17 +37,23 @@ public class UserController {
     private CommentService commentService;
     @Autowired
     private AppealService appealService;
+
     //验证用户是否存zai
     @ResponseBody
     @PostMapping("/checkUserName")
     public String checkUserName(String username) {
         return userService.checkUser(username);
     }
-
+    //验证邮箱是否存在
+    @ResponseBody
+    @PostMapping("/checkEmail")
+    public String checkEamil(String email) {
+        return userService.checkEmail(email);
+    }
     //用户注册
     @ResponseBody
     @PostMapping("/register")
-    public String register(User user){
+    public String register(User user) {
         userService.save(user);
         return "success";
     }
@@ -54,73 +61,101 @@ public class UserController {
     //用户登录
     @ResponseBody
     @PostMapping("/login")
-    public String login(User user , HttpSession session,String code){
-        return userService.loginCheck(user,session,code);
-
+    public String login(User user, HttpSession session, String code) {
+        return userService.loginCheck(user, session, code);
+    }
+    //邮箱登录
+    @ResponseBody
+    @PostMapping("/emailLogin")
+    public String emailLogin(String inputCode, String email,HttpSession session){
+        return userService.emailLoginCheck(inputCode,email,session);
     }
 
+    //发送邮件，获取验证码
+    @PostMapping("/sendEmail")
+    @ResponseBody
+    public String sendEmail(String email, HttpSession session){
+        String eCode =  Email.sendEmail(email);
+        if (eCode==null){
+            return "201";//发送失败
+        }
+        session.setAttribute("eCode",eCode);
+        //System.out.println(verCode);
+        return "200";//发送成功
+    }
     //注销
     @RequestMapping("/logout")
-    public String logout(HttpSession session){
+    public String logout(HttpSession session) {
         session.invalidate();
         return "redirect:/book/index";
     }
 
     //跳转个人信息页面
     @RequestMapping("/userInfo")
-    public String userInfo(HttpSession session, Model model){
+    public String userInfo(HttpSession session, Model model) {
         User user = (User) session.getAttribute("user");
-        model.addAttribute("user",user);
+        model.addAttribute("user", user);
         return "userInfo";
     }
 
+    @RequestMapping("/checkRegEmail")
+    @ResponseBody
+    public String checkRegEmail(String email){
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.eq("email", email);
+        if (userService.getOne(queryWrapper)!=null){
+            return "success";
+        }else return "fail";
+
+    }
     //个人信息修改
     @PostMapping("/userInfoChange")
     @ResponseBody
-    public String userInfoChange(User userInfo,HttpSession session){
+    public String userInfoChange(User userInfo, HttpSession session) {
         System.out.println(userInfo);
         User user = (User) session.getAttribute("user");
         userInfo.setId(user.getId());
         //把会话中旧的user去掉
         session.removeAttribute("user");
         //改成修改后的新的user
-        session.setAttribute("user",userInfo);
+        session.setAttribute("user", userInfo);
         //这方式是根据主键id来修改的
-        if (userService.saveOrUpdate(userInfo)){
+        if (userService.saveOrUpdate(userInfo)) {
             return "success";
-        }else
+        } else
             return "fail";
     }
 
     //跳到密码修改页面
     @RequestMapping("/toChangePwd")
-    public String toChangePwd(){
+    public String toChangePwd() {
         return "pwdChange";
     }
+
     //密码修改
     @RequestMapping("/pwdChange")
     @ResponseBody
-    public String pwdChange(String newPwd,HttpSession session){
+    public String pwdChange(String newPwd, HttpSession session) {
         User user = (User) session.getAttribute("user");
         user.setPassword(newPwd);
-        if (userService.saveOrUpdate(user)){
+        if (userService.saveOrUpdate(user)) {
             session.removeAttribute("user");
             return "success";
-        }else
+        } else
             return "fail";
     }
 
     //跳到订单评论页面
     @RequestMapping("/toComment")
-    public String toComment(Integer orderId, Model model,HttpSession session){
+    public String toComment(Integer orderId, Model model, HttpSession session) {
         Order order = orderService.getById(orderId);
         QueryWrapper queryWrapper = new QueryWrapper();
-        queryWrapper.eq("order_id",orderId);
+        queryWrapper.eq("order_id", orderId);
         List<OrderItem> items = orderItemService.list(queryWrapper);
 
         double price = 0.0;
         List<Book> books = new ArrayList<>();
-        for (OrderItem item:items) {
+        for (OrderItem item : items) {
             Integer bookId = orderItemService.getById(item.getId()).getBookId();
             Book book = bookService.getById(bookId);
             item.setBook(book);
@@ -129,25 +164,25 @@ public class UserController {
         }
         order.setOrderItems(items);
         order.setTotalPrice(price);
-        User user = (User)session.getAttribute("user");
+        User user = (User) session.getAttribute("user");
         order.setUser(user);
         Address address = addressService.getById(order.getAddressId());
         order.setAddress(address);
-        model.addAttribute("order",order);
-        session.setAttribute("booksOfComment",books);
-        session.setAttribute("orderOfComment",order);
+        model.addAttribute("order", order);
+        session.setAttribute("booksOfComment", books);
+        session.setAttribute("orderOfComment", order);
         return "commentPage";
     }
 
     //点击评论
     @RequestMapping("/comment")
-    public String comment(HttpSession session ,String content){
-        List<Book> booksOfComment = (List<Book>)session.getAttribute("booksOfComment");
-        Order order = (Order)session.getAttribute("orderOfComment");
-        User user = (User)session.getAttribute("user");
+    public String comment(HttpSession session, String content) {
+        List<Book> booksOfComment = (List<Book>) session.getAttribute("booksOfComment");
+        Order order = (Order) session.getAttribute("orderOfComment");
+        User user = (User) session.getAttribute("user");
         List<Comment> comments = new ArrayList<>();
-        for (Book book:booksOfComment){
-           Comment comment = new Comment();
+        for (Book book : booksOfComment) {
+            Comment comment = new Comment();
             comment.setBookId(book.getId());
             comment.setContent(content);
             comment.setCreateTime(new Date());
@@ -161,26 +196,44 @@ public class UserController {
 
     }
 
-    @RequestMapping( value = "/toAppeal" ,method=RequestMethod.GET)
-    public String toAppeal(String username,Model model){
+    //跳转至申诉页面
+    @RequestMapping(value = "/toAppeal", method = RequestMethod.GET)
+    public String toAppeal(String username, Model model) {
         QueryWrapper queryWrapper = new QueryWrapper();
-        queryWrapper.eq("username",username);
+        queryWrapper.eq("username", username);
         User user = userService.getOne(queryWrapper);
-        model.addAttribute("user",user);
+        model.addAttribute("user", user);
         return "appealPage";
     }
 
-    @RequestMapping( value = "/appeal" ,method=RequestMethod.POST)
+    //提交申诉
+    @RequestMapping(value = "/appeal", method = RequestMethod.POST)
     @ResponseBody
-    public String appeal(Integer userId,String appealReason){
+    public String appeal(Integer userId, String appealReason) {
         Appeal appeal = new Appeal();
         appeal.setUserId(userId);
         appeal.setAppealReason(appealReason);
         appeal.setCreateDate(new Date());
         appeal.setState(1);
-        if (appealService.save(appeal)){
+        if (appealService.save(appeal)) {
             return "success";
         } else
-        return "fail";
+            return "fail";
+    }
+
+    //检查是否已经提交申诉
+    @RequestMapping(value = "/checkAppeal", method = RequestMethod.POST)
+    @ResponseBody
+    public String appeal(String username) {
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.eq("username", username);
+        User user = userService.getOne(queryWrapper);
+        QueryWrapper<Appeal> queryWrapper1 = new QueryWrapper();
+        queryWrapper1.eq("user_id", user.getId()).eq("state", 1);
+        Appeal appeal = appealService.getOne(queryWrapper1);
+        if (appeal != null) {//userId已存在且待审核
+            return "success";
+        } else
+            return "fail";
     }
 }
