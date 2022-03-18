@@ -38,18 +38,20 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">验证码</label>
                 <div class="layui-input-block">
-                    <input type="text" name="email" required lay-verify="required" placeholder="请输入验证码" id="inputCode"
+                    <input type="text" name="email" required lay-verify="required"  placeholder="请输入收到的验证码" disabled="disabled" id="inputCode"
                            autocomplete="off" class="layui-input">
                     <br>
-                    <a href="javascript:void(0)" class="btn btn-info" id="sendBtd" th:onclick="sendCode()">发送验证码</a>
+                    <a href="javascript:void(0)" class="btn btn-info" id="sendBtn" th:onclick="sendCode()">发送验证码</a>
                 </div>
             </div>
             <br>
             <div class="layui-form-item">
                 <div class="layui-input-block">
                     <button class="layui-btn" lay-submit lay-filter="formDemo" type="button" th:onclick="checkCode()">提交</button>
-                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
-                    <!--                    <button type="reset" class="layui-btn layui-btn-danger" th:onclick="pwdChange()">密码修改 >></button>-->
+                    <button type="reset" class="layui-btn layui-btn-normal">重置</button>
+<!--                    <button type="reset" th:href="@{/book/index}" class="layui-btn layui-btn-primary">返回首页</button>-->
+                    <a th:href="@{/book/index}" class="layui-btn layui-btn-primary">返回首页</a>
+                    <!-- <button type="reset" class="layui-btn layui-btn-danger" th:onclick="pwdChange()">密码修改 >></button>-->
                 </div>
             </div>
         </form>
@@ -94,29 +96,45 @@
             layer.msg('邮箱不为空', {icon: 7, anim: 6});
             return;
         }
+        ////////////////////////////////////////
+        //倒计时
+        var count = 20;
+        var countdown = setInterval(CountDown, 500);
+        function CountDown() {
+            $("#sendBtn").attr("disabled", true);
+            $("#sendBtn").html("请等待 " + count + " 秒!");
+            if (count == 0) {
+                $("#sendBtn").html("发送验证码").removeAttr("disabled");
+                clearInterval(countdown);
+            }
+            count--;
+        }
+        //////////////////////////////////////////////
         $.ajax({
             url: contextPath + "/user/checkEmail",
             type: "post",
             data: {"email": email},
             success: function (data) {
                 if (data == 101) {
-                    layer.msg('邮箱不存在')
+                    layer.msg('邮箱不存在');
                     return;
                 }else {
-                    layer.msg('已发送，请查收')
+                    layer.msg('已发送，请注意查收！')
                     $.post(contextPath + "/user/sendEmail", {"email": email}, function (data) {
                         if (data == 200) {
-                            layer.msg('发送成功')
+                            layer.msg('发送成功');
+                            $("#inputCode").attr("disabled", false)
                         } else layer.msg('发送失败')
                     });
                 }
             }
         })
     }
-    
+    //提交
     function checkCode() {
         var inputCode = $("#inputCode").val();
         var email = $("#email").val();
+        if (inputCode==''||email=='')return;
         $.ajax({
             url: contextPath + "/user/emailLogin",
             data: {"inputCode": inputCode, "email": email},
@@ -135,7 +153,9 @@
             }
         })
     }
-    
+/*    $(function () {
+
+    })*/
 </script>
 </body>
 

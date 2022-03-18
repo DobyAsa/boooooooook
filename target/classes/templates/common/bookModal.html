@@ -118,7 +118,7 @@
                                 <input type="text" class="form-control" id="inputCode" placeholder="请输入验证码">
                                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
                             </div>
-                            <a href="javascript:void(0)" class="btn btn-info" id="sendBtd" th:onclick="sendCode()">发送验证码</a>
+                            <a href="#" class="btn btn-info" id="sendBtn" th:onclick="sendCode()">发送验证码</a>
                         </div>
                         <div class="modal-footer">
                             <input type="button" class="btn btn-primary" value="登录" th:onclick="|doEmailLogin()|">
@@ -168,14 +168,14 @@
                                 <label class="alert-danger">密码不正确</label>
                             </div>-->
                         </div>
-                        <div class="form-group has-feedback">
+<!--                        <div class="form-group has-feedback">
                             <label class="col-sm-2 control-label">确认密码</label>
                             <div class="col-sm-5">
                                 <input type="password" class="form-control" id="lastname2" minlength="6" maxlength="8"
                                        placeholder="和密码保持一致">
                                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                             </div>
-                        </div>
+                        </div>-->
 
                         <div class="form-group has-feedback">
                             <label class="col-sm-2 control-label">邮箱</label>
@@ -194,9 +194,9 @@
                         </div>
 
                         <div class="form-group has-feedback">
-                            <label class="col-sm-2 control-label">公司</label>
+                            <label class="col-sm-2 control-label">学校</label>
                             <div class="col-sm-5">
-                                <input type="text" name="company" class="form-control" placeholder="请输入公司">
+                                <input type="text" name="company" class="form-control" placeholder="请输入学校">
                                 <span class="glyphicon glyphicon-home form-control-feedback"></span>
                             </div>
                         </div>

@@ -58,7 +58,7 @@ public class Email {
                 stringBuffer.append(nextInt);
             }
             // 设置邮件的内容体
-            message.setContent("某未完善系统的验证码:" + stringBuffer.toString(), "text/html;charset=UTF-8");
+            message.setContent("某系统的验证码:" + stringBuffer.toString(), "text/html;charset=UTF-8");
 
             // 最后当然就是发送邮件啦
             Transport.send(message);

@@ -173,7 +173,13 @@ function doEmailLogin() {
             if (data == 100) {
                 $("#emailLoginModal").modal('hide');
                 window.location.href = contextPath + "/book/index";
-            } else {//验证吗错误
+            } else if (data==102){
+                //未发送验证码
+                layer.msg('请发送验证码')
+                return;
+
+            }
+                else {//验证吗错误
                 layer.msg('验证码错误')
             }
         }
@@ -185,26 +191,27 @@ function sendCode() {
         layer.msg('请输入正确的邮箱')
         return;
     }
-    //发送邮箱验证码按钮倒数
-//////////////////////////////////////
-        var count = 15;
-        var countdown = setInterval(CountDown, 500);
-        function CountDown() {
-            $("#sendBtd").attr("disabled", true);
-            $("#sendBtd").html("请等待 " + count + " 秒!");
-            if (count == 0) {
-                $("#sendBtd").html("发送验证码").removeAttr("disabled");
-                clearInterval(countdown);
-            }
-            count--;
-        }
-/////////////////////////////////////////////
     var email = $("#emailLogin").val();
     if (email==''){
         layer.msg('请输入邮箱')
         return;
     }
-    layer.msg('已发送，请查收')
+//////////////////////////////////////
+    //发送邮箱验证码按钮倒数
+    var count = 20;
+        var countdown = setInterval(CountDown, 500);
+        function CountDown() {
+            $("#sendBtn").attr("disabled", true);
+            $("#sendBtn").html("请等待 " + count + " 秒!");
+            if (count == 0) {
+                $("#sendBtn").html("发送验证码").removeAttr("disabled");
+                clearInterval(countdown);
+            }
+            count--;
+        }
+/////////////////////////////////////////////
+
+    layer.msg('已发送，请注意查收')
     $.post(contextPath + "/user/sendEmail", {"email": email}, function (data) {
         if (data == 200){
             layer.msg('发送成功')

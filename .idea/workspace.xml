@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a89b3715-3253-41ee-a81d-e446e61e211a" name="Default Changelist" comment="">
+    <list default="true" id="a89b3715-3253-41ee-a81d-e446e61e211a" name="Default Changelist" comment="普通用户申诉、管理员审核">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/book/bookshop/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/book/bookshop/service/UserService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/book/bookshop/utils/Email.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/book/bookshop/utils/Email.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/book/bookshop/web/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/book/bookshop/web/UserController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/static/js/login_reg.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/js/login_reg.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/common/bookModal.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/common/bookModal.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/common/header.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/common/header.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/common/guessLike.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/common/guessLike.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/details.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/details.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/forgetPwd.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/forgetPwd.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/pwdChange.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/pwdChange.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/book/bookshop/web/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/book/bookshop/web/UserController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/upload.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/upload.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/book/bookshop/service/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/book/bookshop/service/UserService.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/static/js/login_reg.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/static/js/login_reg.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/templates/common/bookModal.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/common/bookModal.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/common/header.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/common/header.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -94,6 +96,7 @@
     <ConfirmationsSetting value="1" id="Add" />
   </component>
   <component name="ProjectViewState">
+    <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
     <option name="showVisibilityIcons" value="true" />
   </component>
@@ -107,7 +110,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources/templates" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/script" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -116,11 +119,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\IdeaProjects\book-shop\script" />
       <recent name="D:\IdeaProjects\book-shop\src\main\resources\templates" />
       <recent name="D:\IdeaProjects\book-shop\src\main\resources\templates\admin" />
       <recent name="D:\IdeaProjects\book-shop\src\main\resources\static\css" />
       <recent name="D:\IdeaProjects\book-shop\src\main\resources\static" />
-      <recent name="D:\IdeaProjects\book-shop\src\main\java\com\book\bookshop\entity" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.book.bookshop.utils" />
@@ -313,7 +316,7 @@
       <workItem from="1647330354558" duration="7566000" />
       <workItem from="1647419734415" duration="21643000" />
       <workItem from="1647505599546" duration="19956000" />
-      <workItem from="1647592862134" duration="8859000" />
+      <workItem from="1647592862134" duration="15722000" />
     </task>
     <task id="LOCAL-00001" summary="分页功能完成">
       <created>1646995980855</created>
@@ -407,6 +410,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="391" y="85" width="977" height="681" key="#Project_Structure/0.0.1536.824@0.0.1536.824" timestamp="1647422583679" />
+    <state x="361" y="71" key="#Scopes" timestamp="1647610406549">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="361" y="71" key="#Scopes/0.0.1536.824@0.0.1536.824" timestamp="1647610406549" />
     <state x="170" y="56" width="1164" height="688" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1646895810514">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -419,15 +426,15 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="404" y="338" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog/0.0.1536.824@0.0.1536.824" timestamp="1644769091777" />
-    <state x="499" y="159" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1647599649728">
+    <state x="499" y="159" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1647610090582">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="499" y="159" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1536.824/1920.0.1440.860@0.0.1536.824" timestamp="1642684485812" />
-    <state x="499" y="159" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1536.824@0.0.1536.824" timestamp="1647599649728" />
-    <state x="363" y="6" width="829" height="817" key="CommitChangelistDialog2" timestamp="1647520476757">
+    <state x="499" y="159" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1536.824@0.0.1536.824" timestamp="1647610090582" />
+    <state x="363" y="6" width="829" height="817" key="CommitChangelistDialog2" timestamp="1647623241612">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="363" y="6" width="829" height="817" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1647520476757" />
+    <state x="363" y="6" width="829" height="817" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1647623241612" />
     <state x="93" y="93" width="1350" height="638" key="DiffContextDialog" timestamp="1646729311874">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -436,46 +443,46 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="549" y="168" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1647251261883" />
-    <state width="1493" height="291" key="GridCell.Tab.0.bottom" timestamp="1647601781697">
+    <state width="1493" height="166" key="GridCell.Tab.0.bottom" timestamp="1647623246391">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1493" height="184" key="GridCell.Tab.0.bottom/0.0.1536.824/1920.0.1440.860@0.0.1536.824" timestamp="1642690956535" />
-    <state width="1493" height="291" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1647601781697" />
-    <state width="1493" height="291" key="GridCell.Tab.0.center" timestamp="1647601781696">
+    <state width="1493" height="166" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1647623246391" />
+    <state width="1493" height="166" key="GridCell.Tab.0.center" timestamp="1647623246391">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1493" height="184" key="GridCell.Tab.0.center/0.0.1536.824/1920.0.1440.860@0.0.1536.824" timestamp="1642690956535" />
-    <state width="1493" height="291" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1647601781696" />
-    <state width="1493" height="291" key="GridCell.Tab.0.left" timestamp="1647601781696">
+    <state width="1493" height="166" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1647623246391" />
+    <state width="1493" height="166" key="GridCell.Tab.0.left" timestamp="1647623246390">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1493" height="184" key="GridCell.Tab.0.left/0.0.1536.824/1920.0.1440.860@0.0.1536.824" timestamp="1642690956535" />
-    <state width="1493" height="291" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1647601781696" />
-    <state width="1493" height="291" key="GridCell.Tab.0.right" timestamp="1647601781697">
+    <state width="1493" height="166" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1647623246390" />
+    <state width="1493" height="166" key="GridCell.Tab.0.right" timestamp="1647623246391">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1493" height="184" key="GridCell.Tab.0.right/0.0.1536.824/1920.0.1440.860@0.0.1536.824" timestamp="1642690956535" />
-    <state width="1493" height="291" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1647601781697" />
-    <state width="1493" height="291" key="GridCell.Tab.1.bottom" timestamp="1647601781698">
+    <state width="1493" height="166" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1647623246391" />
+    <state width="1493" height="166" key="GridCell.Tab.1.bottom" timestamp="1647623246391">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1493" height="133" key="GridCell.Tab.1.bottom/0.0.1536.824/1920.0.1440.860@0.0.1536.824" timestamp="1642690956518" />
-    <state width="1493" height="291" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1647601781698" />
-    <state width="1493" height="291" key="GridCell.Tab.1.center" timestamp="1647601781697">
+    <state width="1493" height="166" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1647623246391" />
+    <state width="1493" height="166" key="GridCell.Tab.1.center" timestamp="1647623246391">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1493" height="133" key="GridCell.Tab.1.center/0.0.1536.824/1920.0.1440.860@0.0.1536.824" timestamp="1642690956518" />
-    <state width="1493" height="291" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1647601781697" />
-    <state width="1493" height="291" key="GridCell.Tab.1.left" timestamp="1647601781697">
+    <state width="1493" height="166" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1647623246391" />
+    <state width="1493" height="166" key="GridCell.Tab.1.left" timestamp="1647623246391">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1493" height="133" key="GridCell.Tab.1.left/0.0.1536.824/1920.0.1440.860@0.0.1536.824" timestamp="1642690956518" />
-    <state width="1493" height="291" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1647601781697" />
-    <state width="1493" height="291" key="GridCell.Tab.1.right" timestamp="1647601781697">
+    <state width="1493" height="166" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1647623246391" />
+    <state width="1493" height="166" key="GridCell.Tab.1.right" timestamp="1647623246391">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1493" height="133" key="GridCell.Tab.1.right/0.0.1536.824/1920.0.1440.860@0.0.1536.824" timestamp="1642690956518" />
-    <state width="1493" height="291" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1647601781697" />
+    <state width="1493" height="166" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1647623246391" />
     <state width="1493" height="434" key="GridCell.Tab.2.bottom" timestamp="1647275776699">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -512,10 +519,14 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="361" y="146" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1647520483750" />
-    <state x="562" y="330" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1647593043940">
+    <state x="562" y="330" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1647615060472">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="562" y="330" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1536.824@0.0.1536.824" timestamp="1647593043940" />
+    <state x="562" y="330" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1536.824@0.0.1536.824" timestamp="1647615060472" />
+    <state x="593" y="76" width="642" height="534" key="find.popup" timestamp="1647623077642">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="593" y="76" width="642" height="534" key="find.popup/0.0.1536.824@0.0.1536.824" timestamp="1647623077642" />
     <state x="510" y="42" key="refactoring.ChangeSignatureDialog" timestamp="1644629814106">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

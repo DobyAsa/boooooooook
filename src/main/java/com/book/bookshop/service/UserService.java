@@ -69,6 +69,9 @@ public class UserService extends ServiceImpl<UserMapper, User> {
     //邮箱登录验证
     public String emailLoginCheck(String inputCode, String email,HttpSession session){
         String realCode = (String) session.getAttribute("eCode");
+        if (realCode==null){
+            return "102";//请发送验证码
+        }
         if (!realCode.equals(inputCode)){
             return "101";//验证码错误
         }
