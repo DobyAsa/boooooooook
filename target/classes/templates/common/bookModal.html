@@ -73,8 +73,10 @@
                                                     </div>
                                                 </div>-->
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                            <input type="button" class="btn btn-primary" value="登录" th:onclick="|login()|">
+                           <!-- <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>-->
+                            <a th:href="@{/user/forgetPwd}" class="btn-default">忘记密码？</a>
+                            <input type="button" class="btn btn-primary" value="登录"  th:onclick="|login()|">
+                            <a href="#" data-toggle="modal" class="btn btn-info" id="emailLoginBtn"  data-target="#emailLoginModal">邮箱登录>></a>
                         </div>
                     </form>
                     <!--form结束-->
@@ -116,10 +118,9 @@
                                 <input type="text" class="form-control" id="inputCode" placeholder="请输入验证码">
                                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
                             </div>
-                            <a href="javascript:void(0)" class="btn btn-info" th:onclick="sendCode()">发送验证码</a>
+                            <a href="javascript:void(0)" class="btn btn-info" id="sendBtd" th:onclick="sendCode()">发送验证码</a>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
                             <input type="button" class="btn btn-primary" value="登录" th:onclick="|doEmailLogin()|">
                         </div>
                     </form>
@@ -147,7 +148,7 @@
                         <div class="form-group has-feedback">
                             <label for="firstname" class="col-sm-2 control-label">用户名</label>
                             <div class="col-sm-5">
-                                <input type="text" name="username" class="form-control" required placeholder="小写字母开头,不含中文."
+                                <input type="text" name="username" class="form-control" required placeholder="请输入用户名."
                                        th:onblur="|checkUser(this)|">
                                 <span class="glyphicon glyphicon-user form-control-feedback"></span>
                             </div>
@@ -158,7 +159,7 @@
                         <div class="form-group has-feedback">
                             <label for="lastname" class="col-sm-2 control-label">密码</label>
                             <div class="col-sm-5">
-                                <input type="password" name="password" class="form-control" placeholder="密码长度6-8位"
+                                <input type="password" name="password" class="form-control" placeholder="请输入密码"
                                        minlength="6"
                                        maxlength="8">
                                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
@@ -179,7 +180,7 @@
                         <div class="form-group has-feedback">
                             <label class="col-sm-2 control-label">邮箱</label>
                             <div class="col-sm-5">
-                                <input type="email" name="email" th:onblur="|checkRegEmail()|" class="form-control" id="email" placeholder="合法邮箱格式">
+                                <input type="email" name="email" th:onblur="|checkRegEmail()|" class="form-control" id="email" placeholder="请输入邮箱">
                                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
                             </div>
                         </div>
@@ -187,7 +188,7 @@
                         <div class="form-group has-feedback">
                             <label class="col-sm-2 control-label">电话</label>
                             <div class="col-sm-5">
-                                <input type="tel" name="phone" class="form-control" placeholder="合法手机格式">
+                                <input type="tel" name="phone" class="form-control" placeholder="请输入手机">
                                 <span class="glyphicon glyphicon-earphone form-control-feedback"></span>
                             </div>
                         </div>
@@ -195,7 +196,7 @@
                         <div class="form-group has-feedback">
                             <label class="col-sm-2 control-label">公司</label>
                             <div class="col-sm-5">
-                                <input type="text" name="company" class="form-control" placeholder="请输入公司名称">
+                                <input type="text" name="company" class="form-control" placeholder="请输入公司">
                                 <span class="glyphicon glyphicon-home form-control-feedback"></span>
                             </div>
                         </div>

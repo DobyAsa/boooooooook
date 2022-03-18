@@ -9,9 +9,8 @@ import java.util.Random;
 public class Email {
 
     private static final String EMAIL = "994783520@qq.com"; // QQ邮箱
-    private static final String STMP = "nunpbenbwropbejf"; // 开通QQ邮箱的POP3/SMTP服务才有： STYMP验证码
+    private static final String STMP = "cebbhlkyeknnbdbb"; // 开通QQ邮箱的POP3/SMTP服务才有： STYMP验证码
     private static final String USERNAME = "994783520"; // QQ 账号
-
     public static String sendEmail(String toEmail) {
         String result = null;
         try {

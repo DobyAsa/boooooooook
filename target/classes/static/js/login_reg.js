@@ -1,5 +1,6 @@
 //验证用户名是否已经存在
 function checkUser(obj) {
+
     $.ajax({
         url: contextPath + "/user/checkUserName",
         data: {"username": obj.value},
@@ -10,7 +11,12 @@ function checkUser(obj) {
                 $("#tip").html("用户名已存在");
                 $("#tip").removeClass("alert-success");
                 $("#tip").addClass("alert-danger");
-            } else {
+            }     else if (obj.value==''){
+                $("#tip").html("用户名不为空");
+                $("#tip").removeClass("alert-success");
+                $("#tip").addClass("alert-danger");
+            }
+            else {
                 $("#tip").html("用户名可以注册");
                 $("#tip").removeClass("alert-danger");
                 $("#tip").addClass("alert-success");
@@ -36,6 +42,7 @@ function checkRegEmail() {
 }
 //用户注册
 function register() {
+
     var datas = $("#regForm").serialize();
     $.ajax({
         url: contextPath + "/user/register",
@@ -174,11 +181,39 @@ function doEmailLogin() {
 }
 
 function sendCode() {
-    layer.msg('已发送，请查收')
+    if ($('#emailTip').css('display') != 'none'){
+        layer.msg('请输入正确的邮箱')
+        return;
+    }
+    //发送邮箱验证码按钮倒数
+//////////////////////////////////////
+        var count = 15;
+        var countdown = setInterval(CountDown, 500);
+        function CountDown() {
+            $("#sendBtd").attr("disabled", true);
+            $("#sendBtd").html("请等待 " + count + " 秒!");
+            if (count == 0) {
+                $("#sendBtd").html("发送验证码").removeAttr("disabled");
+                clearInterval(countdown);
+            }
+            count--;
+        }
+/////////////////////////////////////////////
     var email = $("#emailLogin").val();
+    if (email==''){
+        layer.msg('请输入邮箱')
+        return;
+    }
+    layer.msg('已发送，请查收')
     $.post(contextPath + "/user/sendEmail", {"email": email}, function (data) {
         if (data == 200){
             layer.msg('发送成功')
         }else layer.msg('发送失败')
     });
 }
+
+$("#emailLoginBtn").click(function () {
+    $("#loginModal").modal('hide');
+})
+
+

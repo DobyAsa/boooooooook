@@ -44,9 +44,6 @@
                         <li th:if="${session.user == null}">
                             <a href="#" data-toggle="modal" data-target="#loginModal">登录</a>
                         </li>
-                        <li th:if="${session.user == null}">
-                            <a href="#" data-toggle="modal" data-target="#emailLoginModal">邮箱登录</a>
-                        </li>
                         <li th:if="${session.user != null}">
                             <a href="javascript:void(0)" th:text="${session.user.username}"><span class="glyphicon glyphicon-log-out"></span>&nbsp;注销</a>
                         </li>

@@ -26,6 +26,13 @@
     <div>
         <form class="layui-form" action="" id="userInfo">
             <div class="layui-form-item">
+                <label class="layui-form-label">用户名</label>
+                <div class="layui-input-block">
+                    <input type="text" id="usernmae" name="oldPwd" required  lay-verify="required" placeholder="请输入标题" th:value="${session.user.username}" autocomplete="off" class="layui-input" disabled="disabled">
+                </div>
+            </div>
+
+            <div class="layui-form-item">
                 <label class="layui-form-label">旧密码</label>
                 <div class="layui-input-block">
                     <input type="text" id="oldPwd" name="oldPwd" required  lay-verify="required" placeholder="请输入标题" th:value="${session.user.password}" autocomplete="off" class="layui-input" disabled="disabled">
@@ -40,8 +47,7 @@
             <div class="layui-form-item">
                 <div class="layui-input-block">
                     <button class="layui-btn" lay-submit lay-filter="formDemo" type="button" th:onclick="pwdChange()" >确认修改</button>
-<!--                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
-                    <button type="reset" class="layui-btn layui-btn-primary" th:onclick="pwdChange()">密码修改</button>-->
+
                 </div>
             </div>
         </form>

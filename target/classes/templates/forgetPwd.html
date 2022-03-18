@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>校园书籍交易平台首页</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/dist/css/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/index.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/animate.css}"/>
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}">
+</head>
+
+<body>
+<!--导航部分  begin-->
+<!--<div th:replace="common/header :: nav"></div>-->
+<!--导航部分 end-->
+
+
+<div class="container">
+    <ol class="breadcrumb">
+        <li><a href="#" class="praise">邮箱找回密码</a></li>
+    </ol>
+</div>
+
+<div class="container">
+    <!--个人信息begin-->
+    <div>
+        <form class="layui-form" action="" id="userInfo">
+
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">邮箱</label>
+                <div class="layui-input-block">
+                    <input type="text" name="email" required lay-verify="required" placeholder="请输入邮箱" id="email" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">验证码</label>
+                <div class="layui-input-block">
+                    <input type="text" name="email" required lay-verify="required" placeholder="请输入验证码" id="inputCode"
+                           autocomplete="off" class="layui-input">
+                    <br>
+                    <a href="javascript:void(0)" class="btn btn-info" id="sendBtd" th:onclick="sendCode()">发送验证码</a>
+                </div>
+            </div>
+            <br>
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit lay-filter="formDemo" type="button" th:onclick="checkCode()">提交</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                    <!--                    <button type="reset" class="layui-btn layui-btn-danger" th:onclick="pwdChange()">密码修改 >></button>-->
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!--个人信息end-->
+    <hr>
+    <!--首页底部信息 begin-->
+    <div th:replace="common/footer :: footer"></div>
+</div>
+<!--首页底部信息end-->
+<!--图书内容部分end-->
+
+<!-- 登录模态框（Modal） -->
+<!-- 注册modal end/.modal -->
+<div th:replace="common/bookModal :: bookModal"></div>
+
+<script src="dist/js/jquery.min.js" th:src="@{/dist/js/jquery.min.js}"></script>
+<script src="js/carousel.js" th:src="@{/js/carousel.js}" type="text/javascript" charset="utf-8"></script>
+<script src="dist/js/bootstrap.min.js" th:src="@{/dist/js/bootstrap.min.js}"></script>
+<script src="js/wow.js" th:src="@{/js/wow.js}"></script>
+<script th:src="@{/js/login_reg.js}"></script>
+<script th:src="@{/layui/layui.js}"></script>
+
+<script th:inline="javascript">
+    //获取应用路径
+    var contextPath = [[${#request.getContextPath()}]];
+</script>
+<!-- 引入 layui.js 的 <script> 标签最好放置在 html 末尾 -->
+<script type="text/javascript">
+    if (!(/msie [6|7|8|9]/i.test(navigator.userAgent))) {
+        new WOW().init();
+    }
+    ;
+    //禁止a标签点击
+    $(".praise").attr("disabled", true).css("pointer-events", "none");
+
+    //发送验证码
+    function sendCode() {
+        var email = $("#email").val();
+        if (email == '') {
+            layer.msg('邮箱不为空', {icon: 7, anim: 6});
+            return;
+        }
+        $.ajax({
+            url: contextPath + "/user/checkEmail",
+            type: "post",
+            data: {"email": email},
+            success: function (data) {
+                if (data == 101) {
+                    layer.msg('邮箱不存在')
+                    return;
+                }else {
+                    layer.msg('已发送，请查收')
+                    $.post(contextPath + "/user/sendEmail", {"email": email}, function (data) {
+                        if (data == 200) {
+                            layer.msg('发送成功')
+                        } else layer.msg('发送失败')
+                    });
+                }
+            }
+        })
+    }
+    
+    function checkCode() {
+        var inputCode = $("#inputCode").val();
+        var email = $("#email").val();
+        $.ajax({
+            url: contextPath + "/user/emailLogin",
+            data: {"inputCode": inputCode, "email": email},
+            method: "post",
+            success: function (data) {
+                if (data == 100) {
+                    layer.msg('跳转至修改密码页面...', {
+                        icon: 16,//转圈
+                        time: 2000 //2秒关闭（如果不配置，默认是3秒）
+                    }, function(){
+                        window.location.href = contextPath + "/user/toChangePwdbyEmail?email="+email;
+                    });
+                } else {//验证吗错误
+                    layer.msg('验证码错误')
+                }
+            }
+        })
+    }
+    
+</script>
+</body>
+
+</html>

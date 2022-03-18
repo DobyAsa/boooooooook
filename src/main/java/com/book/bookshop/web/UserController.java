@@ -112,7 +112,6 @@ public class UserController {
     @PostMapping("/userInfoChange")
     @ResponseBody
     public String userInfoChange(User userInfo, HttpSession session) {
-        System.out.println(userInfo);
         User user = (User) session.getAttribute("user");
         userInfo.setId(user.getId());
         //把会话中旧的user去掉
@@ -131,6 +130,17 @@ public class UserController {
     public String toChangePwd() {
         return "pwdChange";
     }
+
+    @RequestMapping("/toChangePwdbyEmail")
+    public String toChangePwdbyEmail(String email,HttpSession session) {
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.eq("email", email);
+        User user = userService.getOne(queryWrapper);
+        session.setAttribute("user",user);
+        System.out.println(user);
+        return "pwdChange";
+    }
+
 
     //密码修改
     @RequestMapping("/pwdChange")
@@ -236,4 +246,11 @@ public class UserController {
         } else
             return "fail";
     }
-}
+
+    @RequestMapping(value = "/forgetPwd", method = RequestMethod.GET)
+    public String forgetPwd(){
+        return "forgetPwd";
+        }
+
+    }
+
