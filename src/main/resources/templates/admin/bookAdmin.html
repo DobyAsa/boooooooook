@@ -73,9 +73,9 @@
 						</li>
 					</ul>
 					<div class="input-group col-md-3 pull-right" style="positon:relative;padding: 7px;">
-						<input type="text" class="form-control" placeholder="请输入图书名" />
+						<input type="text" class="form-control" id="inputBookName" placeholder="请输入图书名" />
 						<span class="input-group-btn">
-					            <button class="btn btn-info btn-search">
+					            <button class="btn btn-info btn-search" th:onclick="searchBookName()">
 					            	<span class="glyphicon glyphicon-search"></span>
 					            </button>
 							</span>
@@ -117,7 +117,7 @@
 			function searchBookName() {
 				var inputBookName = $("#inputBookName").val();
 				if (inputBookName != ''){
-					window.location.href = contextPath + "/book/searchBook?inputBookName=" + inputBookName;
+					window.location.href = contextPath + "/admin/searchBook?inputBookName=" + inputBookName;
 				}else alert('请输入图书名')
 			}
 

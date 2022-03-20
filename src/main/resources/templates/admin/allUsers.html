@@ -70,9 +70,9 @@
 						</li>
 					</ul>
 					<div class="input-group col-md-3 pull-right" style="positon:relative;padding: 7px;">
-						<input type="text" class="form-control" placeholder="请输入图书名" />
+						<input type="text" class="form-control" id="inputUsername" placeholder="请输入用户名" />
 						<span class="input-group-btn">
-					            <button class="btn btn-info btn-search">
+					            <button class="btn btn-info btn-search" th:onclick="searchUsername()">
 					            	<span class="glyphicon glyphicon-search"></span>
 					            </button>
 							</span>
@@ -159,7 +159,7 @@
 					<tr>
 						<td colspan="5"></td>
 						<td class="text-success">总数量:</td>
-						<td class="text-success">20本</td>
+						<td class="text-success" th:text="${userList.size()+'人'}"></td>
 					</tr>
 					<tr style="background-color: white;">
 
@@ -305,6 +305,14 @@
 			}, function(index){
 				return ;
 			});
+		}
+
+		//根据用户名搜索
+		function searchUsername() {
+			var inputUsername = $("#inputUsername").val();
+			if (inputUsername != ''){
+				window.location.href = contextPath + "/admin/searchUser?inputUsername=" + inputUsername;
+			}else alert('请输入用户名')
 		}
 	</script>
 

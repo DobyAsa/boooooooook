@@ -154,14 +154,8 @@ class BookShopApplicationTests {
 
     @Test
     public void asd(){
-        Scanner scanner = new Scanner(System.in);
-        int n = scanner.nextInt();
-        if (n==0||n==1) System.out.println(n);
-        else {
-
+        for (int i=0;i<10;i++){
+            System.out.println((int)(Math.random()*100000));
         }
-
-
-
     }
 }

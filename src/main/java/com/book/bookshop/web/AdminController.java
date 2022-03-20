@@ -247,5 +247,27 @@ public class AdminController {
        return this.toAppealList(model);
     }
 
+    //根据书名搜索
+    @RequestMapping("/searchBook")
+    public String searchBook(String inputBookName,Model model){
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.like("name",inputBookName);
+        List<Book> bookList = bookService.list(queryWrapper);
+        System.out.println(bookList);
+        model.addAttribute("bookList",bookList);
+        return "admin/searchBook";
+
+    }
+
+    //根据用户名搜索
+    @RequestMapping("/searchUser")
+    public String searchUser(String inputUsername,Model model){
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.like("username",inputUsername);
+        List<User> userList = userService.list(queryWrapper);
+        model.addAttribute("userList",userList);
+        return "admin/searchUsers";
+
+    }
 
 }

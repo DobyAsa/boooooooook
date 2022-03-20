@@ -70,7 +70,7 @@
 						</li>
 					</ul>
 					<div class="input-group col-md-3 pull-right" style="positon:relative;padding: 7px;">
-						<input type="text" class="form-control" id="inputUsername" placeholder="请输入用户名" />
+						<input type="text" class="form-control" placeholder="请输入用户名" />
 						<span class="input-group-btn">
 					            <button class="btn btn-info btn-search" th:onclick="searchUsername()">
 					            	<span class="glyphicon glyphicon-search"></span>
@@ -306,7 +306,6 @@
 				return ;
 			});
 		}
-
 		//根据用户名搜索
 		function searchUsername() {
 			var inputUsername = $("#inputUsername").val();
