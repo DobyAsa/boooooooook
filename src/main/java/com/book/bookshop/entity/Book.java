@@ -10,6 +10,7 @@ import com.book.bookshop.entity.enums.Suit;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.Scanner;
 
 
 @Data
@@ -30,9 +31,7 @@ public class Book extends Model<Book> {
     private Category category;
     private String info;
     private String imgUrl;
-    private Integer commentId;
     @TableField(exist = false)
     private String cate;
-
 
 }

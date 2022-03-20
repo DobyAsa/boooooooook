@@ -128,8 +128,8 @@
 							<button class="btn btn-info" th:onclick="displayInfo([[${appeal.appealReason}]])">预览</button>
 						</td>
 						<td th:if="${appeal.state ==1}">待审核</td>
-						<td th:if="${appeal.state==2}">审核通过</td>
-						<td th:if="${appeal.state==3}">审核未通过</td>
+						<td th:if="${appeal.state==2}"><font color="#006400">审核通过</font></td>
+						<td th:if="${appeal.state==3}"><font color="red">审核未通过</font></td>
 						<td th:if="${appeal.state ==1}">
 							<a class="btn btn-success" th:onclick="approve([[${appeal.userId}]],[[${appeal.id}]])">通过</a>
 							<a class="btn btn-danger" th:onclick="disapprove([[${appeal.userId}]],[[${appeal.id}]])">不通过</a>

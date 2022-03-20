@@ -6,6 +6,7 @@
     <link rel="stylesheet" type="text/css" th:href="@{/dist/css/bootstrap.min.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/index.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/animate.css}"/>
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}">
 
 </head>
 <body>
@@ -40,6 +41,8 @@
 <script src="dist/js/bootstrap.min.js" th:src="@{/dist/js/bootstrap.min.js}"></script>
 <script src="js/wow.js" th:src="@{/js/wow.js}"></script>
 <script th:src="@{/js/login_reg.js}"></script>
+<script th:src="@{/layui/layui.js}"></script>
+
 <script th:inline="javascript">
     //获取应用路径
     var contextPath = [[${#request.getContextPath()}]];
@@ -67,8 +70,23 @@
     };
 
     //跳转至指定页
-    function goPage(pageSize,category) {
+    function goPage(pageSize,category,pages) {
         var page = $("#inputPage").val();
+        //数字正则
+        var reg = new RegExp("^[0-9]*$");
+        if (!reg.test(page)){
+            layer.msg('请输入数字！', {icon: 7,anim:6});
+            return;
+        }
+        if (page==''){
+            layer.msg('请输入页码！', {icon: 7,anim:6});
+            return;
+        }
+
+        if (page > pages) {//如果输入的页数大于总页数
+            layer.msg('超出总页数！总页数：'+pages, {icon: 7,anim:6});
+            return;
+        }
         $("#bookList").load(contextPath + "/book/getBookListData", queryData(page,pageSize, category));
     }
 

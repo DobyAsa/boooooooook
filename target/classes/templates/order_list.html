@@ -91,11 +91,11 @@
 								</ul>
 							</li>
 						</ul>
-						<ul class="nav navbar-nav navbar-right">
+<!--						<ul class="nav navbar-nav navbar-right">
 							<li style="padding-right: 15px;">
 								<a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">更多筛选条件</a>
 							</li>
-						</ul>
+						</ul>-->
 						
 						<ul class="nav navbar-nav">
 							<li>
@@ -104,7 +104,7 @@
 						</ul>
 							<ul class="nav navbar-nav">
 							<li>
-								<a href="#" th:onclick="deleteAll()">清空订单列表</a>
+								<a href="#" th:onclick="deleteAll()">清空订单</a>
 							</li>
 						</ul>
 					</nav>
@@ -380,6 +380,12 @@
 		//跳转到指定页
 		function goPage(pageSize) {
 			var page = $("#inputPage").val();
+			//数字正则
+			var reg = new RegExp("^[0-9]*$");
+			if (!reg.test(page)){
+				layer.msg('请输入数字！', {icon: 7,anim:6});
+				return;
+			}
 			$("#orderData").load(contextPath + "/order/getOrderListData",queryData(page,pageSize))
 		}
 

@@ -196,6 +196,12 @@
 		//跳转到指定页
 		function goPage(pageSize,pages) {
 			var inputPage = $("#inputPage").val();
+			//数字正则
+			var reg = new RegExp("^[0-9]*$");
+			if (!reg.test(inputPage)){
+				layer.msg('请输入数字！', {icon: 7,anim:6});
+				return;
+			}
 			if (inputPage==''){
 				layer.msg('请输入页码', {icon: 7,anim:6});
 				return;

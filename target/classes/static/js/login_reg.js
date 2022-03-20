@@ -149,6 +149,8 @@ function checkEmail(obj) {
         method: "post",
         success: function (data) {
             if (data == 101) {//邮箱不存在
+/*                var email = $("#emailLogin").val();
+                if (email=='') $("#noEmail").html("邮箱不为空");*/
                 $("#emailTip").css("display", "block");
                 return;
             } else {
@@ -162,6 +164,14 @@ function checkEmail(obj) {
 function doEmailLogin() {
     var inputCode = $("#inputCode").val();
     var email = $("#emailLogin").val();
+    if (email==''){
+        layer.msg('邮箱必填', {icon: 7,anim:6});
+        return;
+    }
+    if (inputCode==''){
+        layer.msg('验证码必填', {icon: 7,anim:6});
+        return;
+    }
     $.ajax({
         url: contextPath + "/user/emailLogin",
         data: {"inputCode": inputCode, "email": email},
@@ -177,15 +187,15 @@ function doEmailLogin() {
                 //未发送验证码
                 layer.msg('请发送验证码')
                 return;
-
             }
                 else {//验证吗错误
+
                 layer.msg('验证码错误')
             }
         }
     })
 }
-
+//发送验证码
 function sendCode() {
     if ($('#emailTip').css('display') != 'none'){
         layer.msg('请输入正确的邮箱')
@@ -214,7 +224,8 @@ function sendCode() {
     layer.msg('已发送，请注意查收')
     $.post(contextPath + "/user/sendEmail", {"email": email}, function (data) {
         if (data == 200){
-            layer.msg('发送成功')
+            layer.msg('发送成功，请输入验证码')
+            $("#inputCode").attr("disabled", false)
         }else layer.msg('发送失败')
     });
 }

@@ -15,6 +15,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 @SpringBootTest
 class BookShopApplicationTests {
@@ -149,5 +150,18 @@ class BookShopApplicationTests {
             comment.setUsername(user.getUsername());
         }
         System.out.println(comments);
+    }
+
+    @Test
+    public void asd(){
+        Scanner scanner = new Scanner(System.in);
+        int n = scanner.nextInt();
+        if (n==0||n==1) System.out.println(n);
+        else {
+
+        }
+
+
+
     }
 }

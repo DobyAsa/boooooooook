@@ -243,43 +243,8 @@
 				</ol>
 
 			<!--猜您喜欢-->
-				<div>
-					<span class="text-info"><span class="glyphicon glyphicon-heart"></span><span style="font-size: 20px; ">&nbsp;&nbsp;猜您喜欢</span></span>
-					<div class="row" id="love">
-						<div class="wow fadeInRight animated">
-							<div class="thumbnail">
-								<a href="details.html"><img src="images/dongjian.jpg " style="height: 200px; " alt="通用的占位符缩略图 "></a>
-								<div class="caption ">
-									<h3>洞见</h3>
-								</div>
-							</div>
-						</div>
-						<div class="wow fadeInRight animated">
-							<div class="thumbnail ">
-								<a href="details.html"><img src="images/tenxunchuan.jpg" style="height: 200px; " alt="通用的占位符缩略图 "></a>
-								<div class="caption ">
-									<h3>腾讯传</h3>
-								</div>
-							</div>
-						</div>
-						<div class="wow fadeInRight animated">
-							<div class="thumbnail ">
-								<a href="details.html"><img src="images/taikong.jpg" style="height: 200px; " alt="通用的占位符缩略图 "></a>
-								<div class="caption ">
-									<h3>太空</h3>
-								</div>
-							</div>
-						</div>
-						<div>
-							<ul class="pager">
-								<li>
-									<a href="#" onclick="pageUp() ">&larr;上一页</a>
-									<a href="#" onclick="pageDown() ">下一页 &rarr;</a>
-								</li>
-							</ul>
-						</div>
-					</div>
-				</div>
+				<div th:replace="common/guessLike :: guessLike"></div>
+
 				<!--喜欢end-->
 			</div>
 		</div>

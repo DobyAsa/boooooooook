@@ -15,5 +15,4 @@ public class Admin extends Model<Admin> {
     private Integer id;
     private String username;
     private String password;
-    private String bk;//预留字段
 }

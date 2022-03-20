@@ -33,11 +33,11 @@
 			<div class="col-md-12">
 				<ul class="pagination">
 					<li><a href="javascript:void(0)" th:onclick="loadData(1,[[${pageSize}]],[[${category}]])">首页</a></li>
-					<li class="disabled"><a href="javascript:void(0)" th:onclick="loadData([[${pre}]],[[${pageSize}]],[[${category}]])">&laquo;</a></li>
+					<li ><a href="javascript:void(0)" th:style="${cur == 1} ? 'pointer-events:none':''" th:onclick="loadData([[${pre}]],[[${pageSize}]],[[${category}]])">&laquo;</a></li>
 					<li th:each="i:${#numbers.sequence(1,pages)}"  th:class="${i == cur} ? 'active':''">
 						<a href="javascript:void(0)" th:onclick="loadData([[${i}]],[[${pageSize}]],[[${category}]])" th:text="${i}">2</a>
 					</li>
-					<li><a href="javascript:void(0)" th:onclick="loadData([[${next}]],[[${pageSize}]],[[${category}]])">&raquo;</a></li>
+					<li><a href="javascript:void(0)" th:style="${cur == pages} ? 'pointer-events:none':''"  th:onclick="loadData([[${next}]],[[${pageSize}]],[[${category}]])">&raquo;</a></li>
 					<li><a href="javascript:void(0)" style="border: 1px solid #ddd;" th:onclick="loadData([[${pages}]],[[${pageSize}]],[[${category}]])">尾页</a></li>
 					<li><a style="border: 0px;margin-left: 0px;" th:text="${'当前页'+cur+'/'+pages+'总页'}">当前页3/5总页</a></li>
 					<li>
@@ -45,7 +45,7 @@
 						<div id="search" class="input-group" style="positon:relative;">
 							<input id="inputPage" type="text" class="form-control" placeholder="跳转指定页" />
 							<span class="input-group-btn">
-							            <button class="btn btn-info btn-search" th:onclick="goPage([[${pageSize}]],[[${category}]])" >GO</button>
+							            <button class="btn btn-info btn-search" th:onclick="goPage([[${pageSize}]],[[${category}]],[[${pages}]])" >GO</button>
 									</span>
 						</div>
 					</li>
