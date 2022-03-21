@@ -311,7 +311,7 @@
 			var inputUsername = $("#inputUsername").val();
 			if (inputUsername != ''){
 				window.location.href = contextPath + "/admin/searchUser?inputUsername=" + inputUsername;
-			}else alert('请输入用户名')
+			}else layer.msg('请输入用户名！', {icon: 7,anim:6});
 		}
 	</script>
 

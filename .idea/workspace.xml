@@ -4,12 +4,15 @@
     <list default="true" id="a89b3715-3253-41ee-a81d-e446e61e211a" name="Default Changelist" comment="普通用户申诉、管理员审核">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/book/bookshop/web/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/book/bookshop/web/AdminController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/allUsers.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/allUsers.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/bookAdmin.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/bookAdmin.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/common/header.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/common/header.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/userInfo.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/userInfo.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/book/bookshop/BookShopApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/book/bookshop/BookShopApplicationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/addBook.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/addBook.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/allBooksData.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/allBooksData.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/searchUsers.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/searchUsers.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/updateBook.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/updateBook.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/book/bookshop/web/AdminController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/book/bookshop/web/AdminController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/admin/addBook.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/admin/addBook.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/admin/allBooksData.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/admin/allBooksData.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/admin/searchUsers.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/admin/searchUsers.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/admin/updateBook.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/admin/updateBook.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -310,6 +313,7 @@
       <workItem from="1647505599546" duration="19956000" />
       <workItem from="1647592862134" duration="15722000" />
       <workItem from="1647781436943" duration="11651000" />
+      <workItem from="1647852456832" duration="3276000" />
     </task>
     <task id="LOCAL-00001" summary="分页功能完成">
       <created>1646995980855</created>
@@ -440,46 +444,46 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="549" y="168" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1647791997174" />
-    <state width="1493" height="173" key="GridCell.Tab.0.bottom" timestamp="1647796665654">
+    <state width="1493" height="211" key="GridCell.Tab.0.bottom" timestamp="1647855462206">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1493" height="184" key="GridCell.Tab.0.bottom/0.0.1536.824/1920.0.1440.860@0.0.1536.824" timestamp="1642690956535" />
-    <state width="1493" height="173" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1647796665654" />
-    <state width="1493" height="173" key="GridCell.Tab.0.center" timestamp="1647796665653">
+    <state width="1493" height="211" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1647855462206" />
+    <state width="1493" height="211" key="GridCell.Tab.0.center" timestamp="1647855462205">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1493" height="184" key="GridCell.Tab.0.center/0.0.1536.824/1920.0.1440.860@0.0.1536.824" timestamp="1642690956535" />
-    <state width="1493" height="173" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1647796665653" />
-    <state width="1493" height="173" key="GridCell.Tab.0.left" timestamp="1647796665653">
+    <state width="1493" height="211" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1647855462205" />
+    <state width="1493" height="211" key="GridCell.Tab.0.left" timestamp="1647855462205">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1493" height="184" key="GridCell.Tab.0.left/0.0.1536.824/1920.0.1440.860@0.0.1536.824" timestamp="1642690956535" />
-    <state width="1493" height="173" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1647796665653" />
-    <state width="1493" height="173" key="GridCell.Tab.0.right" timestamp="1647796665653">
+    <state width="1493" height="211" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1647855462205" />
+    <state width="1493" height="211" key="GridCell.Tab.0.right" timestamp="1647855462205">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1493" height="184" key="GridCell.Tab.0.right/0.0.1536.824/1920.0.1440.860@0.0.1536.824" timestamp="1642690956535" />
-    <state width="1493" height="173" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1647796665653" />
-    <state width="1493" height="173" key="GridCell.Tab.1.bottom" timestamp="1647796665654">
+    <state width="1493" height="211" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1647855462205" />
+    <state width="1493" height="211" key="GridCell.Tab.1.bottom" timestamp="1647855462206">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1493" height="133" key="GridCell.Tab.1.bottom/0.0.1536.824/1920.0.1440.860@0.0.1536.824" timestamp="1642690956518" />
-    <state width="1493" height="173" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1647796665654" />
-    <state width="1493" height="173" key="GridCell.Tab.1.center" timestamp="1647796665654">
+    <state width="1493" height="211" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1647855462206" />
+    <state width="1493" height="211" key="GridCell.Tab.1.center" timestamp="1647855462206">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1493" height="133" key="GridCell.Tab.1.center/0.0.1536.824/1920.0.1440.860@0.0.1536.824" timestamp="1642690956518" />
-    <state width="1493" height="173" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1647796665654" />
-    <state width="1493" height="173" key="GridCell.Tab.1.left" timestamp="1647796665654">
+    <state width="1493" height="211" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1647855462206" />
+    <state width="1493" height="211" key="GridCell.Tab.1.left" timestamp="1647855462206">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1493" height="133" key="GridCell.Tab.1.left/0.0.1536.824/1920.0.1440.860@0.0.1536.824" timestamp="1642690956518" />
-    <state width="1493" height="173" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1647796665654" />
-    <state width="1493" height="173" key="GridCell.Tab.1.right" timestamp="1647796665654">
+    <state width="1493" height="211" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1647855462206" />
+    <state width="1493" height="211" key="GridCell.Tab.1.right" timestamp="1647855462206">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1493" height="133" key="GridCell.Tab.1.right/0.0.1536.824/1920.0.1440.860@0.0.1536.824" timestamp="1642690956518" />
-    <state width="1493" height="173" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1647796665654" />
+    <state width="1493" height="211" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1647855462206" />
     <state width="1493" height="434" key="GridCell.Tab.2.bottom" timestamp="1647275776699">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -528,10 +532,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="290" y="114" width="928" height="634" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/0.0.1536.824@0.0.1536.824" timestamp="1647794163756" />
-    <state x="331" y="77" width="881" height="562" key="find.popup" timestamp="1647796644353">
+    <state x="331" y="77" width="881" height="562" key="find.popup" timestamp="1647854883585">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="331" y="77" width="881" height="562" key="find.popup/0.0.1536.824@0.0.1536.824" timestamp="1647796644353" />
+    <state x="331" y="77" width="881" height="562" key="find.popup/0.0.1536.824@0.0.1536.824" timestamp="1647854883585" />
     <state x="510" y="42" key="refactoring.ChangeSignatureDialog" timestamp="1644629814106">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

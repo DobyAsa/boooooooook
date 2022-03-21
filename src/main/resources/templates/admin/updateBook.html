@@ -55,16 +55,21 @@
 							<input type="text" name="publisher"    placeholder="请输入出版社" th:value="${book.publisher}" autocomplete="off" class="layui-input">
 						</div>
 					</div>
-
 					<div class="layui-form-item">
-						<label class="layui-form-label">原价</label>
+						<label class="layui-form-label">出版日期</label>
+						<div class="layui-input-block">
+							<input type="text" name="pubDate" th:value="${#calendars.format(book.publishDate,'yyyy-MM-dd HH:mm:ss')}" class="layui-input" id="test1">
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<label class="layui-form-label">原价（元）</label>
 						<div class="layui-input-block">
 							<input type="text" name="oldPrice"  th:placeholder="${book.oldPrice}" th:value="${book.oldPrice}" disabled autocomplete="off" class="layui-input">
 						</div>
 					</div>
 
 					<div class="layui-form-item">
-						<label class="layui-form-label">现价</label>
+						<label class="layui-form-label">现价（元）</label>
 						<div class="layui-input-block">
 							<input type="text" name="newPrice"    placeholder="请输入现价"  required  lay-verify="required" autocomplete="off" class="layui-input">
 						</div>
@@ -85,7 +90,7 @@
 					<div class="layui-form-item layui-form-text">
 						<label class="layui-form-label">简介</label>
 						<div class="layui-input-block">
-							<textarea name="info" placeholder="请输入内容" th:placeholder="${book.info}" th:value="${book.info}" class="layui-textarea"></textarea>
+							<textarea name="info" placeholder="请输入内容" required  lay-verify="required" th:placeholder="${book.info}" th:value="${book.info}" class="layui-textarea"></textarea>
 						</div>
 					</div>
 					<div class="layui-form-item">
@@ -124,6 +129,17 @@
 			//获取应用路径
 			var contextPath = [[${#request.getContextPath()}]];
 			var pages = [[${pages}]];
+		</script>
+		<script>
+			layui.use('laydate', function(){
+				var laydate = layui.laydate;
+
+				//执行一个laydate实例
+				laydate.render({
+					elem: '#test1', //指定元素
+					type: 'datetime'
+				});
+			});
 		</script>
 		<script type="text/javascript">
 			if(!(/msie [6|7|8|9]/i.test(navigator.userAgent))) {

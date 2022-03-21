@@ -61,7 +61,12 @@
 							<input type="text" name="newPrice"    placeholder="请输入价格" required  lay-verify="required" autocomplete="off" class="layui-input">
 						</div>
 					</div>
-
+					<div class="layui-form-item">
+						<label class="layui-form-label">出版日期</label>
+						<div class="layui-input-block">
+							<input type="text" name="pubDate" required  lay-verify="required" class="layui-input" id="test1">
+						</div>
+					</div>
 					<div class="layui-form-item">
 						<label class="layui-form-label">请选择图片</label>
 						<div class="layui-input-block">
@@ -118,8 +123,18 @@
 		<script th:inline="javascript">
 			//获取应用路径
 			var contextPath = [[${#request.getContextPath()}]];
-			var pages = [[${pages}]];
 		</script>
+	<script>
+		layui.use('laydate', function(){
+			var laydate = layui.laydate;
+
+			//执行一个laydate实例
+			laydate.render({
+				elem: '#test1', //指定元素
+				type: 'datetime'
+			});
+		});
+	</script>
 		<script type="text/javascript">
 			if(!(/msie [6|7|8|9]/i.test(navigator.userAgent))) {
 				new WOW().init();

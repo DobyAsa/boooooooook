@@ -23,6 +23,8 @@ import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -102,12 +104,13 @@ public class AdminController {
 
     //添加商品
     @RequestMapping("/addBook")
-    public String toAddBook(Book book, MultipartFile bookPic) throws IOException {
-
+    public String toAddBook(Book book, MultipartFile bookPic,String pubDate) throws IOException, ParseException {
+        System.out.println(pubDate);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         if (book.getCate().equals("精选图书")) book.setCategory(Category.SELECTTED);
         if (book.getCate().equals("推荐图书")) book.setCategory(Category.RECOMMEND);
         if (book.getCate().equals("特价图书")) book.setCategory(Category.BARGAGIN);
-        book.setPublishDate(new Date());
+        book.setPublishDate(simpleDateFormat.parse(pubDate));
         book.setAuthorLoc("中国");
         book.setSuit(Suit.YES);
         String bookPicName = bookPic.getOriginalFilename();
@@ -122,6 +125,7 @@ public class AdminController {
     //跳转至更新图书页面
     @RequestMapping("/toUpdateBook")
     public String toUpdateBook(Model model, @RequestParam("bookId") Integer id,HttpSession session) {
+
         Book book = bookService.getById(id);
         book.setOldPrice(book.getNewPrice());
         session.setAttribute("oldPrice",book.getOldPrice());
@@ -132,11 +136,13 @@ public class AdminController {
 
     //更新图书
     @RequestMapping("/updateBook")
-    public String updateBook(Book book, MultipartFile bookPic,HttpSession session) throws IOException {
+    public String updateBook(Book book, MultipartFile bookPic,String pubDate,HttpSession session) throws IOException, ParseException {
         System.out.println(book);
         System.out.println(bookPic.getOriginalFilename());
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String bookPicName = bookPic.getOriginalFilename();
         book.setImgUrl(bookPicName);
+        book.setPublishDate(simpleDateFormat.parse(pubDate));
         String filePath = "D:/images/";
         File dest = new File(filePath + bookPicName);
         book.setOldPrice((double)session.getAttribute("oldPrice"));
