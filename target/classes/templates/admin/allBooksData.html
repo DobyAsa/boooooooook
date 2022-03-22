@@ -69,8 +69,8 @@
 								<td th:case="'RECOMMEND'">精选图书</td>
 								<td th:case="'BARGAGIN'">精选图书</td>
 							</span>-->
-							<td th:text="${book.oldPrice}">原价</td>
-							<td th:text="${book.newPrice}">1现价00$</td>
+							<td th:text="${book.oldPrice == 0?'无':book.oldPrice}">原价</td>
+							<td th:text="${book.newPrice}">现价00$</td>
 							<td style="width: 146px;">
 								<button class="btn btn-success" th:onclick="displayInfo([[${book.info}]])">预览</button>
 							</td>

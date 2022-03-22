@@ -27,12 +27,10 @@ public class Upload {
             return "上传失败，请选择文件";
         }
         String fileName = file.getOriginalFilename();
-        System.out.println(fileName);
         String filePath = "D:/images/";
         File dest = new File(filePath + fileName);
         try {
             file.transferTo(dest);
-            System.out.println("success");
             return "success";
         } catch (Exception e) {
             e.printStackTrace();

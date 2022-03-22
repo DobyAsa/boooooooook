@@ -105,7 +105,6 @@ public class AdminController {
     //添加商品
     @RequestMapping("/addBook")
     public String toAddBook(Book book, MultipartFile bookPic,String pubDate) throws IOException, ParseException {
-        System.out.println(pubDate);
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         if (book.getCate().equals("精选图书")) book.setCategory(Category.SELECTTED);
         if (book.getCate().equals("推荐图书")) book.setCategory(Category.RECOMMEND);
@@ -130,15 +129,12 @@ public class AdminController {
         book.setOldPrice(book.getNewPrice());
         session.setAttribute("oldPrice",book.getOldPrice());
         model.addAttribute("book", book);
-        System.out.println(book);
         return "admin/updateBook";
     }
 
     //更新图书
     @RequestMapping("/updateBook")
     public String updateBook(Book book, MultipartFile bookPic,String pubDate,HttpSession session) throws IOException, ParseException {
-        System.out.println(book);
-        System.out.println(bookPic.getOriginalFilename());
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String bookPicName = bookPic.getOriginalFilename();
         book.setImgUrl(bookPicName);
@@ -259,7 +255,6 @@ public class AdminController {
         QueryWrapper queryWrapper = new QueryWrapper();
         queryWrapper.like("name",inputBookName);
         List<Book> bookList = bookService.list(queryWrapper);
-        System.out.println(bookList);
         model.addAttribute("bookList",bookList);
         return "admin/searchBook";
 

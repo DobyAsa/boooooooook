@@ -137,7 +137,6 @@ public class UserController {
         queryWrapper.eq("email", email);
         User user = userService.getOne(queryWrapper);
         session.setAttribute("user",user);
-        System.out.println(user);
         return "pwdChange";
     }
 

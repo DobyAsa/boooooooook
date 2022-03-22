@@ -59,7 +59,7 @@
 							<tr th:each="cart,iter:${cartList}">
 								<td><input type="checkbox" name="cks" th:value="${cart.id}"></td>
 								<td th:text="${cart.bookId}">1001</td>
-								<td><img src="images/tenxunchuan.jpg" th:src="@{'/images/'+ ${cart.imgUrl}}"></td>
+								<td><img src="images/tenxunchuan.jpg" th:src="@{'/public/'+ ${cart.imgUrl}}"></td>
 								<td th:text="${cart.bookName}">腾讯传</td>
 								<td th:text="${cart.newPrice}">35.0元</td>
 								<td>

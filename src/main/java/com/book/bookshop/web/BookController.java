@@ -97,11 +97,9 @@ public class BookController {
     //根据图书名模糊搜索图书
     @RequestMapping("/searchBook")
     public String search(String inputBookName, Model model){
-        System.out.println(inputBookName);
         QueryWrapper queryWrapper = new QueryWrapper();
         queryWrapper.like("name",inputBookName);
         List<Book> bookList = bookService.list(queryWrapper);
-        System.out.println(bookList);
         model.addAttribute("bookList",bookList);
         return "searchPage";
     }

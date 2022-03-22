@@ -119,8 +119,6 @@ class BookShopApplicationTests {
             price += item.getCount() * book.getNewPrice();
             booksName += book.getName() + "、";
         }
-        System.out.println(booksName);
-        System.out.println(price);
     }
 
     @Test
@@ -128,7 +126,6 @@ class BookShopApplicationTests {
         QueryWrapper<OrderItem> queryWrapper = new QueryWrapper();
 //        queryWrapper.and(wrapper -> wrapper.eq("asd","asd").ne("asd","asd"));
         queryWrapper.eq("id", 38).eq("order_id", 35);
-        System.out.println(orderItemMapper.selectOne(queryWrapper));
     }
 
     @Test
