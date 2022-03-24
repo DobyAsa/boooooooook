@@ -6,11 +6,9 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.book.bookshop.entity.enums.Category;
-import com.book.bookshop.entity.enums.Suit;
 import lombok.Data;
 
 import java.util.Date;
-import java.util.Scanner;
 
 
 @Data
@@ -27,7 +25,7 @@ public class Book extends Model<Book> {
     private double oldPrice;
     private double newPrice;
     private String authorLoc;
-    private Suit suit;
+//    private Suit suit;
     private Category category;
     private String info;
     private String imgUrl;

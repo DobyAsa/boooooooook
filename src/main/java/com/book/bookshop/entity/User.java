@@ -18,5 +18,5 @@ public class User extends Model<User> {
     private Integer state;
     private String email;
     private String phone;
-    private String company;
+    private String school;
 }

@@ -5,31 +5,23 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.book.bookshop.entity.*;
 import com.book.bookshop.entity.enums.Category;
-import com.book.bookshop.entity.enums.Suit;
 import com.book.bookshop.service.AdminService;
 import com.book.bookshop.service.AppealService;
 import com.book.bookshop.service.BookService;
 import com.book.bookshop.service.UserService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import org.mybatis.logging.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
-import java.util.Set;
-import java.util.logging.Logger;
 
 /**
  * @Author:yizhongwei
@@ -111,7 +103,7 @@ public class AdminController {
         if (book.getCate().equals("特价图书")) book.setCategory(Category.BARGAGIN);
         book.setPublishDate(simpleDateFormat.parse(pubDate));
         book.setAuthorLoc("中国");
-        book.setSuit(Suit.YES);
+//        book.setSuit(Suit.YES);
         String bookPicName = bookPic.getOriginalFilename();
         book.setImgUrl(bookPicName);
         String filePath = "D:/images/";

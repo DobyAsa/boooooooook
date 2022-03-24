@@ -90,7 +90,7 @@ CREATE TABLE `bs_book` (
   `old_price` decimal(10,2) DEFAULT NULL,
   `new_price` decimal(10,2) DEFAULT NULL,
   `author_loc` varchar(255) DEFAULT NULL,
-  `suit` int(2) DEFAULT NULL,
+/*  `suit` int(2) DEFAULT NULL,*/
   `category` int(2) DEFAULT NULL,
   `info` varchar(255) DEFAULT NULL,
   `img_url` varchar(255) DEFAULT NULL,
@@ -218,7 +218,7 @@ CREATE TABLE `bs_user` (
   `state` int(1) DEFAULT '1' COMMENT '状态',
   `email` varchar(255) DEFAULT NULL,
   `phone` varchar(255) DEFAULT NULL,
-  `company` varchar(255) DEFAULT NULL,
+  `school` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
