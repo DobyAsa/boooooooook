@@ -38,7 +38,7 @@
 				<div style="margin-bottom: 5px;" id="addrDiv">
 					<ul class="list-group" id="address">
 						<li th:if="${not #lists.isEmpty(addressList)}" th:each="address:${addressList}" class="list-group-item">
-							<input type="radio" name="addr" th:value="${address.id}" th:text="${address.province}+${address.city}+${address.area}+${address.detailAddress}">&nbsp;
+							<input type="radio" name="addr" th:value="${address.id}" th:text="${address.province}+${address.city}+${address.area}+${address.detailAddress}" th:checked="${address.isDefault=='1'}">&nbsp;
 						</li>
 						<li class="list-group-item" th:if="${#lists.isEmpty(addressList)}">暂无收货地址！</li>
 <!--						<li class="list-group-item"><input type="radio" name="addr">&nbsp;江苏省苏州市金阊区烽火路82号 天创大厦1层</li>-->

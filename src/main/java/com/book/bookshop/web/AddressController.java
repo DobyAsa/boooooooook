@@ -27,6 +27,7 @@ public class AddressController {
         User user = (User) session.getAttribute("user");
         address.setUserId(user.getId());
         if(address.getIsDefault() != null && address.getIsDefault().equals("on")){
+
             address.setIsDefault("1");
         }
         if (addressService.save(address)){
