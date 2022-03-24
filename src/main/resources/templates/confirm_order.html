@@ -7,7 +7,9 @@
 		<link rel="stylesheet" type="text/css" href="css/index.css" th:href="@{/css/index.css}" />
 		<link rel="stylesheet" type="text/css" href="css/animate.css" th:href="@{/css/animate.css}" />
 		<link rel="stylesheet" type="text/css" href="css/cart.css" th:href="@{/css/cart.css}"/>
-	
+		<link rel="stylesheet" th:href="@{/layui/css/layui.css}">
+
+
 		<style type="text/css">
 			.form-control{
 				width: 100%;
@@ -39,6 +41,7 @@
 					<ul class="list-group" id="address">
 						<li th:if="${not #lists.isEmpty(addressList)}" th:each="address:${addressList}" class="list-group-item">
 							<input type="radio" name="addr" th:value="${address.id}" th:text="${address.province}+${address.city}+${address.area}+${address.detailAddress}" th:checked="${address.isDefault=='1'}">&nbsp;
+							<a class="btn btn-default" th:onclick="setDefault([[${address.id}]])">设为默认</a>
 						</li>
 						<li class="list-group-item" th:if="${#lists.isEmpty(addressList)}">暂无收货地址！</li>
 <!--						<li class="list-group-item"><input type="radio" name="addr">&nbsp;江苏省苏州市金阊区烽火路82号 天创大厦1层</li>-->
@@ -93,7 +96,7 @@
 								<div class="form-group has-feedback">
 									<label class="col-sm-2 control-label">邮政编码</label>
 									<div class="col-md-5">
-										<input type="text" class="form-control" id="lastname2" name="emailCode" placeholder="邮政编码">
+										<input type="text" class="form-control" id="emailCode" name="emailCode" placeholder="邮政编码">
 										<span class="glyphicon glyphicon-hand-left form-control-feedback"></span>
 									</div>
 								</div>
@@ -264,7 +267,9 @@
 		<!--<script src="js/details.js" type="text/javascript" charset="utf-8"></script>-->
 		<!--<script src="js/cart.js" type="text/javascript" charset="utf-8"></script>-->
 		<script src="js/confirm_order.js" th:src="@{/js/confirm_order.js}"></script>
-		<script th:inline="javascript">
+		<script th:src="@{/layui/layui.js}"></script>
+
+	<script th:inline="javascript">
 			//获取应用路径
 			var contextPath = [[${#request.getContextPath()}]];
 		</script>
@@ -285,7 +290,18 @@
 			 //新增收货地址
 			function saveAddress() {
 				var addressData = $("#addressForm").serialize();
-
+				var tel = $("#tel").val();
+				var emailCode = $("#emailCode").val();
+				//数字正则
+				var reg = new RegExp("^[0-9]*$");
+				if (!reg.test(tel)){
+					layer.msg('电话号码请输入数字！', {icon: 7,anim:6});
+					return;
+				}
+				if (!reg.test(emailCode)){
+					layer.msg('邮编请输入数字！', {icon: 7,anim:6});
+					return;
+				}
 				$.ajax({
 					url:contextPath + "/address/save",
 					method:"post",
@@ -306,6 +322,21 @@
 				if (inputBookName != ''){
 					window.location.href = contextPath + "/book/searchBook?inputBookName=" + inputBookName;
 				}else alert('请输入图书名')
+			}
+
+			function setDefault(addressId) {
+				$.ajax({
+					url:contextPath + "/address/setDefault",
+					type:"post",
+					data:{"addressId":addressId},
+					success:function (data) {
+						if (data=='success'){
+							location.reload();
+						}else {
+							alert('操作失败')
+						}
+					}
+				})
 			}
 		</script>
 	</body>

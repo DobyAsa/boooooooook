@@ -3,10 +3,7 @@ package com.book.bookshop;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.book.bookshop.entity.*;
 import com.book.bookshop.entity.enums.Category;
-import com.book.bookshop.mapper.BookMapper;
-import com.book.bookshop.mapper.CartMapper;
-import com.book.bookshop.mapper.OrderItemMapper;
-import com.book.bookshop.mapper.OrderMapper;
+import com.book.bookshop.mapper.*;
 import com.book.bookshop.service.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +38,10 @@ class BookShopApplicationTests {
     private OrderService orderService;
     @Autowired
     private CommentService commentService;
+    @Autowired
+    private AddressService addressService;
+    @Autowired
+    private AddressMapper addressMapper;
     @Test
     void findBooks() {
         userService.list().forEach(System.out::println);
@@ -151,8 +152,7 @@ class BookShopApplicationTests {
 
     @Test
     public void asd(){
-        for (int i=0;i<10;i++){
-            System.out.println((int)(Math.random()*100000));
-        }
+        int i = addressMapper.setDefault(13);
+        System.out.println(i);
     }
 }
