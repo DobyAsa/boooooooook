@@ -42,12 +42,13 @@
 						<li th:if="${not #lists.isEmpty(addressList)}" th:each="address:${addressList}" class="list-group-item">
 							<input type="radio" name="addr" th:value="${address.id}" th:text="${address.province}+${address.city}+${address.area}+${address.detailAddress}" th:checked="${address.isDefault=='1'}">&nbsp;
 							<a class="btn btn-default" th:onclick="setDefault([[${address.id}]])">设为默认</a>
+							<a class="btn btn-danger" th:onclick="deleteAddress([[${address.id}]])">删除</a>
 						</li>
 						<li class="list-group-item" th:if="${#lists.isEmpty(addressList)}">暂无收货地址！</li>
 <!--						<li class="list-group-item"><input type="radio" name="addr">&nbsp;江苏省苏州市金阊区烽火路82号 天创大厦1层</li>-->
 <!--						<li class="list-group-item"><input type="radio" name="addr" checked>&nbsp;江苏省苏州市金阊区烽火路83号 天创大厦2层 &nbsp;<span class="text-success">默认地址</span></li>-->
 					</ul>
-					<a href="#" class="text-info" onclick="dispalyMoreAddr(this)">更多地址↓&nbsp;&nbsp;</a>
+<!--					<a href="#" class="text-info" onclick="dispalyMoreAddr(this)">更多地址↓&nbsp;&nbsp;</a>-->
 					<a href="javascript:void(0)" id="addAddr" class="text-success" data-toggle="modal" data-target="#addrModal">添加新地址</a>
 
 				</div>
@@ -337,6 +338,29 @@
 						}
 					}
 				})
+			}
+
+			function deleteAddress(addressId) {
+				layer.confirm('确定删除？', {
+					icon:3,
+					btn: ['确定', '取消']
+				}, function(index, layero){
+					//按钮【按钮一】的回调
+					$.ajax({
+						url:contextPath + "/address/addressDelete",
+						type:"post",
+						data:{"addressId":addressId},
+						success:function (data) {
+							if (data == 'success'){
+								location.reload();
+							}else {
+								layer.msg('删除失败')
+							}
+						}
+					})
+				}, function(index){
+					return ;
+				});
 			}
 		</script>
 	</body>

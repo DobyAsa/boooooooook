@@ -49,4 +49,13 @@ public class AddressController {
             else return "fail";
     }
 
+    @RequestMapping("/addressDelete")
+    @ResponseBody
+    public String addressDelete(Integer addressId){
+        if (addressService.removeById(addressId)){
+            return "success";
+        }
+        else return "fail";
+    }
+
 }
