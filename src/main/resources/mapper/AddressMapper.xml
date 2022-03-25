@@ -7,8 +7,8 @@
 注意：使用mapper代理方法开发，namespace有特殊重要的作用
 -->
 <mapper namespace="com.book.bookshop.mapper.AddressMapper">
-    <update id="setAllTo0">
-        update bs_address set is_default = '0'
+    <update id="setAllTo0" parameterType="integer">
+        update bs_address set is_default = '0' where user_id = #{userId}
     </update>
 
     <update id="setDefault" parameterType="integer">

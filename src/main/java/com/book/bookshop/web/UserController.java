@@ -86,7 +86,7 @@ public class UserController {
     //注销
     @RequestMapping("/logout")
     public String logout(HttpSession session) {
-        session.invalidate();
+        session.removeAttribute("user");
         return "redirect:/book/index";
     }
 
@@ -205,11 +205,21 @@ public class UserController {
 
     }
 
-    //跳转至申诉页面
+    //跳转至申诉页面（用户名
     @RequestMapping(value = "/toAppeal", method = RequestMethod.GET)
     public String toAppeal(String username, Model model) {
         QueryWrapper queryWrapper = new QueryWrapper();
         queryWrapper.eq("username", username);
+        User user = userService.getOne(queryWrapper);
+        model.addAttribute("user", user);
+        return "appealPage";
+    }
+
+    //跳转至申诉页面（邮箱）
+    @RequestMapping(value = "/toAppealByEmail", method = RequestMethod.GET)
+    public String toAppealByEmail(String email, Model model) {
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.eq("email", email);
         User user = userService.getOne(queryWrapper);
         model.addAttribute("user", user);
         return "appealPage";
@@ -236,6 +246,21 @@ public class UserController {
     public String appeal(String username) {
         QueryWrapper queryWrapper = new QueryWrapper();
         queryWrapper.eq("username", username);
+        User user = userService.getOne(queryWrapper);
+        QueryWrapper<Appeal> queryWrapper1 = new QueryWrapper();
+        queryWrapper1.eq("user_id", user.getId()).eq("state", 1);
+        Appeal appeal = appealService.getOne(queryWrapper1);
+        if (appeal != null) {//userId已存在且待审核
+            return "success";
+        } else
+            return "fail";
+    }
+
+    @RequestMapping(value = "/checkAppealByEmail", method = RequestMethod.POST)
+    @ResponseBody
+    public String appealByEmail(String email) {
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.eq("email", email);
         User user = userService.getOne(queryWrapper);
         QueryWrapper<Appeal> queryWrapper1 = new QueryWrapper();
         queryWrapper1.eq("user_id", user.getId()).eq("state", 1);

@@ -30,7 +30,7 @@ public class AddressController {
         User user = (User) session.getAttribute("user");
         address.setUserId(user.getId());
         if(address.getIsDefault() != null && address.getIsDefault().equals("on")){
-            addressMapper.setAllTo0();
+            addressMapper.setAllTo0(user.getId());
             address.setIsDefault("1");
         }
         if (addressService.save(address)){
@@ -42,7 +42,8 @@ public class AddressController {
     @RequestMapping("/setDefault")
     @ResponseBody
     public String setDefault(Integer addressId,HttpSession session){
-        addressMapper.setAllTo0();
+        User user = (User) session.getAttribute("user");
+        addressMapper.setAllTo0(user.getId());
         if (addressMapper.setDefault(addressId)>0){
             return "success";
         }

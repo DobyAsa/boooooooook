@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface AddressMapper extends BaseMapper<Address> {
-     int setAllTo0();
+     int setAllTo0(Integer userId);
 
      int setDefault(Integer addressId);
 }

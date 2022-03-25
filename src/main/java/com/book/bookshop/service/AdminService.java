@@ -31,7 +31,7 @@ public class AdminService extends ServiceImpl<AdminMapper, Admin> {
 //            model.addAttribute("msg","验证码输入错误");
                 return "103";//验证码错误
             } else if (loginAdmin.getPassword().equals((admin.getPassword()))) {
-                session.setAttribute("user", admin);
+                session.setAttribute("admin", admin);
                 return "100";//密码正确 正常登录
             } else {
                 return "102";//密码错误

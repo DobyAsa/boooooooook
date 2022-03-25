@@ -263,4 +263,11 @@ public class AdminController {
 
     }
 
+    //注销
+    @RequestMapping("/logout")
+    public String logout(HttpSession session) {
+        session.removeAttribute("admin");
+        return "redirect:/book/index";
+    }
+
 }

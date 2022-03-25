@@ -6,7 +6,7 @@ server:
 file:
   upload:
     path: D://images/
-
+#沙箱支付参数
 alipay:
   url: https://openapi.alipaydev.com/gateway.do
   appid: 2021000119637885
@@ -19,6 +19,9 @@ web:
   upload-path: D://images/
 #数据库相关配置:
 spring:
+  devtools:
+    restart:
+      enabled: false #关闭热部署
   servlet:
     multipart:
       max-file-size: 10MB

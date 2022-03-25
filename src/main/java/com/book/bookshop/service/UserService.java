@@ -57,7 +57,7 @@ public class UserService extends ServiceImpl<UserMapper, User> {
             } else if (user.getState()==2){
                 return "104";//该账号被封禁
             }
-            else if (loginUser.getPassword().equals((user.getPassword())) && !user.getUsername().equals("admin")) {
+            else if (loginUser.getPassword().equals((user.getPassword()))) {
                 session.setAttribute("user", user);
                 return "100";//密码正确 正常登录
             } else {
@@ -78,6 +78,9 @@ public class UserService extends ServiceImpl<UserMapper, User> {
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("email",email);
         User user = userMapper.selectOne(queryWrapper);
+        if (user.getState()==2){
+            return "104";//该账号被封禁
+        }
         session.setAttribute("user",user);
         return "100";
     }

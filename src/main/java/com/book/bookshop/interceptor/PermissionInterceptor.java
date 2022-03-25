@@ -1,5 +1,6 @@
 package com.book.bookshop.interceptor;
 
+import com.book.bookshop.entity.Admin;
 import com.book.bookshop.entity.User;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -16,7 +17,8 @@ public class PermissionInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
-        if(user != null && user.getUsername() != null){
+        Admin admin = (Admin) session.getAttribute("admin");
+        if(user != null && user.getUsername() != null ){
             return true;
         }else {
             response.sendRedirect(request.getContextPath() + "/book/index");

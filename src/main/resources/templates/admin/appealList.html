@@ -24,55 +24,34 @@
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="#">后台管理</a>
+					<a class="navbar-brand" th:href="@{/admin/toBookAdmin}">后台管理</a>
 				</div>
 				<div class="collapse navbar-collapse" id="example-navbar-collapse">
 					<ul class="nav navbar-nav pull-left">
-						<li class="active">
-							<a href="index.html">管理首页</a>
+						<li >
+							<a th:href="@{/book/index}">前台首页</a>
 						</li>
-
-<!--						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-								图书类型
-								<b class="caret"></b>
-							</a>
-							<ul class="dropdown-menu">
-								<li>
-									<a href="books_list.html">精选图书</a>
-								</li>
-								<li class="divider"></li>
-								<li>
-									<a href="books_list.html">推荐图书</a>
-								</li>
-								<li class="divider"></li>
-								<li>
-									<a href="books_list.html">特价图书</a>
-								</li>
-								<li class="divider"></li>
-							</ul>
-						</li>-->
+						<li >
+							<a th:href="@{/admin/toBookAdmin}">图书管理</a>
 						</li>
-						<li>
-							<a href="#" data-toggle="modal" data-target="#myModal">登录</a>
+						<li th:if="${session.admin != null}">
+							<a href="javascript:void(0)" th:text="${session.admin.username}"></a>
 						</li>
-						<li>
-							<a href="index.html">安全退出</a>
-						</li>
-<!--						<li>
-							<a href="#" data-toggle="modal" data-target="#register">注册</a>
-						</li>-->
-						<li>
-							<a href="order_list.html">图书管理</a>
+						<li th:if="${session.admin != null}">
+							<a th:href="@{/admin/logout}">&nbsp;安全退出</a>
 						</li>
 						<li>
 							<a th:href="@{/admin/toAllUsers}">用户管理</a>
 						</li>
+						<li>
+							<a th:href="@{/admin/toAppealList}">申诉管理</a>
+						</li>
+
 					</ul>
 					<div class="input-group col-md-3 pull-right" style="positon:relative;padding: 7px;">
-						<input type="text" class="form-control" placeholder="请输入图书名" />
+						<input type="text" class="form-control" id="inputUsername" placeholder="请输入用户名" />
 						<span class="input-group-btn">
-					            <button class="btn btn-info btn-search">
+					            <button class="btn btn-info btn-search" th:onclick="searchUsername()">
 					            	<span class="glyphicon glyphicon-search"></span>
 					            </button>
 							</span>
@@ -81,6 +60,7 @@
 			</div>
 		</nav>
 	</div>
+
 	<!--导航部分 end-->
 
 		<!--购物车 begin-->
@@ -93,7 +73,7 @@
 			<!--左边-->
 			<ol class="breadcrumb">
 				<li>
-					<a href="#" class="text-success"><span class="glyphicon glyphicon-heart"></span>&nbsp;&nbsp;商品管理</a>
+					<a href="#" class="text-success"><span class="glyphicon glyphicon-heart"></span>&nbsp;&nbsp;申诉管理</a>
 				</li>
 			</ol>
 
@@ -103,7 +83,7 @@
 					<thead>
 					<tr class="text-success success">
 						<th style="width: 30px;">
-							<input type="checkbox" id="selectAll" onclick="selectAll(this)">
+<!--							<input type="checkbox" id="selectAll" onclick="selectAll(this)">-->
 							<!--								<input type="checkbox" id="testId" onclick="selectAll(this)">-->
 						</th>
 						<th id="sequence">序号</th>
@@ -117,7 +97,7 @@
 					<tbody id="tby" th:each="appeal:${appealList}" >
 					<tr>
 						<td style="width: 30px;">
-							<input type="checkbox" name="cks"  th:value="${appeal.id}" >
+<!--							<input type="checkbox" name="cks"  th:value="${appeal.id}" >-->
 							<!--								<input type="checkbox" name="cks" onclick="cks(this)" name="testName" value="${item.id}">-->
 						</td>
 						<td th:text="${appeal.id}">1001</td>
@@ -144,11 +124,11 @@
 					<tr>
 						<td colspan="3"></td>
 						<td class="text-success">总数量:</td>
-						<td class="text-success">20本</td>
+						<td class="text-success" th:text="${appealList.size()}"></td>
 					</tr>
 					<tr style="background-color: white;">
 
-						<td><button class="btn btn-success" data-toggle="modal" data-target="#myModal" th:onclick="deleteUsers()">批量封号</button></td>
+<!--						<td><button class="btn btn-success" data-toggle="modal" data-target="#myModal" th:onclick="deleteUsers()">批量封号</button></td>-->
 						<td colspan="4"></td>
 						<!--							<td>
                                                         <a href="confirm_order.html" class="btn btn-warning">结算商品</a>
@@ -183,8 +163,16 @@
 			//获取应用路径
 			var contextPath = [[${#request.getContextPath()}]];
 			var pages = [[${pages}]];
+			var admin = [[${session.admin}]]
+
 		</script>
+
 		<script type="text/javascript">
+			$(function () {
+				if (admin == null || admin == undefined || admin == 'undefined') {
+					location.href = contextPath + "/book/index";
+				}
+			})
 			if(!(/msie [6|7|8|9]/i.test(navigator.userAgent))) {
 				new WOW().init();
 			};
@@ -299,170 +287,14 @@
 				return ;
 			});
 		}
+
+		//根据用户名搜索
+		function searchUsername() {
+			var inputUsername = $("#inputUsername").val();
+			if (inputUsername != ''){
+				window.location.href = contextPath + "/admin/searchUser?inputUsername=" + inputUsername;
+			}else layer.msg('请输入用户名！', {icon: 7,anim:6});
+		}
 	</script>
 
-<!--	<script>
-		$(function () {
-			ckbIP.init({
-				checkAllId: 'selectAll', // 全选框id
-				checkBoxName: 'cks' // 列表复选框name
-			});
-
-			// 页面关闭时，要清空sessionStorage，页面关闭事件视具体页面而定
-/*			closeDom.click(function () {
-				ckbIP.clear();
-			});*/
-
-
-		})
-		var ckbIP = (function () {
-			// sessionStorage key前缀
-			var lsKeyPrefix = "checkBoxInPageByCW:";
-
-			// 当前页面复选框列表选择器字符串
-			var checkBoxSelectorStr;
-
-			// 复选框列表name
-			var checkBoxName = "checkBoxInPage";
-
-			// 全选框id 选择器
-			var checkAllBoxId = "#checkAll";
-
-			return {
-				init: init,
-				getAllCheckedIdList: getAllCheckedIdList,
-				clear: clear
-			};
-
-			// 获取所有选中的行id 的集合
-			function getAllCheckedIdList() {
-				var idArr = [];
-				var sessionStorageLength = sessionStorage.length;
-				for (var i = 0; i < sessionStorageLength; i++) {
-					var key = sessionStorage.key(i);
-					var index = key.indexOf(lsKeyPrefix);
-					if (index !== -1 && sessionStorage.getItem(key) === '1') {
-						idArr.push(key.substring(index + lsKeyPrefix.length));
-					}
-				}
-
-				return idArr;
-
-			}
-
-			function init(param) {
-				// debugger
-				initParam(param);
-
-				var listDom = $(checkBoxSelectorStr);
-				addEvent(listDom); // 添加监听事件
-
-				var allCheckFlag = true; // 若页面上行已全部选中，则标题置为选中状态
-
-				for (var i = 0; i < listDom.length; i++) {
-					var tmpDom = listDom[i];
-					var id = $(tmpDom).val();
-					if (sessionStorage.getItem(lsKeyPrefix + id) === '1') {
-						$(tmpDom).attr('checked', 'checked');
-					}else {
-						$(tmpDom).attr('checked', false);
-						allCheckFlag = false;
-					}
-
-				}
-
-				if (allCheckFlag) {
-					$(checkAllBoxId).attr('checked', 'checked');
-				}
-
-			}
-
-			function initParam(param) {
-				if (param !== undefined && param !== null) {
-					if (param.checkAllId !== undefined) {
-						checkAllBoxId = "#" + param.checkAllId;
-					}
-					if (param.checkBoxName !== undefined) {
-						checkBoxName = param.checkBoxName;
-					}
-				}
-				checkBoxSelectorStr = "input[name='" + checkBoxName + "']";
-
-			}
-
-			// 添加监听事件
-			function addEvent(curListDom) {
-				curListDom.on('change', onCheckChange);
-				$(checkAllBoxId).on('click', onCheckAllClick);
-
-			}
-
-			// 当页面关闭清空sessionStorage
-			function clear() {
-				debugger
-				var delKeyArr = []; // 要删除的key集合，删除会导致sessionStorage 长度动态变化，要先记录
-				var length = sessionStorage.length;
-				for (var i = 0; i < length; i++) {
-					var key = sessionStorage.key(i);
-					var index = key.indexOf(lsKeyPrefix);
-					if (index !== -1) {
-						delKeyArr.push(key);
-					}
-				}
-
-				var delKeyLength = delKeyArr.length;
-				for (var j = 0; j < delKeyLength; j++) {
-					sessionStorage.removeItem(delKeyArr[j]);
-				}
-
-			}
-
-			// 全选复选框
-			function onCheckAllClick() {
-				debugger
-				var checkAllStatus = $(checkAllBoxId).attr('checked');
-				var curPageCheckListDom = $(checkBoxSelectorStr); // 当前页面复选框
-				if (checkAllStatus === 'checked') {
-					curPageCheckListDom.attr('checked', 'checked');
-					for (var i = 0; i < curPageCheckListDom.length; i++) {
-						var curTmpDom = curPageCheckListDom[i];
-						var id = $(curTmpDom).val();
-						sessionStorage.setItem(lsKeyPrefix + id, '1'); // 选中
-					}
-
-				}else {
-					curPageCheckListDom.attr('checked', false);
-					for (var i = 0; i < curPageCheckListDom.length; i++) {
-						var curTmpDom = curPageCheckListDom[i];
-						var id = $(curTmpDom).val();
-						sessionStorage.setItem(lsKeyPrefix + id, '0'); // 未选中
-					}
-
-				}
-
-			}
-
-			function onCheckChange(event) {
-				debugger
-				var id = $(this).val();
-				var checkStatus = $(this).attr('checked');
-
-				if (checkStatus === 'checked') {
-					sessionStorage.setItem(lsKeyPrefix + id, '1'); // 选中
-					var curlistDom = $(checkBoxSelectorStr + ":not(:checked)"); // 当前页面未被选中的复选框
-					if (curlistDom.length === 0) {
-						$(checkAllBoxId).attr('checked', 'checked');
-					}
-
-				}else {
-					sessionStorage.setItem(lsKeyPrefix + id, '0'); // 未选中
-					$(checkAllBoxId).attr('checked', false); // 标题复选框置为未选中
-				}
-
-			}
-
-
-		})();
-
-	</script>-->
 </html>

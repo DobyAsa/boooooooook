@@ -386,6 +386,10 @@
 				layer.msg('请输入数字！', {icon: 7,anim:6});
 				return;
 			}
+			if (page==''){
+				layer.msg('请输入页码', {icon: 7,anim:6});
+				return;
+			}
 			$("#orderData").load(contextPath + "/order/getOrderListData",queryData(page,pageSize))
 		}
 

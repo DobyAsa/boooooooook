@@ -24,53 +24,32 @@
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="#">后台管理</a>
+					<a class="navbar-brand" th:href="@{/admin/toBookAdmin}">后台管理</a>
 				</div>
 				<div class="collapse navbar-collapse" id="example-navbar-collapse">
 					<ul class="nav navbar-nav pull-left">
-						<li class="active">
-							<a href="index.html">管理首页</a>
+						<li >
+							<a th:href="@{/book/index}">前台首页</a>
 						</li>
-
-<!--						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-								图书类型
-								<b class="caret"></b>
-							</a>
-							<ul class="dropdown-menu">
-								<li>
-									<a href="books_list.html">精选图书</a>
-								</li>
-								<li class="divider"></li>
-								<li>
-									<a href="books_list.html">推荐图书</a>
-								</li>
-								<li class="divider"></li>
-								<li>
-									<a href="books_list.html">特价图书</a>
-								</li>
-								<li class="divider"></li>
-							</ul>
-						</li>-->
+						<li >
+							<a th:href="@{/admin/toBookAdmin}">图书管理</a>
 						</li>
-						<li>
-							<a href="#" data-toggle="modal" data-target="#myModal">登录</a>
+						<li th:if="${session.admin != null}">
+							<a href="javascript:void(0)" th:text="${session.admin.username}"></a>
 						</li>
-						<li>
-							<a href="index.html">安全退出</a>
-						</li>
-<!--						<li>
-							<a href="#" data-toggle="modal" data-target="#register">注册</a>
-						</li>-->
-						<li>
-							<a href="order_list.html">图书管理</a>
+						<li th:if="${session.admin != null}">
+							<a th:href="@{/admin/logout}">&nbsp;安全退出</a>
 						</li>
 						<li>
 							<a th:href="@{/admin/toAllUsers}">用户管理</a>
 						</li>
+						<li>
+							<a th:href="@{/admin/toAppealList}">申诉管理</a>
+						</li>
+
 					</ul>
 					<div class="input-group col-md-3 pull-right" style="positon:relative;padding: 7px;">
-						<input type="text" class="form-control" placeholder="请输入用户名" />
+						<input type="text" class="form-control" id="inputUsername" placeholder="请输入用户名" />
 						<span class="input-group-btn">
 					            <button class="btn btn-info btn-search" th:onclick="searchUsername()">
 					            	<span class="glyphicon glyphicon-search"></span>
@@ -93,7 +72,7 @@
 			<!--左边-->
 			<ol class="breadcrumb">
 				<li>
-					<a href="#" class="text-success"><span class="glyphicon glyphicon-heart"></span>&nbsp;&nbsp;商品管理</a>
+					<a href="#" class="text-success"><span class="glyphicon glyphicon-heart"></span>&nbsp;&nbsp;搜索结果</a>
 				</li>
 			</ol>
 
@@ -198,8 +177,15 @@
 			//获取应用路径
 			var contextPath = [[${#request.getContextPath()}]];
 			var pages = [[${pages}]];
+			var admin = [[${session.admin}]]
+
 		</script>
 		<script type="text/javascript">
+			$(function () {
+				if (admin == null || admin == undefined || admin == 'undefined') {
+					location.href = contextPath + "/book/index";
+				}
+			})
 			if(!(/msie [6|7|8|9]/i.test(navigator.userAgent))) {
 				new WOW().init();
 			};

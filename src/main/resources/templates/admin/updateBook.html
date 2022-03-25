@@ -13,7 +13,7 @@
 
 	<body>
 	<!--导航部分  begin-->
-	<div th:replace="common/header :: nav"></div>
+	<div th:replace="admin/common/header :: nav"></div>
 	<!--导航部分 end-->
 
 	<div class="container">
@@ -129,6 +129,8 @@
 			//获取应用路径
 			var contextPath = [[${#request.getContextPath()}]];
 			var pages = [[${pages}]];
+			var admin = [[${session.admin}]]
+
 		</script>
 		<script>
 			layui.use('laydate', function(){
@@ -142,11 +144,14 @@
 			});
 		</script>
 		<script type="text/javascript">
+			$(function () {
+				if (admin == null || admin == undefined || admin == 'undefined') {
+					location.href = contextPath + "/book/index";
+				}
+			})
 			if(!(/msie [6|7|8|9]/i.test(navigator.userAgent))) {
 				new WOW().init();
 			};
-			//根据图书名搜索
-
 
 		</script>
 

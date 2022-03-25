@@ -1,6 +1,7 @@
 package com.book.bookshop;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.book.bookshop.entity.*;
 import com.book.bookshop.entity.enums.Category;
 import com.book.bookshop.mapper.*;
@@ -152,7 +153,6 @@ class BookShopApplicationTests {
 
     @Test
     public void asd(){
-        int i = addressMapper.setDefault(13);
-        System.out.println(i);
-    }
+        System.out.println(        StringUtils.camelToUnderline("DoYouRem")
+        );    }
 }

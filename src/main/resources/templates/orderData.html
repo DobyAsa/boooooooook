@@ -101,7 +101,7 @@
 			<div class="row text-center">
 				<div class="col-md-12">
 					<ul class="pagination">
-						<li><a href="javascript:void(0)" th:onclick="loadData(1)">首页</a></li>
+						<li><a href="javascript:void(0)" th:onclick="loadData(1,[[${pageSize}]])">首页</a></li>
 						<li >
 							<a href="javascript:void(0)" th:style="${cur == 1} ? 'pointer-events:none':''" th:onclick="loadData([[${pre}]],[[${pageSize}]])">&laquo;</a>
 						</li>
