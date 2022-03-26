@@ -155,7 +155,7 @@ public class UserController {
     }
 
     //跳到订单评论页面
-    @RequestMapping("/toComment")
+/*    @RequestMapping("/toComment")
     public String toComment(Integer orderId, Model model, HttpSession session) {
         Order order = orderService.getById(orderId);
         QueryWrapper queryWrapper = new QueryWrapper();
@@ -181,10 +181,22 @@ public class UserController {
         session.setAttribute("booksOfComment", books);
         session.setAttribute("orderOfComment", order);
         return "commentPage";
+    }*/
+    @RequestMapping("/toComment")
+    public String toComment(Integer orderItemId, Model model, HttpSession session) {
+        //根据itemid获取书本的id，
+        OrderItem orderItem = orderItemService.getById(orderItemId);
+        Book book = bookService.getById(orderItem.getBookId());
+        // 再获取session的userid
+        User user = (User) session.getAttribute("user");
+        model.addAttribute("book",book);
+        model.addAttribute("user",user);
+        model.addAttribute("orderItem",orderItem);
+        return "commentPage";
     }
 
     //点击评论
-    @RequestMapping("/comment")
+/*    @RequestMapping("/comment")
     public String comment(HttpSession session, String content) {
         List<Book> booksOfComment = (List<Book>) session.getAttribute("booksOfComment");
         Order order = (Order) session.getAttribute("orderOfComment");
@@ -201,6 +213,24 @@ public class UserController {
         commentService.saveBatch(comments);
         order.setOrderStatus("3");
         orderService.updateById(order);
+        return "order_list";
+
+    }*/
+
+    @RequestMapping("/comment")
+    public String comment(HttpSession session, String content,Integer orderItemId) {
+        User user = (User) session.getAttribute("user");
+        OrderItem orderItem = orderItemService.getById(orderItemId);
+        Book book = bookService.getById(orderItem.getBookId());
+        Comment comment = new Comment();
+        comment.setUsername(user.getUsername());
+        comment.setCreateTime(new Date());
+        comment.setContent(content);
+        comment.setBookId(book.getId());
+        comment.setUserId(user.getId());
+        commentService.save(comment);
+        orderItem.setState(2);
+        orderItemService.updateById(orderItem);
         return "order_list";
 
     }

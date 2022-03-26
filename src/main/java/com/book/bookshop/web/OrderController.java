@@ -120,27 +120,6 @@ public class OrderController {
         return "orderData";
     }
 
-/*    @RequestMapping("/orderPay")
-    public String orderPay(Integer orderId){
-        System.out.println(orderId);
-        Order order = orderService.getById(orderId);
-//        List<OrderItem> items = order.getOrderItems();
-        String ids = "26,27,28";
-        List<OrderItem> items = (List<OrderItem>) orderItemService.listByIds(Arrays.asList(ids.split(",")));
-        System.out.println(items);
-*//*        double price = 0.0;
-        String booksName = "";
-        for (OrderItem item:items) {
-            price += item.getCount() * item.getBook().getNewPrice();
-            booksName+=item.getBook().getName()+" ";
-        }
-        order.setTotalPrice(price);*//*//计算订单总金额
-//        String form = alipayUtil.pay(order.getOrderNum(),String.valueOf(order.getTotalPrice()),booksName);
-        String form = alipayUtil.pay(order.getOrderNum(),"666"," 白夜行 斗罗大陆");
-        order.setOrderStatus("2");
-        orderService.updateById(order);
-        return "index";
-    }*/
 
     @RequestMapping("/orderPay")
     public String orderPay(Integer orderId,Model model){

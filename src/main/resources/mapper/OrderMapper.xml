@@ -34,10 +34,11 @@
 
         <!--订单明细-->
         <collection property="orderItems" ofType="com.book.bookshop.entity.OrderItem">
-            <id column="order_item_id"></id>
+            <id column="order_item_id" property="id"></id>
             <result column="book_id" property="bookId"></result>
             <result column="order_id" property="orderId"></result>
             <result column="count" property="count"></result>
+            <result column="state" property="state"></result>
 
             <!--图书信息-->
             <association property="book" javaType="com.book.bookshop.entity.Book">
@@ -65,7 +66,8 @@
         bb.id book_id,
         bb.img_url,
         bb.name,
-        bb.new_price
+        bb.new_price,
+        boi.state
         FROM
         bs_order bo,
         bs_user bu,

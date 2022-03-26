@@ -64,21 +64,12 @@
 							<td th:text="${book.publisher}">黑龙江科学技术出版社</td>
 							<td th:text="${#calendars.format(book.publishDate,'yyyy-MM-dd')}">出版时间</td>
 							<td th:text="${book.cate}">分类</td>
-<!--							<span th:switch="${book.cate}">
-								<td th:case="'SELECTTED'">精选图书</td>
-								<td th:case="'RECOMMEND'">精选图书</td>
-								<td th:case="'BARGAGIN'">精选图书</td>
-							</span>-->
 							<td th:text="${book.oldPrice == 0?'无':book.oldPrice}">原价</td>
 							<td th:text="${book.newPrice}">现价00$</td>
 							<td style="width: 146px;">
 								<button class="btn btn-success" th:onclick="displayInfo([[${book.info}]])">预览</button>
 							</td>
 							<td>
-<!--
-								<a th:href="@{/admin/touUpdateProductPage(proId=${product.proId})}" class="btn btn-info">修改</a>
-								<a th:href="@{/admin/doDeleteProductPage(proId=${product.proId})}" class="btn btn-danger">删除</a>
--->
 								<a class="btn btn-info" th:href="@{/admin/toUpdateBook(bookId=${book.id})}">修改</a>
 								<br>
 								<a th:onclick="deleteBook([[${book.id}]])"  class="btn btn-danger">删除</a>

@@ -98,7 +98,7 @@
 				<!--内容展示 begin-->
 				<div class="table-responsive">
 				  <table class="table table-hover table-striped">
-				    <caption class="text-info">
+<!--				    <caption class="text-info">
 				    	<div class="col-md-10" style="padding-left: 0px;">
 				    		<input type="checkbox" name="cks" th:value="${order.id}">&nbsp;
 							<span th:text="${#calendars.format(order.createDate,'yyyy-MM-dd')}">2017-01-09</span>
@@ -107,12 +107,12 @@
 				    	<div class="col-md-2" style="text-align: right;">
 				    		<a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">订单详情</a>
 				    	</div>
-				    </caption>
+				    </caption>-->
 				    <thead>
-				    	<tr id="collapseThree" class="panel-collapse collapse">
+<!--				    	<tr id="collapseThree" class="panel-collapse collapse">
 					      	<td colspan="9">
 							<div class="panel-body">
-								<!--tab选项卡 begin-->
+								&lt;!&ndash;tab选项卡 begin&ndash;&gt;
 								<ul id="myTab" class="nav nav-tabs">
 									<li class="active">
 										<a href="#home" data-toggle="tab">
@@ -148,29 +148,33 @@
 										</div>
 									</div>
 								</div>
-								<!--tab选项卡 end-->
+								&lt;!&ndash;tab选项卡 end&ndash;&gt;
 								</div>
 							</td>
-				      	</tr>
+				      	</tr>-->
 					    <tr class="active">
-					    	<th>序号</th>
-					        <th>图片</th>
-					        <th>图片名称</th>
-					        <th>单价(元)</th>
-					        <th>数量</th>
-					        <th>实付款(元)</th>
-					        <th>付款日期</th>
+							<th id="sequence">序号</th>
+							<th>图片</th>
+							<th>书名</th>
+							<th>作者</th>
+							<th>出版社</th>
+							<th>出版时间</th>
+							<th>原价</th>
+							<th>现价</th>
 					    </tr>
 				    </thead>
 				    <tbody>
-				      <tr class="warning" th:each="items,iter:${order.orderItems}">
-				      	<td th:text="${items.book.id}">1001</td>
-				        <td><img th:src="@{'/public/' + ${items.book.imgUrl}}" src="images/yuannideqingchunbufumengxiang.jpg"></td>
-				        <td th:text="${items.book.name}">愿你的青春不负梦想</td>
-				        <td th:text="${items.book.newPrice}">80.0</td>
-				        <td th:text="${items.count}">2</td>
-				        <td th:text="${#numbers.formatDecimal(items.count * items.book.newPrice, 0, 1)}">160.0</td>
-				        <td th:text="${#calendars.format(order.createDate,'dd/MM/yyyy')}">01/08/2017</td>
+				      <tr class="warning">
+						  <td th:text="${book.id}">1001</td>
+						  <td id="layer-photos-demo" class="layer-photos-demo">
+							  <img src="images/tenxunchuan.jpg" th:src="@{'/public/' + ${book.imgUrl}}">
+						  </td>
+						  <td th:text="${book.name}">腾讯传</td>
+						  <td th:text="${book.author}">作者</td>
+						  <td th:text="${book.publisher}">黑龙江科学技术出版社</td>
+						  <td th:text="${#calendars.format(book.publishDate,'yyyy-MM-dd')}">出版时间</td>
+						  <td th:text="${book.oldPrice == 0?'无':book.oldPrice}">原价</td>
+						  <td th:text="${book.newPrice}">现价00$</td>
 				    </tbody>
 				  </table>
 				 
@@ -181,6 +185,7 @@
 					<div class="layui-form-item layui-form-text">
 						<label class="layui-form-label">评价</label>
 						<div class="layui-input-block">
+							<input type="hidden" th:value="${orderItem.id}" name="orderItemId">
 							<textarea name="content" placeholder="请输入内容"  class="layui-textarea"></textarea>
 						</div>
 					</div>

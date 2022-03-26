@@ -16,9 +16,9 @@
 						<span th:if="${order.orderStatus == '1'}">
 							<a href="#" class="btn btn-danger" th:onclick="orderPay([[${order.id}]])">点击支付</a>
 						</span>
-						<span th:if="${order.orderStatus == '2'}">
+<!--						<span th:if="${order.orderStatus == '2'}">
 							<a href="#" class="btn btn-success" th:href="@{/user/toComment(orderId=${order.id})}">点击评价</a>
-						</span>
+						</span>-->
 					</div>
 					<div class="col-md-2" style="text-align: right;">
 						<a data-toggle="collapse" th:href="@{'#collapseDetail' + ${iter.index}}">订单详情</a>
@@ -74,7 +74,7 @@
 					<th>数量</th>
 					<th>实付款(元)</th>
 					<th>下单日期</th>
-					<th>状态</th>
+					<th>状态/操作</th>
 				</tr>
 				</thead>
 				<tbody>
@@ -86,12 +86,10 @@
 					<td th:text="${items.count}">2</td>
 					<td th:text="${#numbers.formatDecimal(items.count * items.book.newPrice, 0, 1)}">160.0</td>
 					<td th:text="${#calendars.format(order.createDate,'yyyy/MM/dd')}">01/08/2017</td>
-					<td th:if="${order.orderStatus == '1'&&iter.first}">待支付</td>
-					<td th:if="${order.orderStatus == '1'&& !iter.first}"></td>
-					<td th:if="${order.orderStatus == '2'&&iter.first}">已支付</td>
-					<td th:if="${order.orderStatus == '2'&& !iter.first}">
-					<td th:if="${order.orderStatus == '3'&&iter.first}">已评价</td>
-					<td th:if="${order.orderStatus == '3'&& !iter.first}"></td>
+					<td th:if="${order.orderStatus == '1'}">待支付</td>
+
+					<td th:if="${items.state == 1&&order.orderStatus == '2'}"><a class="btn btn-primary" th:href="@{/user/toComment(orderItemId=${items.id})}">点击评价</a></td>
+					<td th:if="${items.state == 2}">已评价</td>
 				</tr>
 				</tbody>
 			</table>
