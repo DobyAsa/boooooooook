@@ -102,7 +102,7 @@ public class AdminController {
         if (book.getCate().equals("推荐图书")) book.setCategory(Category.RECOMMEND);
         if (book.getCate().equals("特价图书")) book.setCategory(Category.BARGAGIN);
         book.setPublishDate(simpleDateFormat.parse(pubDate));
-        book.setAuthorLoc("中国");
+//        book.setAuthorLoc("中国");
 //        book.setSuit(Suit.YES);
         String bookPicName = bookPic.getOriginalFilename();
         book.setImgUrl(bookPicName);
