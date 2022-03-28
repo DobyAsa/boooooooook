@@ -195,7 +195,7 @@ public class UserController {
         return "commentPage";
     }
 
-    //点击评论
+
 /*    @RequestMapping("/comment")
     public String comment(HttpSession session, String content) {
         List<Book> booksOfComment = (List<Book>) session.getAttribute("booksOfComment");
@@ -216,7 +216,7 @@ public class UserController {
         return "order_list";
 
     }*/
-
+    //点击评论
     @RequestMapping("/comment")
     public String comment(HttpSession session, String content,Integer orderItemId) {
         User user = (User) session.getAttribute("user");

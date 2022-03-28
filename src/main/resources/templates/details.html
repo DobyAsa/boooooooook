@@ -124,6 +124,8 @@
                                 <li class="list-group-item">
                                     <span class="text-info" th:text="${comment.username}+'： '">小明:</span>
                                     <span class="text-success " th:text="${comment.content}">这真的是一本好书</span>
+                                    <br>
+                                    <span th:text="${#calendars.format(comment.createTime,'yyyy-MM-dd HH:mm:ss')}"></span>
                                 </li>
                             </ul>
                             </p>
