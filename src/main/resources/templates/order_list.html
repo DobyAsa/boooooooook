@@ -312,7 +312,7 @@
 			//获取所有的checkbox
 			var cks = document.getElementsByName("cks");
 			//遍历
-			for(var i = 0; i < cks.length; i++) {p
+			for(var i = 0; i < cks.length; i++) {
 				if(cks[i].checked) {
 					count++;
 					ids += cks[i].value + ",";
@@ -320,6 +320,7 @@
 			}
 			if(count == 0) {
 				alert('请勾选订单！');
+				return;
 				// thirdModel.style.display = "block";
 				// $("#third_del").css("display","block");
 			} else {

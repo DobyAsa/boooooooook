@@ -42,7 +42,28 @@ function checkRegEmail() {
 }
 //用户注册
 function register() {
-
+    var username = $("#regUsername").val();
+    var pwd = $("#regPwd").val();
+    var email = $("#email").val();
+    var tel = $("#regTel").val();
+    var school = $("#regSchool").val();
+    if (username == ''){
+        layer.msg('用户名不为空', {icon: 7,anim:6});
+        return;
+    }
+    if (pwd == ''){
+        layer.msg('密码不为空', {icon: 7,anim:6});
+        return;
+    }
+    if (email == ''){
+        layer.msg('邮箱不为空', {icon: 7,anim:6});
+        return;
+    }
+    if (tel == ''){
+        layer.msg('电话不为空', {icon: 7,anim:6});
+        return;
+    }
+    checkEmail();
     var datas = $("#regForm").serialize();
     $.ajax({
         url: contextPath + "/user/register",

@@ -16,7 +16,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/public/**").addResourceLocations("file:D:\\images\\");
     }
 
-    //注册自定义拦截器
+    //自定义拦截器
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new PermissionInterceptor()).addPathPatterns("/order/**","/cart/**","/user/userInfo/**");

@@ -148,7 +148,7 @@
                         <div class="form-group has-feedback">
                             <label for="firstname" class="col-sm-2 control-label">用户名</label>
                             <div class="col-sm-5">
-                                <input type="text" name="username" class="form-control" required placeholder="请输入用户名."
+                                <input type="text" name="username" class="form-control" id="regUsername" required placeholder="请输入用户名"
                                        th:onblur="|checkUser(this)|">
                                 <span class="glyphicon glyphicon-user form-control-feedback"></span>
                             </div>
@@ -159,7 +159,7 @@
                         <div class="form-group has-feedback">
                             <label for="lastname" class="col-sm-2 control-label">密码</label>
                             <div class="col-sm-5">
-                                <input type="password" name="password" class="form-control" placeholder="请输入密码"
+                                <input type="password" name="password" id="regPwd" class="form-control" placeholder="请输入密码"
                                        minlength="6"
                                        maxlength="8">
                                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
@@ -186,9 +186,9 @@
                         </div>
 
                         <div class="form-group has-feedback">
-                            <label class="col-sm-2 control-label">电话</label>
+                            <label class="col-sm-2 control-label">联系方式</label>
                             <div class="col-sm-5">
-                                <input type="tel" name="phone" class="form-control" placeholder="请输入手机">
+                                <input type="tel" name="phone" id="regTel" class="form-control" placeholder="请输入手机">
                                 <span class="glyphicon glyphicon-earphone form-control-feedback"></span>
                             </div>
                         </div>
@@ -196,7 +196,7 @@
                         <div class="form-group has-feedback">
                             <label class="col-sm-2 control-label">学校</label>
                             <div class="col-sm-5">
-                                <input type="text" name="school" class="form-control" placeholder="请输入学校">
+                                <input type="text" name="school" id="regSchool" class="form-control" placeholder="请输入学校">
                                 <span class="glyphicon glyphicon-home form-control-feedback"></span>
                             </div>
                         </div>
