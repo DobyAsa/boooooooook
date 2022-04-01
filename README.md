@@ -15,5 +15,5 @@
 1.  运行主启动类。
 2.  浏览器输入http://localhost:8000/book/book/index进入主页
 3.  后台管理员账密：admin
-4.  图片路径默认为d:/images，在src/main/java/com/book/bookshop/config/WebMvcConfig.java中可以修改
+4.  图片路径默认为D盘D:/images，在src/main/java/com/book/bookshop/config/WebMvcConfig.java中可以修改
 
