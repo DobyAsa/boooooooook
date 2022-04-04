@@ -103,7 +103,9 @@ public class UserController {
     public String checkRegEmail(String email){
         QueryWrapper queryWrapper = new QueryWrapper();
         queryWrapper.eq("email", email);
-        if (userService.getOne(queryWrapper)!=null){
+        //如果查询到则返回success
+
+        if (userService.list(queryWrapper).size()>0){
             return "success";
         }else return "fail";
 

@@ -11,9 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 @SpringBootTest
 class BookShopApplicationTests {
@@ -151,8 +149,33 @@ class BookShopApplicationTests {
         System.out.println(comments);
     }
 
+    //随机生成一个0到9的数，生成一百次。输出为0~9及其生成次数
     @Test
     public void asd(){
-        System.out.println(        StringUtils.camelToUnderline("DoYouRem")
-        );    }
+        Random random = new Random();
+        Map map = new HashMap();
+        for (int i=0;i<100;i++){
+            int n  = random.nextInt(10);
+            //            list.add();
+            if (map.size()!=0){
+                if (!map.containsKey(n)){
+                    map.put(n,1);
+
+                }else {
+                    int c  = (int) map.get(n);
+                    map.replace(n,++c);
+                }
+            }else {
+                map.put(n,1);
+            }
+
+
+        }
+        for (int i =0 ;i<map.size();i++){
+            System.out.println(i+"出现的次数："+map.get(i));
+        }
+
+      }
+
+
 }

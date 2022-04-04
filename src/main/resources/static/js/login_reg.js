@@ -47,6 +47,8 @@ function register() {
     var email = $("#email").val();
     var tel = $("#regTel").val();
     var school = $("#regSchool").val();
+    var emailReg = new RegExp("^\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$");
+    var schoolReg = new RegExp("^[\u4e00-\u9fa5]{0,}$");
     if (username == ''){
         layer.msg('用户名不为空', {icon: 7,anim:6});
         return;
@@ -63,25 +65,50 @@ function register() {
         layer.msg('电话不为空', {icon: 7,anim:6});
         return;
     }
-    checkEmail();
-    var datas = $("#regForm").serialize();
+    if (!emailReg.test(email)){
+        layer.msg('邮箱不合法！', {icon: 7,anim:6});
+        return;
+    }
+    if (!school.test(schoolReg)){
+        layer.msg('请输入中文！', {icon: 7,anim:6});
+        return;
+    }
+
     $.ajax({
-        url: contextPath + "/user/register",
-        data: datas,
-        method: "post",
-        success: function (data) {
-            if (data == 'success') {
-                alert("注册成功，请登录！");
-                $("#register").modal('hide');
+        url:contextPath + "/user/checkRegEmail",
+        type:"post",
+        data:{"email":email},
+        success:function (data) {
+            if (data=='success'){
+                layer.msg('邮箱已存在');
+                return;
+            }else {
+                var telReg = new RegExp("((\\d{11})|^((\\d{7,8})|(\\d{4}|\\d{3})-(\\d{7,8})|(\\d{4}|\\d{3})-(\\d{7,8})-(\\d{4}|\\d{3}|\\d{2}|\\d{1})|(\\d{7,8})-(\\d{4}|\\d{3}|\\d{2}|\\d{1}))$)");
+                if (!telReg.test(tel)){
+                    layer.msg('电话号码不合法！', {icon: 7,anim:6});
+                    return;
+                }
+                var datas = $("#regForm").serialize();
+                $.ajax({
+                    url: contextPath + "/user/register",
+                    data: datas,
+                    method: "post",
+                    success: function (data) {
+                        if (data == 'success') {
+                            layer.msg('注册成功，请登录')
+                            $("#register").modal('hide');
+                        }
+                    }
+                })
             }
         }
     })
+
 }
 
 //用户登录
 function login() {
     var username = $("#username").val();
-
     var datas = $("#loginForm").serialize();
 //通过名字获取  getElementsByName
     var obj1 = document.getElementsByName("sex");

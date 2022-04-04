@@ -129,7 +129,6 @@ public class OrderController {
         QueryWrapper queryWrapper = new QueryWrapper();
         queryWrapper.eq("order_id",orderId);
         List<OrderItem> items = orderItemService.list(queryWrapper);
-
         double price = 0.0;
         String booksName = "";
         for (OrderItem item:items) {
@@ -140,22 +139,22 @@ public class OrderController {
         }
         String form = alipayUtil.pay(order.getOrderNum(),String.valueOf(price),booksName);
         model.addAttribute("form",form);
-        order.setOrderStatus("2");
-        orderService.updateById(order);
         return "pay";
     }
 
 /*    @GetMapping("/return")
     public String returnNotice(String out_trade_no, Model model){
         String query = alipayUtil.query(out_trade_no);
+        System.out.println(query);
         model.addAttribute("query", query);
-        return "query";
-    }
+        return "order_list";
+    }*/
 
     @PostMapping("/notify")
     public void notifyUrl(String trade_no, String total_amount, String trade_status){
-        System.err.println("支付宝订单编号：" + trade_no + ", 订单金额： " + total_amount + ",订单状态：" + trade_status);
-    }*/
+        System.out.println("支付宝订单编号：" + trade_no + ", 订单金额： " + total_amount + ",订单状态：" + trade_status);
+
+    }
 
 }
 

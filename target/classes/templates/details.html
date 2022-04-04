@@ -7,6 +7,8 @@
     <link rel="stylesheet" type="text/css" th:href="@{/dist/css/bootstrap.min.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/index.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/animate.css}"/>
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}">
+
 </head>
 
 <body>
@@ -166,6 +168,8 @@
 <script src="dist/js/bootstrap.min.js" th:src="@{/dist/js/bootstrap.min.js}"></script>
 <script src="js/wow.js" th:src="@{/js/wow.js}"></script>
 <script th:src="@{/js/login_reg.js}"></script>
+<script th:src="@{/layui/layui.js}"></script>
+
 <script th:inline="javascript">
     var user = [[${session.user}]];
     var contextPath = [[${#request.getContextPath()}]];
@@ -181,8 +185,14 @@
         //验证购买的数量
         var bookNum = $("#bookCount").val();
         if (bookNum == ''||bookNum == 'undefined'){
-            alert('请输入购买数量');
+            layer.msg('请输入购买数量！', {icon: 7,anim:6});
+
             return ;
+        }
+        var reg = new RegExp("^\\+?[1-9][0-9]*$");//正整数
+        if (!reg.test(bookNum)){
+            layer.msg('请输入正整数！', {icon: 7,anim:6});
+            return;
         }
         //验证是否已经登录
         if (user == null||user == 'undefined'||user == ''){

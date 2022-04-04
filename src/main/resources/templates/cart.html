@@ -205,7 +205,7 @@
 			function countChange(cartId,price,index) {
 				var count = parseInt($("#cartCount" + index).val());
 				if (count < 1){
-					alert('商品数量须大于0')
+					layer.msg('商品数大于0')
 					return;
 				}
 				var _price = parseFloat(price);

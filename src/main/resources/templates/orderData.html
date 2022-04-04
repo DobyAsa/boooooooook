@@ -87,8 +87,10 @@
 					<td th:text="${#numbers.formatDecimal(items.count * items.book.newPrice, 0, 1)}">160.0</td>
 					<td th:text="${#calendars.format(order.createDate,'yyyy/MM/dd')}">01/08/2017</td>
 					<td th:if="${order.orderStatus == '1'}">待支付</td>
-
-					<td th:if="${items.state == 1&&order.orderStatus == '2'}"><a class="btn btn-primary" th:href="@{/user/toComment(orderItemId=${items.id})}">点击评价</a></td>
+					<td th:if="${order.orderStatus == '3'}">支付失败</td>
+					<td th:if="${items.state == 1&&order.orderStatus == '2'}">
+						<a class="btn btn-primary" th:href="@{/user/toComment(orderItemId=${items.id})}">点击评价</a>
+					</td>
 					<td th:if="${items.state == 2}">已评价</td>
 				</tr>
 				</tbody>
@@ -120,7 +122,8 @@
 								</span>
 							</div>
 						</li>
-						<li><a style="padding-top: 0px;border: 0px;">
+						<li>
+							<a style="padding-top: 0px;border: 0px;">
 							<label>每页显示:</label>
 							<select id="pageSize" th:value="${pageSize}" class="form-control" style="width: 100px;display: inline;" th:onchange="|loadDataBySize(this)|">
 								<option value="2" th:selected="${pageSize == 2}">2</option>
