@@ -10,10 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-/**
- * @author mumuwei
- * @date 0004
- */
 @Controller
 public class AlipayController {
     @Autowired
@@ -48,7 +44,7 @@ public class AlipayController {
     @PostMapping("/notify")
     public void notifyUrl(String trade_no,String out_trade_no, String total_amount, String trade_status){
 
-        System.err.println("支付宝订单编号：" + trade_no +"订单编号："+out_trade_no+ ", 订单金额： " + total_amount + ",订单状态：" + trade_status);
+        System.out.println("支付宝订单编号：" + trade_no +"订单编号："+out_trade_no+ ", 订单金额： " + total_amount + ",订单状态：" + trade_status);
         QueryWrapper queryWrapper = new QueryWrapper();
         queryWrapper.eq("order_num",out_trade_no);
         Order order = orderService.getOne(queryWrapper);

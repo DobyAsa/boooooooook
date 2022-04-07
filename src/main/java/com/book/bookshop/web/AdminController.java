@@ -164,6 +164,14 @@ public class AdminController {
         User user = userService.getById(userId);
         user.setState(2);
         if (userService.saveOrUpdate(user)){
+            //封号的同时如果申诉列表中有该用户的待审核记录则将其设为不通过
+            QueryWrapper<Appeal> queryWrapper = new QueryWrapper();
+            queryWrapper.eq("user_id",userId).eq("state",1);
+            Appeal appeal =appealService.getOne(queryWrapper);
+            if (appeal!=null){
+                appeal.setState(3);
+                appealService.updateById(appeal);
+            }
             return "success";
         }else {
             return "fail";
@@ -173,15 +181,24 @@ public class AdminController {
     @RequestMapping("/unforbidUser")
     @ResponseBody
     public String unforbidUser(Integer userId){
+
         User user = userService.getById(userId);
         user.setState(1);
         if (userService.saveOrUpdate(user)){
+            //解封的同时如果申诉列表中有该用户的待审核记录则将其设为通过
+            QueryWrapper<Appeal> queryWrapper = new QueryWrapper();
+            queryWrapper.eq("user_id",userId).eq("state",1);
+            Appeal appeal =appealService.getOne(queryWrapper);
+            if (appeal!=null){
+                appeal.setState(2);
+                appealService.updateById(appeal);
+            }
             return "success";
         }else {
             return "fail";
         }
     }
-    //删除用户
+    //批量封号
     @RequestMapping("/deleteUsers")
     @ResponseBody
     public String deleteUsers(String ids){

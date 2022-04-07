@@ -103,6 +103,10 @@
             window.location.href = contextPath + "/book/searchBook?inputBookName=" + inputBookName;
         }else alert('请输入图书名')
     }
+    //刷新验证码
+    function refreshCode(){
+        $("#mycode").attr("src","/book/getCode?time="+new Date().getTime());
+    }
 </script>
 </body>
 </html>
