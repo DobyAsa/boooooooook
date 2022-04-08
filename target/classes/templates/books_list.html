@@ -75,7 +75,7 @@
         //数字正则
         var reg = new RegExp("^[0-9]*$");
         if (!reg.test(page)){
-            layer.msg('请输入数字！', {icon: 7,anim:6});
+            layer.msg('请输入正整数！', {icon: 7,anim:6});
             return;
         }
         if (page==''){

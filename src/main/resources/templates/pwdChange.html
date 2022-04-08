@@ -124,7 +124,8 @@
         var inputBookName = $("#inputBookName").val();
         if (inputBookName != ''){
             window.location.href = contextPath + "/book/searchBook?inputBookName=" + inputBookName;
-        }else alert('请输入图书名')
+        }else layer.msg('请输入图书名！', {icon: 7,anim:6});
+
     }
 
     //密码修改

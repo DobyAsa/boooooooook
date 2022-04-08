@@ -54,7 +54,7 @@
 										<div>
 											<ul class="nav navbar-collapse" style="line-height:3;">
 												<li class="text-info"><span class="text-success">订单编号:</span><span class="text-info" th:text="${order.orderNum}">1527600039447022</span></li>
-												<li class="text-info"><span class="text-success">交易时间:</span><span th:text="${#calendars.format(order.createDate,'yyyy-MM-dd HH:mm:ss')}">01/04/2017 12:52 PM</span></li>
+												<li class="text-info"><span class="text-success">创建时间:</span><span th:text="${#calendars.format(order.createDate,'yyyy-MM-dd HH:mm:ss')}">01/04/2017 12:52 PM</span></li>
 <!--												<li class="text-info"><span class="text-success">订单总金额:</span><span th:text="${order.totalPrice + '元'}">520.0元</span></li>-->
 												<li class="text-info"><span class="text-success">订单总金额:</span><span th:text="${#numbers.formatDecimal(order.totalPrice, 0, 1)+ '元'}">520.0元</span></li>
 											</ul>

@@ -101,31 +101,6 @@
     if (!(/msie [6|7|8|9]/i.test(navigator.userAgent))) {
         new WOW().init();
     }
-    ;
-
-    $(function () {
-        $("#selected").load(contextPath + "/book/getBookData", buildQuery(1, 1));
-        $("#recommended").load(contextPath + "/book/getBookData", buildQuery(1, 2));
-        $("#bargain").load(contextPath + "/book/getBookData", buildQuery(1, 3));
-    });
-
-    //分页之加载上下页数据
-    function loadData(page, category) {
-        if (category == 1) {
-            $("#selected").load(contextPath + "/book/getBookData", buildQuery(page, category));
-        } else if (category == 2) {
-            $("#recommended").load(contextPath + "/book/getBookData", buildQuery(page, category));
-        } else if (category == 3) {
-            $("#bargain").load(contextPath + "/book/getBookData", buildQuery(page, category));
-        }
-    };
-
-    function buildQuery(page, category) {
-        var query = {};
-        query.page = typeof page == "undefined" ? 1 : page;
-        query.category = category;
-        return query;
-    };
 
     //根据图书名搜索
     function searchBookName() {
@@ -142,8 +117,6 @@
     //个人信息修改
     function infoChange() {
         var userInfo = $("#userInfo").serialize();
-
-
         layer.confirm('确定修改？', {
             icon:3,
             btn: ['确定', '取消']

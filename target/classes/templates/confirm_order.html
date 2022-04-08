@@ -278,11 +278,11 @@
 			if(!(/msie [6|7|8|9]/i.test(navigator.userAgent))) {
 				new WOW().init();
 			};
-
+			//提交订单
 			 function commitOrder() {
 			 var val = $('input:radio[name="addr"]:checked').val();
 			 if (val==null){
-			 	alert('请选择地址');
+				 layer.msg('请选择地址！', {icon: 7,anim:6});
 			 	return;
 				 }else {
 				 window.location.href = contextPath + "/order/commitOrder?addrId=" + val;
@@ -294,13 +294,14 @@
 				var tel = $("#tel").val();
 				var emailCode = $("#emailCode").val();
 				//数字正则
-				var reg = new RegExp("^[0-9]*$");
-				if (!reg.test(tel)){
-					layer.msg('电话号码请输入数字！', {icon: 7,anim:6});
+				var emailCodeReg = new RegExp("[1-9]\\d{5}(?!\\d)");
+				var telReg = new RegExp("((\\d{11})|^((\\d{7,8})|(\\d{4}|\\d{3})-(\\d{7,8})|(\\d{4}|\\d{3})-(\\d{7,8})-(\\d{4}|\\d{3}|\\d{2}|\\d{1})|(\\d{7,8})-(\\d{4}|\\d{3}|\\d{2}|\\d{1}))$)");
+				if (!telReg.test(tel)){
+					layer.msg('电话号码不合法！', {icon: 7,anim:6});
 					return;
 				}
-				if (!reg.test(emailCode)){
-					layer.msg('邮编请输入数字！', {icon: 7,anim:6});
+				if (!emailCodeReg.test(emailCode)){
+					layer.msg('邮编不合法！', {icon: 7,anim:6});
 					return;
 				}
 				$.ajax({
@@ -324,7 +325,7 @@
 					window.location.href = contextPath + "/book/searchBook?inputBookName=" + inputBookName;
 				}else alert('请输入图书名')
 			}
-
+			//设为默认
 			function setDefault(addressId) {
 				$.ajax({
 					url:contextPath + "/address/setDefault",
@@ -339,7 +340,7 @@
 					}
 				})
 			}
-
+			//删除地址
 			function deleteAddress(addressId) {
 				layer.confirm('确定删除？', {
 					icon:3,

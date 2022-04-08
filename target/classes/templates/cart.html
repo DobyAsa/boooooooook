@@ -8,6 +8,7 @@
 		<link rel="stylesheet" type="text/css" th:href="@{/dist/css/bootstrap.min.css}">
 		<link rel="stylesheet" type="text/css" th:href="@{/css/index.css}"/>
 		<link rel="stylesheet" type="text/css" th:href="@{/css/animate.css}"/>
+		<link rel="stylesheet" th:href="@{/layui/css/layui.css}">
 	</head>
 
 	<body>
@@ -171,7 +172,9 @@
 		<script src="js/carousel.js" th:src="@{/js/carousel.js}" type="text/javascript" charset="utf-8"></script>
 		<script src="dist/js/bootstrap.min.js" th:src="@{/dist/js/bootstrap.min.js}"></script>
 		<script src="js/wow.js" th:src="@{/js/wow.js}"></script>
-		<script th:inline="javascript">
+		<script th:src="@{/layui/layui.js}"></script>
+
+	<script th:inline="javascript">
 			//获取应用路径
 			var contextPath = [[${#request.getContextPath()}]];
 		</script>
@@ -246,7 +249,7 @@
 					}
 				}
 				if(count == 0) {
-					alert('请选择图书！');
+					layer.msg('请选择图书！', {icon: 7,anim:6});
 					// thirdModel.style.display = "block";
 					// $("#third_del").css("display","block");
 				} else {

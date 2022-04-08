@@ -9,7 +9,7 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/animate.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/login.css}"/>
     <link rel="stylesheet" th:href="@{/layui/css/layui.css}">
-    <script th:src="@{/layui/layui.js}"></script>
+
 </head>
 
 <body>
@@ -67,6 +67,7 @@
 <script src="dist/js/bootstrap.min.js" th:src="@{/dist/js/bootstrap.min.js}"></script>
 <script src="js/wow.js" th:src="@{/js/wow.js}"></script>
 <script th:src="@{/js/login_reg.js}"></script>
+<script th:src="@{/layui/layui.js}"></script>
 <script th:inline="javascript">
     //获取应用路径
     var contextPath = [[${#request.getContextPath()}]];
@@ -106,7 +107,7 @@
         var inputBookName = $("#inputBookName").val();
         if (inputBookName != ''){
             window.location.href = contextPath + "/book/searchBook?inputBookName=" + inputBookName;
-        }else alert('请输入图书名')
+        }else layer.msg('请输入图书名！', {icon: 7,anim:6});
     }
 
     //刷新验证码

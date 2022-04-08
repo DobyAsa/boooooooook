@@ -319,7 +319,7 @@
 				}
 			}
 			if(count == 0) {
-				alert('请勾选订单！');
+				layer.msg('请勾选订单！', {icon: 7,anim:6});
 				return;
 				// thirdModel.style.display = "block";
 				// $("#third_del").css("display","block");
@@ -331,9 +331,9 @@
 					data:{"ids":ids.substring(0,ids.length-1)},
 					success:function (data) {
 						if (data == 'success'){
-							alert('删除成功');
+							layer.msg('删除成功！', {icon: 7,anim:6});
 							window.location.href = contextPath + "/order/list";
-						}else alert('删除失败');
+						}else layer.msg('删除失败！', {icon: 7,anim:6});
 					}
 				})
 			}
@@ -348,9 +348,9 @@
 					// data:{"ids":ids.substring(0,ids.length-1)},
 					success:function (data) {
 						if (data == 'success'){
-							alert('删除成功');
+							layer.msg('删除成功！', {icon: 7,anim:6});
 							window.location.href = contextPath + "/order/list";
-						}else alert('删除失败');
+						}else layer.msg('删除失败！', {icon: 7,anim:6});
 					}
 				})
 			}
@@ -384,7 +384,7 @@
 			//数字正则
 			var reg = new RegExp("^[0-9]*$");
 			if (!reg.test(page)){
-				layer.msg('请输入数字！', {icon: 7,anim:6});
+				layer.msg('请输入正整数！', {icon: 7,anim:6});
 				return;
 			}
 			if (page==''){
@@ -421,7 +421,8 @@
 			var inputBookName = $("#inputBookName").val();
 			if (inputBookName != ''){
 				window.location.href = contextPath + "/book/searchBook?inputBookName=" + inputBookName;
-			}else alert('请输入图书名')
+			}else layer.msg('请输入图书名！', {icon: 7,anim:6});
+
 		}
 		//订单支付支付
 		function orderPay(orderId){
