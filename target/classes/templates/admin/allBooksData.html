@@ -74,10 +74,19 @@
 							</td>
 							<td th:if="${book.state == 1}">在售</td>
 							<td th:if="${book.state == 0}">已下架</td>
-							<td>
+							<!--<td>
 								<a class="btn btn-info" th:href="@{/admin/toUpdateBook(bookId=${book.id})}">修改</a>
 								<br>
 								<a th:onclick="deleteBook([[${book.id}]])"  class="btn btn-danger">删除</a>
+							</td>-->
+							<td>
+								<select id="" value="操作" class="form-control" style="width: 100px;display: inline;" th:onchange="|operate(this,[[${book.id}]])|">
+									<option value=""></option>
+									<option value="update">更新</option>
+									<option value="offShelf" th:if="${book.state == 1}">下架</option>
+									<option value="onShelf" th:if="${book.state == 0}">上架</option>
+									<option value="addCount">补充库存</option>
+								</select>
 							</td>
 
 						</tr>

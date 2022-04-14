@@ -16,4 +16,5 @@ public class CartVo {
     private String bookName;
     private String imgUrl;
     private double newPrice;
+
 }

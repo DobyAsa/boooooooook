@@ -22,4 +22,6 @@ public class OrderItem extends Model<OrderItem> {
     //是否映射数据库图书对象
     @TableField(exist = false)
     private Book book;
+    private double price;
+    private double singlePrice;
 }

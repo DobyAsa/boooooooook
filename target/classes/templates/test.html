@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<input type="button" value="测试请求" th:onclick="test(1)">
+<script th:inline="javascript">
+    //获取应用路径
+    var contextPath = [[${#request.getContextPath()}]];
+</script>
+<script src="dist/js/jquery.min.js" th:src="@{/dist/js/jquery.min.js}"></script>
+<script>
+    function test(bookId) {
+        $.ajax({
+            url: contextPath +"/admin/offShelf",
+            type:"post",
+            data:{"bookId":bookId},
+            success:function (data) {
+
+            }
+        })
+    }
+</script>
+</body>
+</html>

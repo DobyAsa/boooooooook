@@ -227,6 +227,43 @@
 			});
 
 	}
+
+		function operate(obj,bookId) {
+			if (obj.value=='update'){
+				location.href = contextPath + "/admin/toUpdateBook?bookId="+bookId;
+			}else if (obj.value == 'offShelf'){
+
+				layer.confirm('确定下架？', {
+					icon:3,
+					btn: ['确定', '取消']
+				}, function(index, layero){
+					//按钮【按钮一】的回调
+					location.href = contextPath + "/admin/offShelf?bookId="+bookId;
+				}, function(index){
+					return ;
+				});
+			}else if (obj.value == 'onShelf'){
+				layer.confirm('确定上架？', {
+					icon:3,
+					btn: ['确定', '取消']
+				}, function(index, layero){
+					//按钮【按钮一】的回调
+					location.href = contextPath + "/admin/onShelf?bookId="+bookId;
+				}, function(index){
+					return ;
+				});
+			} else if (obj.value == 'addCount'){
+				layer.prompt({
+					formType: 2,
+					value: '10',
+					title: '请输入补充量',
+					area: ['200px', '20px'] //自定义文本域宽高
+				}, function(value, index, elem){
+					location.href = contextPath + "/admin/addCount?bookId="+bookId+"&count="+value;
+				});
+			}
+
+		}
 	</script>
 
 </html>

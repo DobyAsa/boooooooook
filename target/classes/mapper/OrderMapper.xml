@@ -39,6 +39,8 @@
             <result column="order_id" property="orderId"></result>
             <result column="count" property="count"></result>
             <result column="state" property="state"></result>
+            <result column="price" property="price"></result>
+            <result column="single_price" property="singlePrice"></result>
 
             <!--图书信息-->
             <association property="book" javaType="com.book.bookshop.entity.Book">
@@ -67,7 +69,9 @@
         bb.img_url,
         bb.name,
         bb.new_price,
-        boi.state
+        boi.state,
+        boi.price,
+        boi.single_price
         FROM
         bs_order bo,
         bs_user bu,

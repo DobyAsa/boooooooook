@@ -46,6 +46,8 @@ public class OrderService extends ServiceImpl<OrderMapper, Order> {
             orderItem.setBookId(cart.getBookId());
             orderItem.setCount(cart.getCount());
             orderItem.setOrderId(order.getId());
+            orderItem.setPrice(cart.getNewPrice()*cart.getCount());
+            orderItem.setSinglePrice(cart.getNewPrice());
             orderItems.add(orderItem);
             cartIds.add(cart.getId());
         }

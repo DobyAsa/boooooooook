@@ -42,6 +42,7 @@ public class OrderController {
     }
 
     private AlipayUtil alipayUtil;
+
     /**
      * 确认订单
      */
@@ -80,6 +81,13 @@ public class OrderController {
     @RequestMapping("/orderDelete")
     @ResponseBody
     public String orderDelete(String ids) {
+        List<Order> orders = (List<Order>) orderService.listByIds(Arrays.asList(ids.split(",")));
+        for (Order order : orders){
+            //如果订单是待支付状态则不允许删除
+            if (order.getOrderStatus().equals("1")){
+                return "notDelete";
+            }
+        }
         //先把orderitem的条数删除，避免外键异常
         orderItemService.orderItemsDelete(ids);
         if (orderService.removeByIds(Arrays.asList(ids.split(",")))) {
@@ -92,6 +100,13 @@ public class OrderController {
     @RequestMapping("/deleteAll")
     @ResponseBody
     public String deleteAll() {
+        List<Order> orders = orderService.list();
+        for (Order order : orders){
+            //如果订单是待支付状态则不允许删除
+            if (order.getOrderStatus().equals("1")){
+                return "notDelete";
+            }
+        }
         //清空，避免外键异常
         orderItemService.remove(new QueryWrapper<>());
         if (orderService.remove(new QueryWrapper<>())) {
@@ -106,39 +121,40 @@ public class OrderController {
     public String list() {
         return "order_list";
     }
+
     //获取订单记录
     @RequestMapping("/getOrderListData")
-    public String getOrderListData(HttpSession session, OrderQueryVo orderQueryVo, Model model){
+    public String getOrderListData(HttpSession session, OrderQueryVo orderQueryVo, Model model) {
         User user = (User) session.getAttribute("user");
-        List<Order> orders = orderService.findUserOrder(user.getId(),orderQueryVo);
-        model.addAttribute("orders",orders);
-        model.addAttribute("pre",orderQueryVo.getPage() -1);
-        model.addAttribute("next",orderQueryVo.getPage() + 1);
-        model.addAttribute("cur",orderQueryVo.getPage());
-        model.addAttribute("pages",orderService.findUserOrderPages(user.getId(),orderQueryVo));
-        model.addAttribute("pageSize",orderQueryVo.getPageSize());
+        List<Order> orders = orderService.findUserOrder(user.getId(), orderQueryVo);
+        model.addAttribute("orders", orders);
+        model.addAttribute("pre", orderQueryVo.getPage() - 1);
+        model.addAttribute("next", orderQueryVo.getPage() + 1);
+        model.addAttribute("cur", orderQueryVo.getPage());
+        model.addAttribute("pages", orderService.findUserOrderPages(user.getId(), orderQueryVo));
+        model.addAttribute("pageSize", orderQueryVo.getPageSize());
         return "orderData";
     }
 
 
     @RequestMapping("/orderPay")
-    public String orderPay(Integer orderId,Model model){
+    public String orderPay(Integer orderId, Model model) {
         /*买家账号 ftwbqx4717@sandbox.com
          登录密码111111*/
         Order order = orderService.getById(orderId);
         QueryWrapper queryWrapper = new QueryWrapper();
-        queryWrapper.eq("order_id",orderId);
+        queryWrapper.eq("order_id", orderId);
         List<OrderItem> items = orderItemService.list(queryWrapper);
         double price = 0.0;
         String booksName = "";
-        for (OrderItem item:items) {
+        for (OrderItem item : items) {
             Integer bookId = orderItemService.getById(item.getId()).getBookId();
             Book book = bookService.getById(bookId);
             price += item.getCount() * book.getNewPrice();
-            booksName+=book.getName()+"、";
+            booksName += book.getName() + "、";
         }
-        String form = alipayUtil.pay(order.getOrderNum(),String.valueOf(price),booksName);
-        model.addAttribute("form",form);
+        String form = alipayUtil.pay(order.getOrderNum(), String.valueOf(price), booksName);
+        model.addAttribute("form", form);
         return "pay";
     }
 
@@ -151,10 +167,38 @@ public class OrderController {
     }*/
 
     @PostMapping("/notify")
-    public void notifyUrl(String trade_no, String total_amount, String trade_status){
+    public void notifyUrl(String trade_no, String total_amount, String trade_status) {
         System.out.println("支付宝订单编号：" + trade_no + ", 订单金额： " + total_amount + ",订单状态：" + trade_status);
 
     }
+
+    //取消订单
+    @RequestMapping("/cancelOrder")
+    @ResponseBody
+    public String cancelOrder(Integer orderId) {
+        Order order = orderService.getById(orderId);
+        if (order != null) {
+            //返书本给库存
+            QueryWrapper queryWrapper = new QueryWrapper();
+            queryWrapper.eq("order_id", orderId);
+            List<OrderItem> items = orderItemService.list(queryWrapper);
+            for (OrderItem item : items) {
+                Book book = bookService.getById(item.getBookId());
+                book.setCount(book.getCount() + item.getCount());
+                bookService.updateById(book);
+                //更新订单item状态
+                item.setState(3);
+                orderItemService.updateById(item);
+            }
+            //更新订单状态
+            order.setOrderStatus("4");
+            if (orderService.updateById(order)) {
+                return "success";
+            }
+            return "cancelFail";
+        } else return "emptyOrder";
+    }
+
 
 }
 

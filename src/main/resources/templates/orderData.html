@@ -14,9 +14,12 @@
 						<span th:text="${#calendars.format(order.createDate,'yyyy-MM-dd')}">2017-01-09</span>
 						订单号:<span th:text="${order.orderNum}">1527600039447022</span>
 						<span th:if="${order.orderStatus == '1'}">
-							<a href="#" class="btn btn-danger" th:onclick="orderPay([[${order.id}]])">点击支付</a>
+							<a href="#" class="btn btn-warning" th:onclick="orderPay([[${order.id}]])">点击支付</a>
 						</span>
-<!--						<span th:if="${order.orderStatus == '2'}">
+						<span th:if="${order.orderStatus == '1'}">
+							<a href="#" class="btn btn-danger" th:onclick="cancelOrder([[${order.id}]])">点击取消</a>
+						</span>
+						<!--<span th:if="${order.orderStatus == '2'}">
 							<a href="#" class="btn btn-success" th:href="@{/user/toComment(orderId=${order.id})}">点击评价</a>
 						</span>-->
 					</div>
@@ -82,12 +85,14 @@
 					<td th:text="${items.book.id}">1001</td>
 					<td><a th:href="@{/book/detail(id=${items.bookId})}"><img th:src="@{'/public/' + ${items.book.imgUrl}}" src="images/yuannideqingchunbufumengxiang.jpg"></a></td>
 					<td th:text="${items.book.name}">愿你的青春不负梦想</td>
-					<td th:text="${items.book.newPrice}">80.0</td>
+					<td th:text="${items.singlePrice}">80.0</td>
 					<td th:text="${items.count}">2</td>
-					<td th:text="${#numbers.formatDecimal(items.count * items.book.newPrice, 0, 1)}">160.0</td>
+<!--					<td th:text="${#numbers.formatDecimal(items.count * items.book.newPrice, 0, 1)}">160.0</td>-->
+					<td th:text="${#numbers.formatDecimal(items.price, 0, 1)}">160.0</td>
 					<td th:text="${#calendars.format(order.createDate,'yyyy/MM/dd')}">01/08/2017</td>
 					<td th:if="${order.orderStatus == '1'}">待支付</td>
 					<td th:if="${order.orderStatus == '3'}">支付失败</td>
+					<td th:if="${order.orderStatus == '4'}">订单已取消</td>
 					<td th:if="${items.state == 1&&order.orderStatus == '2'}">
 						<a class="btn btn-primary" th:href="@{/user/toComment(orderItemId=${items.id})}">点击评价</a>
 					</td>

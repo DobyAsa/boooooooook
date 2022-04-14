@@ -300,4 +300,33 @@ public class AdminController {
         return "redirect:/book/index";
     }
 
+    //商品下架
+    @RequestMapping("/offShelf")
+    public String offShelf(Integer bookId){
+        System.out.println(bookId);
+         Book book = bookService.getById(bookId);
+         book.setState(0);
+         bookService.updateById(book);
+         return "admin/bookAdmin";
+    }
+
+    //商品上架
+    @RequestMapping("/onShelf")
+    public String onShelf(Integer bookId){
+        System.out.println(bookId);
+        Book book = bookService.getById(bookId);
+        book.setState(1);
+        bookService.updateById(book);
+        return "admin/bookAdmin";
+    }
+
+    //补充库存
+    @RequestMapping("/addCount")
+    public String addCount(Integer bookId,Integer count){
+        System.out.println(bookId+"  "+count);
+        Book book = bookService.getById(bookId);
+        book.setCount(book.getCount()+count);
+        bookService.updateById(book);
+        return "admin/bookAdmin";
+    }
 }
