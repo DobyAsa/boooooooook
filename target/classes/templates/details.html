@@ -66,6 +66,7 @@
                         <li class="list-group-item"><span class="text-info">作者: </span><span th:text="${book.author}"></span></li>
                         <li class="list-group-item"><span class="text-info">出版日期：<span th:text="${#dates.format(book.publishDate,'yyyy年MM月')}"></span></span></li>
                         <li class="list-group-item"><span class="text-info">出版社: </span><span th:text="${book.publisher}"></span></li>
+                        <li class="list-group-item"><span class="text-info">库存: </span><span th:text="${book.count}"></span></li>
                         <li class="list-group-item"><span class="text-info"
 												  style="text-decoration: line-through;">原价:￥</span><span style="text-decoration: line-through;"><span th:text="${book.oldPrice}"></span></span></li>
                         <li class="list-group-item"><span class="text-info">现价:￥</span><span th:text="${book.newPrice}">$21.6元</span></li>
@@ -113,6 +114,7 @@
                                         <li class="text-info">出版时间: <span th:text="${#calendars.format(book.publishDate,'yyyy-MM-dd')}"></span></li>
                                         <li class="text-info">作者: <span th:text="${book.author}"></span></li>
                                         <li class="text-info">ISBN编号: <span th:text="${book.isbn}"></span></li>
+                                        <li class="text-info">库存: <span th:text="${book.count}"></span></li>
                                     </ul>
                                 </div>
                                 <span class="visible-sm visible-xs"><hr></span>
@@ -173,6 +175,7 @@
 <script th:inline="javascript">
     var user = [[${session.user}]];
     var contextPath = [[${#request.getContextPath()}]];
+    var bookCount = [[${book.count}]];
 </script>
 <script type="text/javascript">
     if (!(/msie [6|7|8|9]/i.test(navigator.userAgent))) {
@@ -182,11 +185,15 @@
 
     //加入购物车
     function addCart(bookId) {
+        //验证是否已经登录
+        if (user == null||user == 'undefined'||user == ''){
+            layer.msg('请登录！', {icon: 7,anim:6});
+            return;
+        }
         //验证购买的数量
         var bookNum = $("#bookCount").val();
         if (bookNum == ''||bookNum == 'undefined'){
             layer.msg('请输入购买数量！', {icon: 7,anim:6});
-
             return ;
         }
         var reg = new RegExp("^\\+?[1-9][0-9]*$");//正整数
@@ -194,9 +201,8 @@
             layer.msg('请输入正整数！', {icon: 7,anim:6});
             return;
         }
-        //验证是否已经登录
-        if (user == null||user == 'undefined'||user == ''){
-            layer.msg('请登录！', {icon: 7,anim:6});
+        if (bookNum>bookCount){
+            layer.msg('库存不足！', {icon: 7,anim:6});
             return;
         }
         //加入购物车
@@ -206,12 +212,24 @@
             data:{"count":bookNum,"bookId":bookId,"userId":user.id},
             success:function (data) {
                 if (data=='success'){
-                    // alert('成功加入购物车！数量：'+bookNum);
-                    layer.msg('成功加入购物车！数量：'+bookNum)
+                    layer.confirm('成功加入购物车！数量：'+bookNum, {
+                        btn: ['确定'] //可以无限个按钮
+                        ,btn3: function(index, layero){
+                            //按钮【按钮三】的回调
+                        }
+                    }, function(index, layero){
+                        //按钮【按钮一】的回调
+                        location.reload();
+                    }, function(index){
+                        //按钮【按钮二】的回调
+                    });
                 }
             }
         })
-
+    }
+    //刷新验证码
+    function refreshCode(){
+        $("#mycode").attr("src","/book/getCode?time="+new Date().getTime());
     }
 
     //根据图书名搜索
@@ -219,7 +237,7 @@
         var inputBookName = $("#inputBookName").val();
         if (inputBookName != ''){
             window.location.href = contextPath + "/book/searchBook?inputBookName=" + inputBookName;
-        }else layer.msg('请输入图书名！', {icon: 7,anim:6});
+        }else layer.msg('查找内容不为空！', {icon: 7,anim:6});
     }
 </script>
 </body>

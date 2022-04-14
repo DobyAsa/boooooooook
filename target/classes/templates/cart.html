@@ -64,7 +64,7 @@
 								<td th:text="${cart.bookName}">腾讯传</td>
 								<td th:text="${cart.newPrice}">35.0元</td>
 								<td>
-									<div class='input-group' style='width: 105px;'>
+									<div class='input-group' style='width: 115px;'>
 										<span class='input-group-btn'>
 											<button class='btn btn-default' type='button' th:onclick="minus([[${cart.id}]],[[${cart.newPrice}]],[[${iter.index}]])">-</button>
 										</span>
@@ -192,6 +192,13 @@
 					//toFixed(保留小数位)
 					var singlePrice = parseFloat((count - 1) * _price).toFixed(1);
 					$("#cartPrice" + index ).html(singlePrice);
+					$.ajax({
+						url:contextPath + "/cart/plusBook",
+						data:{"cartId":cartId,"count":count},
+						method:"post",
+						success:function (data) {
+						}
+					})
 					updateCart(cartId,count - 1);
 				}
 			}
@@ -199,11 +206,25 @@
 			function plus(cartId,price,index) {
 				var count = parseInt($("#cartCount" + index).val());
 				var _price = parseFloat(price);
-				$("#cartCount" + index ).val(count + 1);
-				var singlePrice = parseFloat((count + 1) * _price).toFixed(1);
-				$("#cartPrice" + index ).html(singlePrice);
-				updateCart(cartId,count + 1);
+				$.ajax({
+					url:contextPath + "/cart/minusBook",
+					data:{"cartId":cartId,"count":count},
+					method:"post",
+					success:function (data) {
+						if (data == 'fail'){
+							layer.msg('库存不足!', {icon: 7,anim:6});
+							return;
+						}else {
+							$("#cartCount" + index ).val(count + 1);
+							var singlePrice = parseFloat((count + 1) * _price).toFixed(1);
+							$("#cartPrice" + index ).html(singlePrice);
+							updateCart(cartId,count + 1);
+						}
+					}
+				})
+
 			}
+
 			//手动输入商品数量
 			function countChange(cartId,price,index) {
 				var count = parseInt($("#cartCount" + index).val());
@@ -212,10 +233,23 @@
 					return;
 				}
 				var _price = parseFloat(price);
-				$("#cartCount" + index ).val(count);
-				var singlePrice = parseFloat(count * _price).toFixed(1);
-				$("#cartPrice" + index ).html(singlePrice);
-				updateCart(cartId,count);
+				$.ajax({
+					url:contextPath + "/cart/onBlurCount",
+					data:{"cartId":cartId,"count":count},
+					method:"post",
+					success:function (data) {
+						if (data !='success'){
+							layer.msg('库存不足！库存：' + data, {icon: 7,anim:6});
+							return;
+						}else {
+							$("#cartCount" + index ).val(count);
+							var singlePrice = parseFloat(count * _price).toFixed(1);
+							$("#cartPrice" + index ).html(singlePrice);
+							updateCart(cartId,count);
+						}
+					}
+				})
+
 			}
 
 			//更新购物车信息
@@ -268,7 +302,7 @@
 				var inputBookName = $("#inputBookName").val();
 				if (inputBookName != ''){
 					window.location.href = contextPath + "/book/searchBook?inputBookName=" + inputBookName;
-				}else alert('请输入图书名')
+				}else alert('查找内容不为空')
 			}
 		</script>
 	</body>

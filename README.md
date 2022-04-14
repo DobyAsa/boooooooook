@@ -1,4 +1,4 @@
-# 书籍交易平台
+# 网上书店
 
 #### 软件架构
 后端：springboot、mybatis-plus

@@ -177,5 +177,32 @@ class BookShopApplicationTests {
 
       }
 
+      @Test
+      public void asdasd() {
+        String inputBookName = "男";
+          QueryWrapper<Book> queryWrapper1 = new QueryWrapper();
+          QueryWrapper<Book> queryWrapper2 = new QueryWrapper();
+          QueryWrapper<Book> queryWrapper3 = new QueryWrapper();
+          List<Book> bookList = new ArrayList<>();
+          queryWrapper1.like("name",inputBookName);
 
-}
+           bookList.addAll(bookService.list(queryWrapper1));
+           queryWrapper2.like("author",inputBookName);
+          bookList.addAll(bookService.list(queryWrapper2));
+          queryWrapper3.like("info",inputBookName);
+          bookList.addAll(bookService.list(queryWrapper3));
+
+
+          Iterator it = bookList.iterator();
+          while(it.hasNext()) {
+              Book book = (Book) it.next();
+              if (book.getState() == 0) {
+                  it.remove(); //移除该对象
+              }
+          }
+          for (Book book : bookList){
+              System.out.println(book);
+          }
+    }
+
+      }

@@ -20,6 +20,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -261,9 +262,21 @@ public class AdminController {
     //根据书名搜索
     @RequestMapping("/searchBook")
     public String searchBook(String inputBookName,Model model){
-        QueryWrapper queryWrapper = new QueryWrapper();
-        queryWrapper.like("name",inputBookName);
-        List<Book> bookList = bookService.list(queryWrapper);
+        QueryWrapper<Book> queryWrapper1 = new QueryWrapper();
+        QueryWrapper<Book> queryWrapper2 = new QueryWrapper();
+        QueryWrapper<Book> queryWrapper3 = new QueryWrapper();
+        List<Book> bookList = new ArrayList<>();
+        queryWrapper1.like("name",inputBookName);
+        bookList.addAll(bookService.list(queryWrapper1));
+        queryWrapper2.like("author",inputBookName);
+        bookList.addAll(bookService.list(queryWrapper2));
+        queryWrapper3.like("info",inputBookName);
+        bookList.addAll(bookService.list(queryWrapper3));
+        for (Book book : bookList) {
+            if (book.getCategory().toString().equals("SELECTTED")) book.setCate("精选图书");
+            if (book.getCategory().toString().equals("RECOMMEND")) book.setCate("推荐图书");
+            if (book.getCategory().toString().equals("BARGAGIN")) book.setCate("特价图书");
+        }
         model.addAttribute("bookList",bookList);
         return "admin/searchBook";
 

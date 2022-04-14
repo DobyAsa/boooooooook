@@ -14,6 +14,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 
@@ -44,7 +46,13 @@ public class BookController {
         QueryWrapper queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("category", category);
         IPage<Book> iPage = bookService.page(pages, queryWrapper);
-        model.addAttribute("bookList", iPage.getRecords());
+        List<Book> bookList = new ArrayList<>();
+        for (Book book:iPage.getRecords()){
+            if (book.getState()==1){
+                bookList.add(book);
+            }
+        }
+        model.addAttribute("bookList", bookList);
         model.addAttribute("pre", iPage.getCurrent() - 1);
         model.addAttribute("next", iPage.getCurrent() + 1);
         model.addAttribute("category", category);
@@ -66,7 +74,13 @@ public class BookController {
         QueryWrapper queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("category", category);
         IPage<Book> iPage = bookService.page(pages, queryWrapper);
-        model.addAttribute("bookList", iPage.getRecords());
+        List<Book> bookList = new ArrayList<>();
+        for (Book book:iPage.getRecords()){
+            if (book.getState()==1){
+                bookList.add(book);
+            }
+        }
+        model.addAttribute("bookList", bookList);
         model.addAttribute("pre", iPage.getCurrent() - 1);
         model.addAttribute("next", iPage.getCurrent() + 1);
         model.addAttribute("category", category);
@@ -97,10 +111,25 @@ public class BookController {
     //根据图书名模糊搜索图书
     @RequestMapping("/searchBook")
     public String search(String inputBookName, Model model){
-        QueryWrapper queryWrapper = new QueryWrapper();
-        queryWrapper.like("name",inputBookName);
-        List<Book> bookList = bookService.list(queryWrapper);
-        model.addAttribute("bookList",bookList);
+        QueryWrapper<Book> queryWrapper1 = new QueryWrapper();
+        QueryWrapper<Book> queryWrapper2 = new QueryWrapper();
+        QueryWrapper<Book> queryWrapper3 = new QueryWrapper();
+        List<Book> bookList = new ArrayList<>();
+        queryWrapper1.like("name",inputBookName);
+        bookList.addAll(bookService.list(queryWrapper1));
+        queryWrapper2.like("author",inputBookName);
+        bookList.addAll(bookService.list(queryWrapper2));
+        queryWrapper3.like("info",inputBookName);
+        bookList.addAll(bookService.list(queryWrapper3));
+        //使用迭代器，不然会出现ConcurrentModificationException
+        Iterator it = bookList.iterator();
+        while(it.hasNext()) {
+            Book book = (Book) it.next();
+            if (book.getState() == 0) {
+                it.remove();
+            }
+        }
+        model.addAttribute("bookList", bookList);
         return "searchPage";
     }
 }

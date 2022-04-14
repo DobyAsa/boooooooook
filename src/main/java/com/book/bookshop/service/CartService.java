@@ -1,9 +1,11 @@
 package com.book.bookshop.service;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.book.bookshop.entity.Book;
 import com.book.bookshop.entity.Cart;
 import com.book.bookshop.entity.CartVo;
 import com.book.bookshop.entity.UserCartVo;
+import com.book.bookshop.mapper.BookMapper;
 import com.book.bookshop.mapper.CartMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,7 +21,8 @@ import java.util.List;
 public class CartService extends ServiceImpl<CartMapper, Cart> {
     @Autowired
     private CartMapper cartMapper;
-
+    @Autowired
+    private BookMapper bookMapper;
     //根据用户查询购物车记录
     public List<CartVo> findCartByUser(Integer userId) {
         return cartMapper.findCartByUserId(userId);
@@ -27,9 +30,6 @@ public class CartService extends ServiceImpl<CartMapper, Cart> {
 
     //根据购物车id查询记录
     public List<CartVo> findCartByIds(String ids){
-
-
-
         return cartMapper.findCartByIds(Arrays.asList(ids.split(",")));
     }
 
@@ -44,11 +44,20 @@ public class CartService extends ServiceImpl<CartMapper, Cart> {
     }
 
 
-    //删除购物车
+    //删除购物车，传进来的是购物的ids
     public String batchDelete(String ids){
         if (ids!=null){
             String[] idArray = ids.split(",");
-            int i = cartMapper.deleteBatchIds(Arrays.asList(idArray));
+
+            List<String> cartIds = Arrays.asList(idArray);
+            List<Cart> carts = cartMapper.selectBatchIds(cartIds);
+            //删除同时将数量返还给库存
+            for (Cart cart:carts){
+                Book book = bookMapper.selectById(cart.getBookId());
+                book.setCount(book.getCount()+cart.getCount());
+                bookMapper.updateById(book);
+            }
+            int i = cartMapper.deleteBatchIds(cartIds);
             if (i > 0){
                 return "success";
             }

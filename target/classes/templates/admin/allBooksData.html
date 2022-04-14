@@ -43,9 +43,11 @@
 							<th>出版社</th>
 							<th>出版时间</th>
 							<th>分类</th>
+							<th>库存</th>
 							<th>原价</th>
 							<th>现价</th>
 							<th>简介</th>
+							<th>状态</th>
 							<th>操作</th>
 						</tr>
 						</thead>
@@ -64,11 +66,14 @@
 							<td th:text="${book.publisher}">黑龙江科学技术出版社</td>
 							<td th:text="${#calendars.format(book.publishDate,'yyyy-MM-dd')}">出版时间</td>
 							<td th:text="${book.cate}">分类</td>
+							<td th:text="${book.count}">100</td>
 							<td th:text="${book.oldPrice == 0?'无':book.oldPrice}">原价</td>
 							<td th:text="${book.newPrice}">现价00$</td>
 							<td style="width: 146px;">
 								<button class="btn btn-success" th:onclick="displayInfo([[${book.info}]])">预览</button>
 							</td>
+							<td th:if="${book.state == 1}">在售</td>
+							<td th:if="${book.state == 0}">已下架</td>
 							<td>
 								<a class="btn btn-info" th:href="@{/admin/toUpdateBook(bookId=${book.id})}">修改</a>
 								<br>

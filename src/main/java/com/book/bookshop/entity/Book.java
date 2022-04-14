@@ -31,5 +31,7 @@ public class Book extends Model<Book> {
     private String imgUrl;
     @TableField(exist = false)
     private String cate;
+    private Integer state;
+    private Integer count;
 
 }

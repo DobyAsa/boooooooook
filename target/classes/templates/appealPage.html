@@ -3,7 +3,7 @@
 
 <head lang="en">
     <meta charset="UTF-8">
-    <title>校园书籍交易平台首页</title>
+    <title>网上书店</title>
     <link rel="stylesheet" type="text/css" th:href="@{/dist/css/bootstrap.min.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/index.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/animate.css}"/>
@@ -126,7 +126,7 @@
         var inputBookName = $("#inputBookName").val();
         if (inputBookName != ''){
             window.location.href = contextPath + "/book/searchBook?inputBookName=" + inputBookName;
-        }else alert('请输入图书名')
+        }else alert('查找内容不为空')
     }
 
 
