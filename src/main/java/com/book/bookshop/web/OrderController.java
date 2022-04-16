@@ -133,6 +133,7 @@ public class OrderController {
         model.addAttribute("cur", orderQueryVo.getPage());
         model.addAttribute("pages", orderService.findUserOrderPages(user.getId(), orderQueryVo));
         model.addAttribute("pageSize", orderQueryVo.getPageSize());
+        session.setAttribute("userOrderPages",orderService.findUserOrderPages(user.getId(), orderQueryVo));
         return "orderData";
     }
 

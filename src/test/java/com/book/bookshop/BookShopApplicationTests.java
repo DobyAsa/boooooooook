@@ -204,5 +204,20 @@ class BookShopApplicationTests {
               System.out.println(book);
           }
     }
+    @Test
+    public void asdaasd(){
+        List<Order> orders = orderService.list();
+        for (Order order:orders){
+            QueryWrapper queryWrapper = new QueryWrapper();
+            queryWrapper.eq("order_id",order.getId());
+            List<com.book.bookshop.entity.OrderItem> orderItems = orderItemService.list(queryWrapper);
+            order.setOrderItems(orderItems);
+            for (com.book.bookshop.entity.OrderItem item:orderItems){
+                Book book = bookService.getById(item.getBookId());
+                item.setBook(book);
+            }
+            System.out.println(order);
+        }
+    }
 
-      }
+}

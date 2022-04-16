@@ -8,6 +8,7 @@ import com.book.bookshop.service.BookService;
 import com.book.bookshop.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -123,6 +124,7 @@ public class CartController {
     //手动修改商品数量，库存相应更新
     @ResponseBody
     @RequestMapping("/onBlurCount")
+    @Transactional
     public String onBlurCount(Integer cartId, Integer count) {
         Cart cart = cartService.getById(cartId);
         Book book = bookMapper.selectById(cart.getBookId());

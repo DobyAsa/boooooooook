@@ -96,6 +96,7 @@
 		//页面加载时执行
 		var ids ='';
 		var bookIds = new Set();
+
 	$(function () {
 			if (admin == null||admin==undefined||admin == 'undefined'){
 				location.href =contextPath+"/book/index";
@@ -161,9 +162,6 @@
 
 		}
 		function cks(obj) {
-/*			if (obj.checked){
-			bookIds.add(obj.value);
-		}*/
 	}
 	function loadData(page,pageSize) {
 		$("#allBooksData").load(contextPath + "/admin/getBookListByPage",queryData(page,pageSize));

@@ -123,7 +123,7 @@
 							<div id="search" class="input-group" style="positon:relative;">
 								<input id="inputPage" type="text" class="form-control" placeholder="跳转指定页" />
 								<span class="input-group-btn">
-									<button class="btn btn-info btn-search" th:onclick="goPage([[${pageSize}]])">GO</button>
+									<button class="btn btn-info btn-search" th:onclick="goPage([[${pageSize}]],[[${pages}]])">GO</button>
 								</span>
 							</div>
 						</li>

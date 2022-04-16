@@ -62,6 +62,12 @@
 						</div>
 					</div>
 					<div class="layui-form-item">
+						<label class="layui-form-label">库存</label>
+						<div class="layui-input-block">
+							<input type="text" name="count"    placeholder="请输入库存" required  lay-verify="required" autocomplete="off" class="layui-input">
+						</div>
+					</div>
+					<div class="layui-form-item">
 						<label class="layui-form-label">出版日期</label>
 						<div class="layui-input-block">
 							<input type="text" name="pubDate" required  lay-verify="required" class="layui-input" id="test1">
@@ -146,7 +152,7 @@
 				if (admin == null || admin == undefined || admin == 'undefined') {
 					location.href = contextPath + "/book/index";
 				}
-			}
+			})
 		</script>
 
 	<style type="text/css">

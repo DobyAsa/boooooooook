@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8">
-	<title>我的订单</title>
+	<title>订单处理</title>
 	<link rel="stylesheet" type="text/css"  href="dist/css/bootstrap.min.css" th:href="@{/dist/css/bootstrap.min.css}" />
 	<link rel="stylesheet" type="text/css" href="css/index.css" th:href="@{/css/index.css}" />
 	<link rel="stylesheet" type="text/css" href="css/animate.css" th:href="@{/css/animate.css}" />
@@ -14,11 +14,10 @@
 
 	<body>
 	<!--导航部分  begin-->
-	<div th:replace="common/header :: nav"></div>
+	<div th:replace="admin/common/header :: nav"></div>
 	<!--导航部分 end-->
 
 	<!--最顶端轮播图片 begin-->
-	<div th:replace="common/carousel :: carousel"></div>
 	<!--最顶端轮播图片 end-->
 
 		<!--订单begin-->
@@ -26,17 +25,11 @@
 		<div class="container">
 			<!--左边-->
 			<div class="container pull-left">
-				<ol class="breadcrumb">
-					<li>
-						<a href="#" class="text-success"><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;我的订单</a>
-					</li>
-				</ol>
-
 				<!--订单查询导航 begin-->
 				<div>
 					<nav class="navbar navbar-default" role="navigation">
 						<div class="navbar-header">
-							<a class="navbar-brand" href="#">所有订单</a>
+							<a class="navbar-brand" href="#">订单管理</a>
 						</div>
 
 						<form class="navbar-form navbar-left" role="search" >
@@ -145,6 +138,7 @@
 				
 				<!--内容展示 begin-->
 				<div id="orderData"></div>
+				<!--分页begin-->
 				<!--内容展示end-->
 			</div>
 
@@ -164,7 +158,7 @@
 	<script th:inline="javascript">
 			//获取应用路径
 			var contextPath = [[${#request.getContextPath()}]];
-		</script>
+	</script>
 		<script type="text/javascript">
 			$(function () {
 				$('#datetimepicker').datetimepicker({
@@ -236,18 +230,16 @@
 					}
 				})
 			}
-
-
 		}
 
 		$(function () {
-			$("#orderData").load(contextPath + "/order/getOrderListData",queryData(1,''))
+			$("#orderData").load(contextPath + "/admin/getOrderListData",queryData(1,''))
 		})
 
 		function queryData(page, pageSize,orderNum,tradeStatus,orderBy,startTime,endTime) {
 			var query = {};
 			query.page = page;
-			query.pageSize = pageSize == '' ? 4 : pageSize;
+			query.pageSize = pageSize == '' ? 2 : pageSize;
 			query.orderNum = orderNum == undefined ? '' : orderNum;
 			query.tradeStatus = tradeStatus == undefined ? '' : tradeStatus;
 			query.orderBy = orderBy == undefined ? '' : orderBy;
@@ -257,7 +249,7 @@
 		}
 
 		function loadData(page,pageSize) {
-			$("#orderData").load(contextPath + "/order/getOrderListData",queryData(page,pageSize))
+			$("#orderData").load(contextPath + "/admin/getOrderListData",queryData(page,pageSize))
 		}
 
 		//跳转到指定页
@@ -277,29 +269,29 @@
 				layer.msg('超出总页数！总页数：'+pages, {icon: 7,anim:6});
 				return;
 			}
-			$("#orderData").load(contextPath + "/order/getOrderListData",queryData(inputPage,pageSize))
+			$("#orderData").load(contextPath + "/admin/getOrderListData",queryData(inputPage,pageSize))
 		}
 
 		//修改指定每页显示的记录数
 		function loadDataBySize(obj) {
-			$("#orderData").load(contextPath + "/order/getOrderListData",queryData(1,obj.value))
+			$("#orderData").load(contextPath + "/admin/getOrderListData",queryData(1,obj.value))
 		}
 
 		//查询
 		function queryOrderData() {
 			var queryOrderNum = $("#queryOrderNum").val();
-			$("#orderData").load(contextPath + "/order/getOrderListData",queryData(1,'',queryOrderNum));
+			$("#orderData").load(contextPath + "/admin/getOrderListData",queryData(1,'',queryOrderNum));
 		}
 		function queryOrderStatus(val) {
-			$("#orderData").load(contextPath + "/order/getOrderListData",queryData(1,'','',val));
+			$("#orderData").load(contextPath + "/admin/getOrderListData",queryData(1,'','',val));
 		}
 		function queryOrderBy(val) {
-			$("#orderData").load(contextPath + "/order/getOrderListData",queryData(1,'','','',val));
+			$("#orderData").load(contextPath + "/admin/getOrderListData",queryData(1,'','','',val));
 		}
 		function queryByDate() {
 			var begin = $('#datetimepicker').val();
 			var end = $('#datetimepicker2').val();
-			$("#orderData").load(contextPath + "/order/getOrderListData",queryData(1,'','','','',begin,end));
+			$("#orderData").load(contextPath + "/admin/getOrderListData",queryData(1,'','','','',begin,end));
 		}
 
 		//根据图书名搜索
@@ -310,24 +302,7 @@
 			}else layer.msg('查找内容不为空！', {icon: 7,anim:6});
 
 		}
-		//订单支付支付
-		function orderPay(orderId){
 
-			layer.msg('正在跳转至支付页面...', {
-				icon: 16,
-				time: 2000 //2秒关闭（如果不配置，默认是3秒）
-			}, function(){
-/*				$.ajax({
-					url:contextPath + "/order/orderPay",
-					method:"get",
-					 data:{"orderId":orderId},
-					success:function (data) {
-
-					}
-				})*/
-				location.href = contextPath +"/order/orderPay?orderId=" + orderId;
-			});
-		}
 
 		//取消订单
 		function cancelOrder(orderId){

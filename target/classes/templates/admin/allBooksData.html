@@ -20,22 +20,11 @@
 				<div class="table-responsive" id="imgDiv">
 					<table class="table table-hover table-striped" style="vertical-align:middle;">
 						<thead>
-<!--						<tr>
-							<td colspan="8">
-								<label class="text-primary">显示条数:</label>
-								<select id="cartSzie" class="form-control" style="display: inline" onchange="displaySize(this)">
-									<option value="2">2</option>
-									<option value="4">4</option>
-									<option value="6" selected>6</option>
-									<option value="8">8</option>
-								</select>
-							</td>
-						</tr>-->
+
 						<tr class="text-success success">
-							<th style="width: 30px;">
+							<!--<th style="width: 30px;">
 								<input type="checkbox" id="selectAll" onclick="selectAll(this)">
-<!--								<input type="checkbox" id="testId" onclick="selectAll(this)">-->
-							</th>
+							</th>-->
 							<th id="sequence">序号</th>
 							<th>图片</th>
 							<th>书名</th>
@@ -53,10 +42,9 @@
 						</thead>
 						<tbody id="tby" th:each="book,iter:${bookList}">
 						<tr>
-							<td style="width: 30px;">
+							<!--<td style="width: 30px;">
 								<input type="checkbox" name="cks"  th:value="${book.id}" >
-<!--								<input type="checkbox" name="cks" onclick="cks(this)" name="testName" value="${item.id}">-->
-							</td>
+							</td>-->
 							<td th:text="${book.id}">1001</td>
 							<td id="layer-photos-demo" class="layer-photos-demo">
 								<img src="images/tenxunchuan.jpg" th:src="@{'/public/' + ${book.imgUrl}}">
@@ -72,7 +60,7 @@
 							<td style="width: 146px;">
 								<button class="btn btn-success" th:onclick="displayInfo([[${book.info}]])">预览</button>
 							</td>
-							<td th:if="${book.state == 1}">在售</td>
+							<td th:if="${book.state == 1}">上架中</td>
 							<td th:if="${book.state == 0}">已下架</td>
 							<!--<td>
 								<a class="btn btn-info" th:href="@{/admin/toUpdateBook(bookId=${book.id})}">修改</a>
@@ -100,9 +88,9 @@
 						</tr>
 						<tr style="background-color: white;">
 							<td>
-								<a th:href="@{/admin/toAddBook}" class="btn btn-info">添加商品＋</a>
+								<a th:href="@{/admin/toAddBook}" class="btn btn-info">上架新书＋</a>
 							</td>
-							<td><button class="btn btn-danger" data-toggle="modal" data-target="#myModal" th:onclick="deleteBooks()">删除商品一</button></td>
+<!--							<td><button class="btn btn-danger" data-toggle="modal" data-target="#myModal" th:onclick="deleteBooks()">删除商品一</button></td>-->
 							<td colspan="4"></td>
 <!--							<td>
 								<a href="confirm_order.html" class="btn btn-warning">结算商品</a>

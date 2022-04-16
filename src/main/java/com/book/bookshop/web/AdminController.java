@@ -2,13 +2,11 @@ package com.book.bookshop.web;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.book.bookshop.entity.*;
 import com.book.bookshop.entity.enums.Category;
-import com.book.bookshop.service.AdminService;
-import com.book.bookshop.service.AppealService;
-import com.book.bookshop.service.BookService;
-import com.book.bookshop.service.UserService;
+import com.book.bookshop.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -40,9 +38,15 @@ public class AdminController {
     private BookService bookService;
 
     @Autowired
+    private OrderService orderService;
+    @Autowired
+    private OrderItemService orderItemService;
+    @Autowired
     private UserService userService;
     @Autowired
     private AppealService appealService;
+    @Autowired
+    private AddressService addressService;
     //管理员登录
     @ResponseBody
     @PostMapping("/login")
@@ -58,7 +62,7 @@ public class AdminController {
 
     //【分页】【全部书籍】【后台】
     @RequestMapping("/getBookListByPage")
-    public String getOrderListData(HttpSession session, Model model, Integer page, Integer pageSize) {
+    public String getBookListByPage(HttpSession session, Model model, Integer page, Integer pageSize) {
         Page pages = new Page<Book>(page, pageSize);
         IPage<Book> iPage = bookService.page(pages, new QueryWrapper<>());
         List<Book> bookList = iPage.getRecords();
@@ -303,7 +307,6 @@ public class AdminController {
     //商品下架
     @RequestMapping("/offShelf")
     public String offShelf(Integer bookId){
-        System.out.println(bookId);
          Book book = bookService.getById(bookId);
          book.setState(0);
          bookService.updateById(book);
@@ -313,7 +316,6 @@ public class AdminController {
     //商品上架
     @RequestMapping("/onShelf")
     public String onShelf(Integer bookId){
-        System.out.println(bookId);
         Book book = bookService.getById(bookId);
         book.setState(1);
         bookService.updateById(book);
@@ -323,10 +325,47 @@ public class AdminController {
     //补充库存
     @RequestMapping("/addCount")
     public String addCount(Integer bookId,Integer count){
-        System.out.println(bookId+"  "+count);
         Book book = bookService.getById(bookId);
         book.setCount(book.getCount()+count);
         bookService.updateById(book);
         return "admin/bookAdmin";
     }
+
+    //去到所有订单
+    @RequestMapping("/toAllOrder")
+    public String toAllOrder(){
+        return "admin/allOrder";
+    }
+
+    //获取订单记录
+    @RequestMapping("/getOrderListData")
+    public String getOrderListData(Model model, Integer page, Integer pageSize) {
+        Page pages = new Page<Order>(page, pageSize);
+        IPage<Order> iPage = orderService.page(pages, new QueryWrapper<>());
+        List<Order> orders = iPage.getRecords();
+        for (Order order:orders){
+            QueryWrapper queryWrapper = new QueryWrapper();
+            queryWrapper.eq("order_id",order.getId());
+            List<com.book.bookshop.entity.OrderItem> orderItems = orderItemService.list(queryWrapper);
+            order.setOrderItems(orderItems);
+            order.setUser(userService.getById(order.getUserId()));
+            order.setAddress(addressService.getById(order.getAddressId()));
+            double price = 0.0;
+            for (com.book.bookshop.entity.OrderItem item:orderItems){
+                Book book = bookService.getById(item.getBookId());
+                item.setBook(book);
+                price += item.getCount() * item.getBook().getNewPrice();
+            }
+            order.setTotalPrice(price);
+        }
+        model.addAttribute("orders", orders);
+        model.addAttribute("pre", page - 1);
+        model.addAttribute("next", page + 1);
+        model.addAttribute("cur", page);
+        model.addAttribute("pages", iPage.getPages());
+        model.addAttribute("pageSize", pageSize);
+        model.addAttribute("total",iPage.getTotal());
+        return "admin/orderData";
+    }
+
 }

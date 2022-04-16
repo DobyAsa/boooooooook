@@ -261,19 +261,23 @@
 		}
 
 		//跳转到指定页
-		function goPage(pageSize) {
-			var page = $("#inputPage").val();
+		function goPage(pageSize,pages) {
+			var inputPage = $("#inputPage").val();
 			//数字正则
 			var reg = new RegExp("^[0-9]*$");
-			if (!reg.test(page)){
+			if (!reg.test(inputPage)){
 				layer.msg('请输入正整数！', {icon: 7,anim:6});
 				return;
 			}
-			if (page==''){
+			if (inputPage==''){
 				layer.msg('请输入页码', {icon: 7,anim:6});
 				return;
 			}
-			$("#orderData").load(contextPath + "/order/getOrderListData",queryData(page,pageSize))
+			if (inputPage > pages) {//如果输入的页数大于总页数
+				layer.msg('超出总页数！总页数：'+pages, {icon: 7,anim:6});
+				return;
+			}
+			$("#orderData").load(contextPath + "/order/getOrderListData",queryData(inputPage,pageSize))
 		}
 
 		//修改指定每页显示的记录数
