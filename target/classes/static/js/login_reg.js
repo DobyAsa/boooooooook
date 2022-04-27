@@ -132,7 +132,7 @@ function login() {
                             $("#codeTip").css("display", "block");
                         } else if (data == 104) {
                             // layer.msg('该账号已被封禁！', {icon: 2,anim:6});
-                            layer.confirm('账号已被封禁,是否申诉？', {
+                            layer.confirm('因违反社区规定，账号已被封禁,是否申诉？', {
                                 icon: 3,
                                 btn: ['是', '否']
                             }, function (index, layero) {
@@ -237,7 +237,7 @@ function doEmailLogin() {
                 return;
             }else if (data == 104) {
                 // layer.msg('该账号已被封禁！', {icon: 2,anim:6});
-                layer.confirm('账号已被封禁,是否申诉？', {
+                layer.confirm('因违反社区规定，账号已被封禁,是否申诉？', {
                     icon: 3,
                     btn: ['是', '否']
                 }, function (index, layero) {

@@ -17,7 +17,10 @@
 							<a href="#" class="btn btn-warning" th:onclick="orderPay([[${order.id}]])">点击支付</a>
 						</span>
 						<span th:if="${order.orderStatus == '1'}">
-							<a href="#" class="btn btn-danger" th:onclick="cancelOrder([[${order.id}]])">点击取消</a>
+							<a href="#" class="btn btn-danger" th:onclick="cancelOrder([[${order.id}]])">取消订单</a>
+						</span>
+						<span th:if="${order.orderStatus == '5'}">
+							<a href="#" class="btn btn-success" th:onclick="takeOver([[${order.id}]])">点击收货</a>
 						</span>
 						<!--<span th:if="${order.orderStatus == '2'}">
 							<a href="#" class="btn btn-success" th:href="@{/user/toComment(orderId=${order.id})}">点击评价</a>
@@ -39,14 +42,17 @@
 								<li>
 									<a href="#ios" th:href="@{'#ios'+ ${iter.index}}" data-toggle="tab">订单信息</a>
 								</li>
+								<li>
+									<a href="#express" th:href="@{'#express'+ ${iter.index}}" th:if="${order.express}" data-toggle="tab">物流信息</a>
+								</li>
 							</ul>
 							<div class="tab-content">
 								<div class="tab-pane fade in active" id="home" th:id="${'home' + iter.index}">
 									<div class="row">
 										<div>
 											<ul class="nav navbar-collapse" style="line-height:3;">
-												<li class="text-info"><span class="text-success">姓名:</span><span class="text-info" th:text="${order.user.username}">管成功</span></li>
-												<li class="text-info"><span class="text-success">联系方式:</span> <span th:text="${order.user.phone}">15906128572</span></li>
+												<li class="text-info"><span class="text-success">收件人:</span><span class="text-info" th:text="${order.address.receiver}">管成功</span></li>
+												<li class="text-info"><span class="text-success">联系方式:</span> <span th:text="${order.address.tel}">15906128572</span></li>
 												<li class="text-info"><span class="text-success">收货地址:</span><span th:text="${order.address.province} + ${order.address.city} +${order.address.area} + ${order.address.detailAddress}">江苏省苏州市姑苏区烽火路80号天创企业3楼</span></li>
 											</ul>
 										</div>
@@ -57,9 +63,23 @@
 										<div>
 											<ul class="nav navbar-collapse" style="line-height:3;">
 												<li class="text-info"><span class="text-success">订单编号:</span><span class="text-info" th:text="${order.orderNum}">1527600039447022</span></li>
-												<li class="text-info"><span class="text-success">创建时间:</span><span th:text="${#calendars.format(order.createDate,'yyyy-MM-dd HH:mm:ss')}">01/04/2017 12:52 PM</span></li>
+												<li class="text-info"><span class="text-success">下单时间:</span><span th:text="${#calendars.format(order.createDate,'yyyy-MM-dd HH:mm:ss')}">01/04/2017 12:52 PM</span></li>
 <!--												<li class="text-info"><span class="text-success">订单总金额:</span><span th:text="${order.totalPrice + '元'}">520.0元</span></li>-->
 												<li class="text-info"><span class="text-success">订单总金额:</span><span th:text="${#numbers.formatDecimal(order.totalPrice, 0, 1)+ '元'}">520.0元</span></li>
+											</ul>
+										</div>
+									</div>
+								</div>
+								<div class="tab-pane fade" id="express" th:id="${'express' + iter.index}" th:if="${order.express}">
+									<div class="row">
+										<div>
+											<ul class="nav navbar-collapse" style="line-height:3;">
+												<li class="text-info"><span class="text-success">快递单号:</span><span class="text-info" th:text="${order.express.expNum}">1527600039447022</span></li>
+												<li class="text-info"><span class="text-success">快递公司:</span><span class="text-info" th:text="${order.express.expCompany}">1527600039447022</span></li>
+												<li class="text-info"><span class="text-success">快递员:</span><span class="text-info" th:text="${order.express.courier}">1527600039447022</span></li>
+												<li class="text-info"><span class="text-success">快递员电话:</span><span class="text-info" th:text="${order.express.courierPhone}">1527600039447022</span></li>
+												<li class="text-info"><span class="text-success">发货时间:</span><span th:text="${#calendars.format(order.express.sendTime,'yyyy-MM-dd HH:mm:ss')}">01/04/2017 12:52 PM</span></li>
+												<li class="text-info" th:if="${order.express.receiveTime}"><span class="text-success">收货时间:</span><span th:text="${#calendars.format(order.express.receiveTime,'yyyy-MM-dd HH:mm:ss')}">01/04/2017 12:52 PM</span></li>
 											</ul>
 										</div>
 									</div>
@@ -93,9 +113,12 @@
 					<td th:if="${order.orderStatus == '1'}">待支付</td>
 					<td th:if="${order.orderStatus == '3'}">支付失败</td>
 					<td th:if="${order.orderStatus == '4'}">订单已取消</td>
-					<td th:if="${items.state == 1&&order.orderStatus == '2'}">
+					<td th:if="${order.orderStatus == '5'}">已发货</td>
+
+					<td th:if="${items.state == 1&&order.orderStatus == '6'}">
 						<a class="btn btn-primary" th:href="@{/user/toComment(orderItemId=${items.id})}">点击评价</a>
 					</td>
+					<td th:if="${items.state == 1&&order.orderStatus == '2'}">待发货</td>
 					<td th:if="${items.state == 2}">已评价</td>
 				</tr>
 				</tbody>

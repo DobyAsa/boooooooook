@@ -15,6 +15,7 @@ import org.w3c.dom.ls.LSOutput;
 
 import javax.servlet.http.HttpSession;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -35,7 +36,8 @@ public class OrderController {
     private OrderItemService orderItemService;
     @Autowired
     private BookService bookService;
-
+    @Autowired
+    private ExpressService expressService;
     @Autowired
     public void setAlipayUtil(AlipayUtil alipayUtil) {
         this.alipayUtil = alipayUtil;
@@ -200,6 +202,23 @@ public class OrderController {
         } else return "emptyOrder";
     }
 
+    //收货
+    @RequestMapping("/takeOver")
+    @ResponseBody
+    public String takeOver(Integer orderId){
+        //根据orderId在在express表中查出对应的express,然后设置收货时间
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.eq("order_id",orderId);
+        Express express = expressService.getOne(queryWrapper);
+        express.setReceiveTime(new Date());
+        expressService.updateById(express);
+        Order order = orderService.getById(orderId);
+        order.setOrderStatus("6");
+        if (orderService.updateById(order)){
+            return "success";
+        }
+        else return "fail";
+    }
 
 }
 

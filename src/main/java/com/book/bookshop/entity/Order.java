@@ -20,7 +20,7 @@ public class Order {
     private Integer userId;
     private Integer addressId;
     private String orderStatus;
-
+    private Integer expressId;
     //用户信息
     @TableField(exist = false)
     private User user;
@@ -36,4 +36,8 @@ public class Order {
     //订单总金额
     @TableField(exist = false)
     private double totalPrice;
+
+    //物流信息
+    @TableField(exist = false)
+    private Express express;
 }

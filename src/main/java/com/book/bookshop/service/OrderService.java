@@ -1,5 +1,6 @@
 package com.book.bookshop.service;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.book.bookshop.entity.*;
 import com.book.bookshop.mapper.OrderItemMapper;
@@ -27,6 +28,8 @@ public class OrderService extends ServiceImpl<OrderMapper, Order> {
     private OrderItemService orderItemService;
     @Autowired
     private CartService cartService;
+    @Autowired
+    private ExpressService expressService;
     //购买
     public String buy(List<CartVo> cartVos, Integer addrId, HttpSession session){
         User user = (User) session.getAttribute("user");
@@ -60,19 +63,27 @@ public class OrderService extends ServiceImpl<OrderMapper, Order> {
     //查询用户订单
     public List<Order> findUserOrder(Integer userId,OrderQueryVo orderQueryVo){
         Integer begin = (orderQueryVo.getPage() - 1) * orderQueryVo.getPageSize();
-        Integer end = orderQueryVo.getPage() * orderQueryVo.getPageSize();
+//        Integer end = orderQueryVo.getPage() * orderQueryVo.getPageSize(); bug之一：详细了解mysql limit用法
+        Integer end =  orderQueryVo.getPageSize();
         orderQueryVo.setBegin(begin);
         orderQueryVo.setEnd(end);
         orderQueryVo.setUserId(userId);
         List<Order> list = orderMapper.findOrderAndOrderDetailListByUser(orderQueryVo);
+
         for (Order order: list) {
+            QueryWrapper queryWrapper = new QueryWrapper();
+            queryWrapper.eq("order_id",order.getId());
             List<OrderItem> items = order.getOrderItems();
             double price = 0.0;
             for (OrderItem item:items) {
                 price += item.getCount() * item.getBook().getNewPrice();
+                System.out.println(item);
             }
             order.setTotalPrice(price);//计算订单总金额
+            Express express = expressService.getOne(queryWrapper);
+            if (express!=null) order.setExpress(express);
         }
+
         return list;
     }
 

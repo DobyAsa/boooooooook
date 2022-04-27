@@ -90,7 +90,8 @@
 					<div class="layui-form-item layui-form-text">
 						<label class="layui-form-label">简介</label>
 						<div class="layui-input-block">
-							<textarea name="info" placeholder="请输入内容" required  lay-verify="required" th:placeholder="${book.info}" th:value="${book.info}" class="layui-textarea"></textarea>
+							<textarea name="info" placeholder="请输入内容" th:placeholder="${book.info}" th:value="${book.info}" class="layui-textarea"></textarea>
+							<input type="hidden" name="oldInfo" th:value="${book.info}">
 						</div>
 					</div>
 					<div class="layui-form-item">

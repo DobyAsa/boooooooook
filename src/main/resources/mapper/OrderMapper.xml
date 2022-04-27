@@ -30,6 +30,8 @@
             <result column="city" property="city"></result>
             <result column="area" property="area"></result>
             <result column="detail_address" property="detailAddress"></result>
+            <result column="tel" property="tel"></result>
+            <result column="receiver" property="receiver"></result>
         </association>
 
         <!--订单明细-->
@@ -49,6 +51,19 @@
                 <result column="img_url" property="imgUrl"></result>
                 <result column="new_price" property="newPrice"></result>
             </association>
+
+            <!--物流-->
+<!--            <association property="express" javaType="com.book.bookshop.entity.Express">
+                <id column="id" property="id"></id>
+                <result column="exp_num" property="expNum"></result>
+                <result column="exp_company" property="expCompany"></result>
+                <result column="address_id" property="addressId"></result>
+                <result column="send_time" property="sendTime"></result>
+                <result column="receive_time" property="receiveTime"></result>
+                <result column="courier" property="courier"></result>
+                <result column="courier_phone" property="courierPhone"></result>
+                <result column="order_id" property="orderId"></result>
+            </association>-->
         </collection>
     </resultMap>
 
@@ -61,17 +76,32 @@
         ba.city,
         ba.area,
         ba.detail_address,
+        ba.tel,
+        ba.receiver,
+
         boi.id order_item_id,
         boi.book_id,
         boi.order_id,
         boi.count,
+        boi.state,
+        boi.price,
+        boi.single_price,
+
         bb.id book_id,
         bb.img_url,
         bb.name,
-        bb.new_price,
-        boi.state,
-        boi.price,
-        boi.single_price
+        bb.new_price
+
+/*        be.exp_num,
+        be.id,
+        be.exp_company,
+        be.address_id,
+        be.send_time,
+        be.receive_time,
+        be.courier,
+        be.courier_phone,
+        be.order_id*/
+
         FROM
         bs_order bo,
         bs_user bu,

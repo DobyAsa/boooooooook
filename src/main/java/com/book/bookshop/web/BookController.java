@@ -14,9 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 
 /**
@@ -115,13 +113,13 @@ public class BookController {
         QueryWrapper<Book> queryWrapper2 = new QueryWrapper();
         QueryWrapper<Book> queryWrapper3 = new QueryWrapper();
         List<Book> bookList = new ArrayList<>();
-        queryWrapper1.like("name",inputBookName);
+        queryWrapper1.like("name",inputBookName);//根据书名
         bookList.addAll(bookService.list(queryWrapper1));
-        queryWrapper2.like("author",inputBookName);
+        queryWrapper2.like("author",inputBookName);//根据作者
         bookList.addAll(bookService.list(queryWrapper2));
-        queryWrapper3.like("info",inputBookName);
+        queryWrapper3.like("info",inputBookName);//根据简介
         bookList.addAll(bookService.list(queryWrapper3));
-        //使用迭代器，不然会出现ConcurrentModificationException
+        //去除已下架的，使用迭代器，不然会出现ConcurrentModificationException
         Iterator it = bookList.iterator();
         while(it.hasNext()) {
             Book book = (Book) it.next();
@@ -129,7 +127,12 @@ public class BookController {
                 it.remove();
             }
         }
-        model.addAttribute("bookList", bookList);
+        Set<Book> bookSet = new HashSet();
+        //去重
+        for (Book book :bookList){
+            bookSet.add(book);
+        }
+        model.addAttribute("bookList", bookSet);
         return "searchPage";
     }
 }

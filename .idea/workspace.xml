@@ -3,27 +3,34 @@
   <component name="ChangeListManager">
     <list default="true" id="a89b3715-3253-41ee-a81d-e446e61e211a" name="Default Changelist" comment="普通用户申诉、管理员审核">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/book/bookshop/entity/Cart.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/book/bookshop/entity/Cart.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/book/bookshop/entity/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/book/bookshop/entity/Order.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/book/bookshop/service/OrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/book/bookshop/service/OrderService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/book/bookshop/web/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/book/bookshop/web/AdminController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/book/bookshop/web/CartController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/book/bookshop/web/CartController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/book/bookshop/web/BookController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/book/bookshop/web/BookController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/book/bookshop/web/OrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/book/bookshop/web/OrderController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/addBook.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/addBook.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/allBooksData.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/allBooksData.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/bookAdmin.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/bookAdmin.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/common/header.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/common/header.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/OrderMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapper/OrderMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/js/login_reg.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/js/login_reg.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/allOrder.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/allOrder.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/orderData.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/orderData.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/updateBook.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/updateBook.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/confirm_order.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/confirm_order.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/orderData.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/orderData.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/order_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/order_list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/book/bookshop/BookShopApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/book/bookshop/BookShopApplicationTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/book/bookshop/entity/Cart.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/book/bookshop/entity/Cart.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/searchPage.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/searchPage.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/book/bookshop/entity/Order.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/book/bookshop/entity/Order.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/book/bookshop/service/OrderService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/book/bookshop/service/OrderService.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/book/bookshop/web/AdminController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/book/bookshop/web/AdminController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/book/bookshop/web/CartController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/book/bookshop/web/CartController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/book/bookshop/web/BookController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/book/bookshop/web/BookController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/book/bookshop/web/OrderController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/book/bookshop/web/OrderController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/admin/addBook.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/admin/addBook.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/admin/allBooksData.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/admin/allBooksData.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/admin/bookAdmin.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/admin/bookAdmin.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/admin/common/header.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/admin/common/header.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mapper/OrderMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mapper/OrderMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/admin/allOrder.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/admin/allOrder.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/admin/orderData.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/admin/orderData.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/admin/updateBook.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/admin/updateBook.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/confirm_order.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/confirm_order.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/templates/orderData.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/orderData.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/com/book/bookshop/BookShopApplicationTests.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/com/book/bookshop/BookShopApplicationTests.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/order_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/order_list.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -136,23 +143,23 @@
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\IdeaProjects\book-shop\src\main\resources\templates" />
-      <recent name="D:\IdeaProjects\book-shop\src\main\resources\static" />
-    </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="com.book.bookshop.utils" />
-      <recent name="com.book.bookshop.service" />
-      <recent name="com.book.bookshop.mapper" />
-      <recent name="com.book.bookshop.entity" />
-      <recent name="com.book.bookshop.web" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\IdeaProjects\book-shop\src\main\resources\templates\admin" />
       <recent name="D:\IdeaProjects\book-shop\src\main\resources\templates" />
       <recent name="D:\IdeaProjects\book-shop\src\main\resources\static\images" />
       <recent name="D:\IdeaProjects\book-shop\script" />
       <recent name="D:\IdeaProjects\book-shop\src\main\resources\templates\admin\common" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.book.bookshop.mapper" />
+      <recent name="com.book.bookshop.service" />
+      <recent name="com.book.bookshop.entity" />
+      <recent name="com.book.bookshop.utils" />
+      <recent name="com.book.bookshop.web" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\IdeaProjects\book-shop\src\main\resources\templates" />
+      <recent name="D:\IdeaProjects\book-shop\src\main\resources\static" />
     </key>
   </component>
   <component name="RunManager" selected="Spring Boot.BookShopApplication">
@@ -358,6 +365,13 @@
       <workItem from="1649943745841" duration="5686000" />
       <workItem from="1650011293246" duration="1690000" />
       <workItem from="1650101015445" duration="10501000" />
+      <workItem from="1650200680144" duration="3036000" />
+      <workItem from="1650358616658" duration="3900000" />
+      <workItem from="1650632254489" duration="3773000" />
+      <workItem from="1650702788688" duration="5999000" />
+      <workItem from="1650790936133" duration="3967000" />
+      <workItem from="1650964490871" duration="13201000" />
+      <workItem from="1651045462373" duration="13496000" />
     </task>
     <task id="LOCAL-00001" summary="分页功能完成">
       <created>1646995980855</created>
@@ -476,58 +490,58 @@
     </state>
     <state x="499" y="159" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1536.824/1920.0.1440.860@0.0.1536.824" timestamp="1642684485812" />
     <state x="499" y="159" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1536.824@0.0.1536.824" timestamp="1647610090582" />
-    <state x="363" y="6" width="829" height="817" key="CommitChangelistDialog2" timestamp="1648743393500">
+    <state x="266" y="7" width="950" height="817" key="CommitChangelistDialog2" timestamp="1650966715016">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="363" y="6" width="829" height="817" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1648743393500" />
-    <state x="93" y="93" width="1350" height="638" key="DiffContextDialog" timestamp="1649433240560">
+    <state x="266" y="7" width="950" height="817" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1650966715016" />
+    <state x="14" y="92" width="1350" height="638" key="DiffContextDialog" timestamp="1651073206007">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="93" y="93" width="1350" height="638" key="DiffContextDialog/0.0.1536.824@0.0.1536.824" timestamp="1649433240560" />
-    <state x="549" y="168" key="FileChooserDialogImpl" timestamp="1647791997174">
+    <state x="14" y="92" width="1350" height="638" key="DiffContextDialog/0.0.1536.824@0.0.1536.824" timestamp="1651073206006" />
+    <state x="549" y="168" key="FileChooserDialogImpl" timestamp="1650639090408">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="549" y="168" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1647791997174" />
-    <state width="1493" height="140" key="GridCell.Tab.0.bottom" timestamp="1650125780535">
+    <state x="549" y="168" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1650639090408" />
+    <state width="1493" height="233" key="GridCell.Tab.0.bottom" timestamp="1651074467161">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1493" height="184" key="GridCell.Tab.0.bottom/0.0.1536.824/1920.0.1440.860@0.0.1536.824" timestamp="1642690956535" />
-    <state width="1493" height="140" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1650125780535" />
-    <state width="1493" height="140" key="GridCell.Tab.0.center" timestamp="1650125780534">
+    <state width="1493" height="233" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1651074467161" />
+    <state width="1493" height="233" key="GridCell.Tab.0.center" timestamp="1651074467161">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1493" height="184" key="GridCell.Tab.0.center/0.0.1536.824/1920.0.1440.860@0.0.1536.824" timestamp="1642690956535" />
-    <state width="1493" height="140" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1650125780534" />
-    <state width="1493" height="140" key="GridCell.Tab.0.left" timestamp="1650125780534">
+    <state width="1493" height="233" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1651074467161" />
+    <state width="1493" height="233" key="GridCell.Tab.0.left" timestamp="1651074467160">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1493" height="184" key="GridCell.Tab.0.left/0.0.1536.824/1920.0.1440.860@0.0.1536.824" timestamp="1642690956535" />
-    <state width="1493" height="140" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1650125780534" />
-    <state width="1493" height="140" key="GridCell.Tab.0.right" timestamp="1650125780535">
+    <state width="1493" height="233" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1651074467160" />
+    <state width="1493" height="233" key="GridCell.Tab.0.right" timestamp="1651074467161">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1493" height="184" key="GridCell.Tab.0.right/0.0.1536.824/1920.0.1440.860@0.0.1536.824" timestamp="1642690956535" />
-    <state width="1493" height="140" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1650125780535" />
-    <state width="1493" height="140" key="GridCell.Tab.1.bottom" timestamp="1650125780535">
+    <state width="1493" height="233" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1651074467161" />
+    <state width="1493" height="233" key="GridCell.Tab.1.bottom" timestamp="1651074467162">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1493" height="133" key="GridCell.Tab.1.bottom/0.0.1536.824/1920.0.1440.860@0.0.1536.824" timestamp="1642690956518" />
-    <state width="1493" height="140" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1650125780535" />
-    <state width="1493" height="140" key="GridCell.Tab.1.center" timestamp="1650125780535">
+    <state width="1493" height="233" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1651074467162" />
+    <state width="1493" height="233" key="GridCell.Tab.1.center" timestamp="1651074467162">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1493" height="133" key="GridCell.Tab.1.center/0.0.1536.824/1920.0.1440.860@0.0.1536.824" timestamp="1642690956518" />
-    <state width="1493" height="140" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1650125780535" />
-    <state width="1493" height="140" key="GridCell.Tab.1.left" timestamp="1650125780535">
+    <state width="1493" height="233" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1651074467162" />
+    <state width="1493" height="233" key="GridCell.Tab.1.left" timestamp="1651074467161">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1493" height="133" key="GridCell.Tab.1.left/0.0.1536.824/1920.0.1440.860@0.0.1536.824" timestamp="1642690956518" />
-    <state width="1493" height="140" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1650125780535" />
-    <state width="1493" height="140" key="GridCell.Tab.1.right" timestamp="1650125780535">
+    <state width="1493" height="233" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1651074467161" />
+    <state width="1493" height="233" key="GridCell.Tab.1.right" timestamp="1651074467162">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1493" height="133" key="GridCell.Tab.1.right/0.0.1536.824/1920.0.1440.860@0.0.1536.824" timestamp="1642690956518" />
-    <state width="1493" height="140" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1650125780535" />
+    <state width="1493" height="233" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1651074467162" />
     <state width="1493" height="211" key="GridCell.Tab.2.bottom" timestamp="1649946034119">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -548,10 +562,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="212" height="477" key="HiddenNamespacesPopup/0.0.1536.824@0.0.1536.824" timestamp="1647164606074" />
-    <state x="564" y="123" key="RollbackChangesDialog" timestamp="1649433241830">
+    <state x="564" y="123" key="RollbackChangesDialog" timestamp="1651073206616">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="564" y="123" key="RollbackChangesDialog/0.0.1536.824@0.0.1536.824" timestamp="1649433241830" />
+    <state x="564" y="123" key="RollbackChangesDialog/0.0.1536.824@0.0.1536.824" timestamp="1651073206616" />
     <state x="267" y="0" key="SettingsEditor" timestamp="1648818033889">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -568,18 +582,18 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="519" y="0" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1536.824@0.0.1536.824" timestamp="1649927224943" />
-    <state x="562" y="330" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1648301209223">
+    <state x="562" y="330" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1650992933490">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="562" y="330" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1536.824@0.0.1536.824" timestamp="1648301209223" />
+    <state x="562" y="330" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1536.824@0.0.1536.824" timestamp="1650992933490" />
     <state x="290" y="114" width="928" height="634" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2" timestamp="1647794163756">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="290" y="114" width="928" height="634" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/0.0.1536.824@0.0.1536.824" timestamp="1647794163756" />
-    <state x="411" y="166" width="881" height="658" key="find.popup" timestamp="1650124355611">
+    <state x="411" y="166" width="881" height="658" key="find.popup" timestamp="1651071715276">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="411" y="166" width="881" height="658" key="find.popup/0.0.1536.824@0.0.1536.824" timestamp="1650124355611" />
+    <state x="411" y="166" width="881" height="658" key="find.popup/0.0.1536.824@0.0.1536.824" timestamp="1651071715276" />
     <state x="510" y="42" key="refactoring.ChangeSignatureDialog" timestamp="1644629814106">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -588,11 +602,11 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="425" y="187" key="run.anything.popup/0.0.1536.824@0.0.1536.824" timestamp="1647523463430" />
-    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1650102715042">
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1650633954476">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824/1920.0.1440.860@0.0.1536.824" timestamp="1642684057066" />
-    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1650102715042" />
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1650633954476" />
     <state x="491" y="324" key="vcs.readOnlyHandler.ReadOnlyStatusDialog" timestamp="1643199516995">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

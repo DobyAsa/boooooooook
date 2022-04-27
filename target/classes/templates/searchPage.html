@@ -30,7 +30,7 @@
     <div class="row">
         <div class="col-sm-6 col-md-3" th:each="book:${bookList}">
             <div class="thumbnail">
-                <a href="details.html" th:href="@{/book/detail(id=${book.id})}"><img th:src="@{'/images/'+ ${book.imgUrl}}" alt="通用的占位符缩略图"></a>
+                <a href="details.html" th:href="@{/book/detail(id=${book.id})}"><img th:src="@{'/public/'+ ${book.imgUrl}}" alt="通用的占位符缩略图"></a>
                 <div class="caption">
                     <h3 th:classappend="h3-height" th:text="${book.name}">北纬78°</h3>
                     <p th:classappend="p-height">价格:<span th:text="'￥'+${book.newPrice}" style="color:#FA5000">19.5元</span>&nbsp;&nbsp;作者:<span th:text="${book.author}">陈丹燕</span>&nbsp;&nbsp;</p>

@@ -49,27 +49,32 @@
 						<ul class="nav navbar-nav navbar-left">
 							<li class="dropdown">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-									交易状态
+									订单状态
 									<b class="caret"></b>
 								</a>
 								<ul class="dropdown-menu">
 									<li>
 										<a href="javascript:void(0)" th:onclick="queryOrderStatus('')">全部</a>
 									</li>
-									<li class="divider"></li>
-									<li>
-										<a href="javascript:void(0)" th:onclick="queryOrderStatus('2')">已付款</a>
-
-									</li>
-									<li class="divider"></li>
 									<li>
 										<a href="javascript:void(0)" th:onclick="queryOrderStatus('1')">未付款</a>
 									</li>
-									<li class="divider"></li>
+									<li>
+										<a href="javascript:void(0)" th:onclick="queryOrderStatus('2')">待发货</a>
+									</li>
+									<li>
+										<a href="javascript:void(0)" th:onclick="queryOrderStatus('4')">已取消</a>
+									</li>
+									<li>
+										<a href="javascript:void(0)" th:onclick="queryOrderStatus('5')">已发货</a>
+									</li>
+									<li>
+										<a href="javascript:void(0)" th:onclick="queryOrderStatus('6')">已收货</a>
+									</li>
+
 <!--									<li>
 										<a href="javascript:void(0)" th:onclick="queryOrderStatus('3')">交易成功</a>
 									</li>-->
-									<li class="divider"></li>
 								</ul>
 							</li>
 						</ul>
@@ -105,6 +110,11 @@
 						<ul class="nav navbar-nav">
 							<li>
 								<a href="#" th:onclick="deleteAll()">清空订单</a>
+							</li>
+						</ul>
+						<ul class="nav navbar-nav">
+							<li>
+								<a href="#" th:onclick="returnAndExchange()">退换货详情</a>
 							</li>
 						</ul>
 					</nav>
@@ -357,6 +367,30 @@
 				return ;
 			});
 		}
+
+		//收货
+			function takeOver(orderId) {
+				layer.confirm('确定收货？', {
+					icon:3,
+					btn: ['确定', '取消']
+				}, function(index, layero){
+					//按钮【按钮一】的回调
+					$.ajax({
+						url:contextPath + "/order/takeOver",
+						type:"post",
+						data:{"orderId":orderId},
+						success:function (data) {
+							if (data == 'success'){
+								location.reload();
+							}else {
+								layer.msg('发货失败')
+							}
+						}
+					})
+				}, function(index){
+					return ;
+				});
+			}
 		</script>
 
 	</body>

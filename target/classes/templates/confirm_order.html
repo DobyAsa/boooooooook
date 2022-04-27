@@ -32,7 +32,7 @@
 			<div class="col-md-8 col-sm-12">
 				<ol class="breadcrumb">
 					<li>
-						<a href="#" class="text-success"><span class="glyphicon glyphicon-home"></span>&nbsp;&nbsp;送货地址</a>
+						<a href="#" class="text-success"><span class="glyphicon glyphicon-home"></span>&nbsp;&nbsp;收货地址</a>
 					</li>
 				</ol>
 				
@@ -40,7 +40,7 @@
 				<div style="margin-bottom: 5px;" id="addrDiv">
 					<ul class="list-group" id="address">
 						<li th:if="${not #lists.isEmpty(addressList)}" th:each="address:${addressList}" class="list-group-item">
-							<input type="radio" name="addr" th:value="${address.id}" th:text="${address.province}+${address.city}+${address.area}+${address.detailAddress}" th:checked="${address.isDefault=='1'}">&nbsp;
+							<input type="radio" name="addr" th:value="${address.id}" th:text="${address.province}+${address.city}+${address.area}+${address.detailAddress}+' | '+${address.receiver}+' | '+${address.tel}" th:checked="${address.isDefault=='1'}">&nbsp;
 							<a class="btn btn-default" th:onclick="setDefault([[${address.id}]])">设为默认</a>
 							<a class="btn btn-danger" th:onclick="deleteAddress([[${address.id}]])">删除</a>
 						</li>

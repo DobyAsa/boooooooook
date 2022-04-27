@@ -20,6 +20,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -36,7 +37,6 @@ public class AdminController {
     private AdminService adminService;
     @Autowired
     private BookService bookService;
-
     @Autowired
     private OrderService orderService;
     @Autowired
@@ -47,6 +47,8 @@ public class AdminController {
     private AppealService appealService;
     @Autowired
     private AddressService addressService;
+    @Autowired
+    private ExpressService expressService;
     //管理员登录
     @ResponseBody
     @PostMapping("/login")
@@ -131,11 +133,14 @@ public class AdminController {
 
     //更新图书
     @RequestMapping("/updateBook")
-    public String updateBook(Book book, MultipartFile bookPic,String pubDate,HttpSession session) throws IOException, ParseException {
+    public String updateBook(Book book, MultipartFile bookPic,String pubDate,HttpSession session,String oldInfo) throws IOException, ParseException {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String bookPicName = bookPic.getOriginalFilename();
         book.setImgUrl(bookPicName);
         book.setPublishDate(simpleDateFormat.parse(pubDate));
+        if (book.getInfo()==null||book.getInfo().equals("")){
+            book.setInfo(oldInfo);
+        }
         String filePath = "D:/images/";
         File dest = new File(filePath + bookPicName);
         book.setOldPrice((double)session.getAttribute("oldPrice"));
@@ -340,9 +345,10 @@ public class AdminController {
     //获取订单记录
     @RequestMapping("/getOrderListData")
     public String getOrderListData(Model model, Integer page, Integer pageSize) {
-        Page pages = new Page<Order>(page, pageSize);
+/*        Page pages = new Page<Order>(page, pageSize);
         IPage<Order> iPage = orderService.page(pages, new QueryWrapper<>());
-        List<Order> orders = iPage.getRecords();
+        List<Order> orders = iPage.getRecords();*/
+        List<Order> orders = orderService.list();
         for (Order order:orders){
             QueryWrapper queryWrapper = new QueryWrapper();
             queryWrapper.eq("order_id",order.getId());
@@ -357,15 +363,39 @@ public class AdminController {
                 price += item.getCount() * item.getBook().getNewPrice();
             }
             order.setTotalPrice(price);
+            Express express = expressService.getOne(queryWrapper);
+            if (express!=null) order.setExpress(express);
         }
         model.addAttribute("orders", orders);
-        model.addAttribute("pre", page - 1);
+
+/*        model.addAttribute("pre", page - 1);
         model.addAttribute("next", page + 1);
         model.addAttribute("cur", page);
         model.addAttribute("pages", iPage.getPages());
         model.addAttribute("pageSize", pageSize);
-        model.addAttribute("total",iPage.getTotal());
+        model.addAttribute("total",iPage.getTotal());*/
         return "admin/orderData";
+    }
+
+    @RequestMapping("/toSendOut")
+    public String toSendOut(Integer orderId,Model model){
+        Order order = orderService.getById(orderId);
+        model.addAttribute("order",order);
+        return "admin/addExpress";
+    }
+
+    //发货  生成物流信息
+    @RequestMapping("/addExpress")
+    public String addExpress(Express express,String orderNum){
+        express.setSendTime(new Date());
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.eq("order_num",orderNum);
+        Order order = orderService.getOne(queryWrapper);
+        order.setOrderStatus("5");
+        orderService.updateById(order);
+        express.setOrderId(order.getId());
+        expressService.save(express);
+        return "admin/allOrder";
     }
 
 }

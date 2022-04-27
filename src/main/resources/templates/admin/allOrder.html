@@ -42,7 +42,7 @@
 						<ul class="nav navbar-nav navbar-left">
 							<li class="dropdown">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-									交易状态
+									订单状态
 									<b class="caret"></b>
 								</a>
 								<ul class="dropdown-menu">
@@ -158,7 +158,9 @@
 	<script th:inline="javascript">
 			//获取应用路径
 			var contextPath = [[${#request.getContextPath()}]];
-	</script>
+            var admin = [[${session.admin}]]
+
+    </script>
 		<script type="text/javascript">
 			$(function () {
 				$('#datetimepicker').datetimepicker({
@@ -173,6 +175,11 @@
 		</script>
 
 		<script>
+            $(function () {
+                if (admin == null || admin == undefined || admin == 'undefined') {
+                    location.href = contextPath + "/book/index";
+                }
+            })
 		//删除多个订单
 		function orderDelete() {
 			//存储购物记录的id
@@ -233,7 +240,7 @@
 		}
 
 		$(function () {
-			$("#orderData").load(contextPath + "/admin/getOrderListData",queryData(1,''))
+			$("#orderData").load(contextPath + "/admin/getOrderListData")
 		})
 
 		function queryData(page, pageSize,orderNum,tradeStatus,orderBy,startTime,endTime) {
@@ -248,7 +255,7 @@
 			return query;
 		}
 
-		function loadData(page,pageSize) {
+/*		function loadData(page,pageSize) {
 			$("#orderData").load(contextPath + "/admin/getOrderListData",queryData(page,pageSize))
 		}
 
@@ -275,7 +282,7 @@
 		//修改指定每页显示的记录数
 		function loadDataBySize(obj) {
 			$("#orderData").load(contextPath + "/admin/getOrderListData",queryData(1,obj.value))
-		}
+		}*/
 
 		//查询
 		function queryOrderData() {
@@ -332,6 +339,29 @@
 				return ;
 			});
 		}
+
+			function sendOut(orderId) {
+				layer.confirm('确定发货？', {
+					icon:3,
+					btn: ['确定', '取消']
+				}, function(index, layero){
+					//按钮【按钮一】的回调
+					$.ajax({
+						url:contextPath + "/admin/sendOut",
+						type:"post",
+						data:{"orderId":orderId},
+						success:function (data) {
+							if (data == 'success'){
+								location.reload();
+							}else {
+								layer.msg('发货失败')
+							}
+						}
+					})
+				}, function(index){
+					return ;
+				});
+			}
 		</script>
 
 	</body>
