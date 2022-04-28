@@ -49,23 +49,42 @@
 									<li>
 										<a href="javascript:void(0)" th:onclick="queryOrderStatus('')">全部</a>
 									</li>
-									<li class="divider"></li>
-									<li>
-										<a href="javascript:void(0)" th:onclick="queryOrderStatus('2')">已付款</a>
-
-									</li>
-									<li class="divider"></li>
 									<li>
 										<a href="javascript:void(0)" th:onclick="queryOrderStatus('1')">未付款</a>
 									</li>
-									<li class="divider"></li>
-<!--									<li>
-										<a href="javascript:void(0)" th:onclick="queryOrderStatus('3')">交易成功</a>
-									</li>-->
+									<li>
+										<a href="javascript:void(0)" th:onclick="queryOrderStatus('2')">待发货</a>
+									</li>
+									<li>
+										<a href="javascript:void(0)" th:onclick="queryOrderStatus('4')">已取消</a>
+									</li>
+									<li>
+										<a href="javascript:void(0)" th:onclick="queryOrderStatus('5')">已发货</a>
+									</li>
+									<li>
+										<a href="javascript:void(0)" th:onclick="queryOrderStatus('6')">已收货</a>
+									</li>
 									<li class="divider"></li>
 								</ul>
 							</li>
 						</ul>
+
+						<ul class="nav navbar-nav navbar-left">
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+									用户列表
+									<b class="caret"></b>
+								</a>
+								<ul class="dropdown-menu"  >
+									<li th:each="user:${userList}">
+										<a href="javascript:void(0)" th:text="${user.username}" th:onclick="queryOrderUser([[${user.id}]])">用户名</a>
+										<li class="divider"></li>
+									</li>
+
+								</ul>
+							</li>
+						</ul>
+
 						<ul class="nav navbar-nav navbar-left">
 							<li class="dropdown">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -240,22 +259,24 @@
 		}
 
 		$(function () {
-			$("#orderData").load(contextPath + "/admin/getOrderListData")
+			$("#orderData").load(contextPath + "/admin/getOrderListData",queryData(1,''))
+
 		})
 
-		function queryData(page, pageSize,orderNum,tradeStatus,orderBy,startTime,endTime) {
+		function queryData(page, pageSize,orderNum,tradeStatus,orderBy,startTime,endTime,userId) {
 			var query = {};
 			query.page = page;
-			query.pageSize = pageSize == '' ? 2 : pageSize;
+			query.pageSize = pageSize == '' ? 6 : pageSize;
 			query.orderNum = orderNum == undefined ? '' : orderNum;
 			query.tradeStatus = tradeStatus == undefined ? '' : tradeStatus;
 			query.orderBy = orderBy == undefined ? '' : orderBy;
 			query.startTime = startTime == undefined ? '' : startTime;
 			query.endTime = endTime == undefined ? '' : endTime;
+			query.userId = userId == undefined ? '' : userId;
 			return query;
 		}
 
-/*		function loadData(page,pageSize) {
+		function loadData(page,pageSize) {
 			$("#orderData").load(contextPath + "/admin/getOrderListData",queryData(page,pageSize))
 		}
 
@@ -282,7 +303,7 @@
 		//修改指定每页显示的记录数
 		function loadDataBySize(obj) {
 			$("#orderData").load(contextPath + "/admin/getOrderListData",queryData(1,obj.value))
-		}*/
+		}
 
 		//查询
 		function queryOrderData() {
@@ -294,6 +315,9 @@
 		}
 		function queryOrderBy(val) {
 			$("#orderData").load(contextPath + "/admin/getOrderListData",queryData(1,'','','',val));
+		}
+		function queryOrderUser(userId) {
+			$("#orderData").load(contextPath + "/admin/getOrderListData",queryData(1,'','','','','','',userId));
 		}
 		function queryByDate() {
 			var begin = $('#datetimepicker').val();
@@ -328,7 +352,7 @@
 								icon: 1,
 								time: 2000 //2秒关闭（如果不配置，默认是3秒）
 							}, function(){
-								location.href = contextPath +"/order/list";
+								location.href = contextPath +"/admin/toAllOrder";
 							});
 						}
 						else if (data == "cancelFail") layer.msg("取消失败！");

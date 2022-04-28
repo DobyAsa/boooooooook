@@ -27,7 +27,7 @@
 						</span>-->
 					</div>
 					<div class="col-md-2" style="text-align: right;">
-						<a data-toggle="collapse" th:href="@{'#collapseDetail' + ${iter.index}}">订单详情</a>
+						<a data-toggle="collapse" th:href="@{'#collapseDetail' + ${iter.index}}">订单详情<i class="layui-icon layui-icon-down"></i></a>
 					</div>
 				</caption>
 				<thead>
@@ -113,7 +113,7 @@
 					<td th:if="${order.orderStatus == '1'}">待支付</td>
 					<td th:if="${order.orderStatus == '3'}">支付失败</td>
 					<td th:if="${order.orderStatus == '4'}">订单已取消</td>
-					<td th:if="${order.orderStatus == '5'}">已发货</td>
+					<td th:if="${order.orderStatus == '5'}">待收货</td>
 
 					<td th:if="${items.state == 1&&order.orderStatus == '6'}">
 						<a class="btn btn-primary" th:href="@{/user/toComment(orderItemId=${items.id})}">点击评价</a>

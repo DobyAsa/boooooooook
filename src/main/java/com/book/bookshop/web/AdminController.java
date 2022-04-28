@@ -338,16 +338,18 @@ public class AdminController {
 
     //去到所有订单
     @RequestMapping("/toAllOrder")
-    public String toAllOrder(){
+    public String toAllOrder(Model model){
+        List<User> userList = userService.list();
+        model.addAttribute("userList",userList);
         return "admin/allOrder";
     }
 
     //获取订单记录
-    @RequestMapping("/getOrderListData")
+    /*@RequestMapping("/getOrderListData")
     public String getOrderListData(Model model, Integer page, Integer pageSize) {
-/*        Page pages = new Page<Order>(page, pageSize);
+*//*        Page pages = new Page<Order>(page, pageSize);
         IPage<Order> iPage = orderService.page(pages, new QueryWrapper<>());
-        List<Order> orders = iPage.getRecords();*/
+        List<Order> orders = iPage.getRecords();*//*
         List<Order> orders = orderService.list();
         for (Order order:orders){
             QueryWrapper queryWrapper = new QueryWrapper();
@@ -368,14 +370,30 @@ public class AdminController {
         }
         model.addAttribute("orders", orders);
 
-/*        model.addAttribute("pre", page - 1);
+*//*        model.addAttribute("pre", page - 1);
         model.addAttribute("next", page + 1);
         model.addAttribute("cur", page);
         model.addAttribute("pages", iPage.getPages());
         model.addAttribute("pageSize", pageSize);
-        model.addAttribute("total",iPage.getTotal());*/
+        model.addAttribute("total",iPage.getTotal());*//*
+        return "admin/orderData";
+    }*/
+
+    //获取订单记录
+    @RequestMapping("/getOrderListData")
+    public String getOrderListData(HttpSession session, OrderQueryVo orderQueryVo, Model model) {
+        Integer userId = orderQueryVo.getUserId()==null?null:orderQueryVo.getUserId();
+        List<Order> orders = orderService.findUserOrder(userId, orderQueryVo);
+        model.addAttribute("orders", orders);
+        model.addAttribute("pre", orderQueryVo.getPage() - 1);
+        model.addAttribute("next", orderQueryVo.getPage() + 1);
+        model.addAttribute("cur", orderQueryVo.getPage());
+        model.addAttribute("pages", orderService.findUserOrderPages(userId, orderQueryVo));
+        model.addAttribute("pageSize", orderQueryVo.getPageSize());
+        session.setAttribute("userOrderPages",orderService.findUserOrderPages(userId, orderQueryVo));
         return "admin/orderData";
     }
+
 
     @RequestMapping("/toSendOut")
     public String toSendOut(Integer orderId,Model model){
@@ -397,5 +415,14 @@ public class AdminController {
         expressService.save(express);
         return "admin/allOrder";
     }
+
+/*    //获取所有用户
+    @RequestMapping("/getAllUser")
+    @ResponseBody
+    public String getAllUser(HttpSession session){
+        List<User> userList = userService.list();
+        session.setAttribute("userList",userList);
+        return "success";
+    }*/
 
 }

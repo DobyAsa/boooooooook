@@ -17,15 +17,12 @@
 <!--							<a href="#" class="btn btn-warning" th:onclick="sendOut([[${order.id}]])">点击发货</a>-->
 							<a th:href="@{/admin/toSendOut(orderId=${order.id})}" class="btn btn-warning" >点击发货</a>
 						</span>
-<!--						<span th:if="${order.orderStatus == '1'}">
-							<a href="#" class="btn btn-danger" th:onclick="cancelOrder([[${order.id}]])">点击取消</a>
-						</span>-->
-						<!--<span th:if="${order.orderStatus == '2'}">
-							<a href="#" class="btn btn-success" th:href="@{/user/toComment(orderId=${order.id})}">点击评价</a>
-						</span>-->
+						<span th:if="${order.orderStatus == '1'}">
+							<a href="#" class="btn btn-danger" th:onclick="cancelOrder([[${order.id}]])">取消订单</a>
+						</span>
 					</div>
 					<div class="col-md-2" style="text-align: right;">
-						<a data-toggle="collapse" th:href="@{'#collapseDetail' + ${iter.index}}">订单详情</a>
+						<a data-toggle="collapse" th:href="@{'#collapseDetail' + ${iter.index}}">订单详情<i class="layui-icon layui-icon-down"></i>   </a>
 					</div>
 				</caption>
 				<thead>
@@ -121,7 +118,7 @@
 			</table>
 		</div>
 		<!--分页begin-->
-<!--		<div class="container">
+		<div class="container">
 			<div class="row text-center">
 				<div class="col-md-12">
 					<ul class="pagination">
@@ -146,7 +143,7 @@
 								</span>
 							</div>
 						</li>
-						&lt;!&ndash;<li>
+						<li>
 							<a style="padding-top: 0px;border: 0px;">
 							<label>每页显示:</label>
 							<select id="pageSize" th:value="${pageSize}" class="form-control" style="width: 100px;display: inline;" th:onchange="|loadDataBySize(this)|">
@@ -157,11 +154,11 @@
 							</select>
 							<label>条</label>
 						</a>
-						</li>&ndash;&gt;
+						</li>
 					</ul>
 				</div>
 			</div>
-		</div>-->
+		</div>
 		<!--分页end-->
 	</body>
 

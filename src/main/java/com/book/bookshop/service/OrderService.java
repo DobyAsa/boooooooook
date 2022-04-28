@@ -77,7 +77,6 @@ public class OrderService extends ServiceImpl<OrderMapper, Order> {
             double price = 0.0;
             for (OrderItem item:items) {
                 price += item.getCount() * item.getBook().getNewPrice();
-                System.out.println(item);
             }
             order.setTotalPrice(price);//计算订单总金额
             Express express = expressService.getOne(queryWrapper);
