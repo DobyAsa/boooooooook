@@ -416,13 +416,47 @@ public class AdminController {
         return "admin/allOrder";
     }
 
-/*    //获取所有用户
-    @RequestMapping("/getAllUser")
+    //删除订单
+    @RequestMapping("/orderDelete")
     @ResponseBody
-    public String getAllUser(HttpSession session){
-        List<User> userList = userService.list();
-        session.setAttribute("userList",userList);
-        return "success";
-    }*/
+    public String orderDelete(String ids) {
+        List<Order> orders = (List<Order>) orderService.listByIds(Arrays.asList(ids.split(",")));
+        for (Order order : orders){
+            //如果订单是1待支付、2已支付/待发货、5已发货/待收货 状态则不允许删除
+            if (order.getOrderStatus().equals("1")||
+                    order.getOrderStatus().equals("2")||
+                    order.getOrderStatus().equals("5")){
+                return "notDelete";
+            }
+        }
+        //先把orderitem的条数删除，避免外键异常
+        orderItemService.orderItemsDelete(ids);
+        boolean flag = orderService.removeByIds(Arrays.asList(ids.split(",")));
+        if (flag) {
+            return "success";
+        } else
+            return "fail";
+    }
+
+    //删除所有订单
+    @RequestMapping("/deleteAll")
+    @ResponseBody
+    public String deleteAll() {
+        List<Order> orders = orderService.list();
+        for (Order order : orders){
+            //如果订单是1待支付、2已支付/待发货、5已发货/待收货 状态则不允许删除
+            if (order.getOrderStatus().equals("1")||
+                    order.getOrderStatus().equals("2")||
+                    order.getOrderStatus().equals("5")){
+                return "notDelete";
+            }
+        }
+        //先把orderitem的条数删除，避免外键异常
+        orderItemService.remove(new QueryWrapper<>());
+        if (orderService.remove(new QueryWrapper<>())) {
+            return "success";
+        } else
+            return "fail";
+    }
 
 }

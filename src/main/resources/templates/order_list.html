@@ -111,11 +111,11 @@
 								<a href="#" th:onclick="deleteAll()">清空订单</a>
 							</li>
 						</ul>
-						<ul class="nav navbar-nav">
+<!--						<ul class="nav navbar-nav">
 							<li>
 								<a href="#" th:onclick="returnAndExchange()">退换货详情</a>
 							</li>
-						</ul>
+						</ul>-->
 					</nav>
 				</div>
 				
@@ -390,6 +390,16 @@
 					return ;
 				});
 			}
+		//点击图标切换
+		function changeIcon(index) {
+			x = document.getElementById('icon'+index).className;
+			console.log(x)
+			if(x=='layui-icon layui-icon-down'){
+				document.getElementById('icon'+index).className = 'layui-icon layui-icon-up';
+			}else{
+				document.getElementById('icon'+index).className = 'layui-icon layui-icon-down';
+			}
+		}
 		</script>
 
 	</body>

@@ -48,7 +48,7 @@
                             <a href="javascript:void(0)" th:text="${session.user.username}"></a>
                         </li>
                         <li th:if="${session.user != null}">
-                            <a th:href="@{/user/logout}">&nbsp;安全退出</a>
+                            <a th:href="@{/user/logout}">&nbsp;退出账号</a>
                         </li>
                         <li th:if="${session.user == null}">
                             <a href="#" data-toggle="modal" data-target="#register">注册</a>

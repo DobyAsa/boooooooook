@@ -83,16 +83,21 @@ public class OrderController {
     @RequestMapping("/orderDelete")
     @ResponseBody
     public String orderDelete(String ids) {
+        System.out.println(ids);
         List<Order> orders = (List<Order>) orderService.listByIds(Arrays.asList(ids.split(",")));
         for (Order order : orders){
-            //如果订单是待支付状态则不允许删除
-            if (order.getOrderStatus().equals("1")){
+            //如果订单是1待支付、2已支付/待发货、5已发货/待收货 状态则不允许删除
+            if (order.getOrderStatus().equals("1")||
+            order.getOrderStatus().equals("2")||
+            order.getOrderStatus().equals("5")){
                 return "notDelete";
             }
         }
         //先把orderitem的条数删除，避免外键异常
         orderItemService.orderItemsDelete(ids);
-        if (orderService.removeByIds(Arrays.asList(ids.split(",")))) {
+        boolean flag = orderService.removeByIds(Arrays.asList(ids.split(",")));
+        if (flag) {
+            System.out.println(flag);
             return "success";
         } else
             return "fail";
@@ -104,12 +109,14 @@ public class OrderController {
     public String deleteAll() {
         List<Order> orders = orderService.list();
         for (Order order : orders){
-            //如果订单是待支付状态则不允许删除
-            if (order.getOrderStatus().equals("1")){
+            //如果订单是1待支付、2已支付/待发货、5已发货/待收货 状态则不允许删除
+            if (order.getOrderStatus().equals("1")||
+                    order.getOrderStatus().equals("2")||
+                    order.getOrderStatus().equals("5")){
                 return "notDelete";
             }
         }
-        //清空，避免外键异常
+        //先把orderitem的条数删除，避免外键异常
         orderItemService.remove(new QueryWrapper<>());
         if (orderService.remove(new QueryWrapper<>())) {
             return "success";
@@ -118,7 +125,7 @@ public class OrderController {
     }
 
 
-    //显示用户订单列表
+    //显示订单列表
     @RequestMapping("/list")
     public String list() {
         return "order_list";

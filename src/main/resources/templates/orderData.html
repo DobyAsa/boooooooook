@@ -27,7 +27,9 @@
 						</span>-->
 					</div>
 					<div class="col-md-2" style="text-align: right;">
-						<a data-toggle="collapse" th:href="@{'#collapseDetail' + ${iter.index}}">订单详情<i class="layui-icon layui-icon-down"></i></a>
+						<a data-toggle="collapse" th:href="@{'#collapseDetail' + ${iter.index}}"  th:onclick="changeIcon([[${iter.index}]])">
+							订单详情<i class="layui-icon layui-icon-down" th:id="${'icon'+iter.index}"></i>
+						</a>
 					</div>
 				</caption>
 				<thead>

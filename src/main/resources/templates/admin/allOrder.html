@@ -178,7 +178,6 @@
 			//获取应用路径
 			var contextPath = [[${#request.getContextPath()}]];
             var admin = [[${session.admin}]]
-
     </script>
 		<script type="text/javascript">
 			$(function () {
@@ -220,13 +219,13 @@
 				return;
 			} else {
 				$.ajax({
-					url:contextPath + "/order/orderDelete",
+					url: contextPath + "/admin/orderDelete",
 					method:"post",
 					data:{"ids":ids.substring(0,ids.length-1)},
 					success:function (data) {
 						if (data == 'success'){
 							layer.msg('删除成功！',{time:2000});
-							window.location.href = contextPath + "/order/list";
+							window.location.href = contextPath + "/admin/toAllOrder";
 						}else if (data == 'notDelete'){
 							layer.msg('有订单未完成！', {icon: 7,anim:6});
 							return ;
@@ -386,6 +385,16 @@
 					return ;
 				});
 			}
+
+		function changeIcon(index) {
+			x = document.getElementById('icon'+index).className;
+			console.log(x)
+			if(x=='layui-icon layui-icon-down'){
+				document.getElementById('icon'+index).className = 'layui-icon layui-icon-up';
+			}else{
+				document.getElementById('icon'+index).className = 'layui-icon layui-icon-down';
+			}
+		}
 		</script>
 
 	</body>
