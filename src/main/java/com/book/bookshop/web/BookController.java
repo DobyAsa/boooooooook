@@ -106,7 +106,7 @@ public class BookController {
         return "details";
     }
 
-    //根据图书名模糊搜索图书
+    //搜索图书
     @RequestMapping("/searchBook")
     public String search(String inputBookName, Model model){
         QueryWrapper<Book> queryWrapper1 = new QueryWrapper();
@@ -127,8 +127,8 @@ public class BookController {
                 it.remove();
             }
         }
-        Set<Book> bookSet = new HashSet();
         //去重
+        Set<Book> bookSet = new HashSet();
         for (Book book :bookList){
             bookSet.add(book);
         }

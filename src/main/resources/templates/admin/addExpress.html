@@ -63,7 +63,7 @@
 					<div class="layui-form-item">
 						<label class="layui-form-label">快递员电话</label>
 						<div class="layui-input-block">
-							<input type="text" name="courierPhone"    placeholder="请输入快递员电话" required  lay-verify="required" autocomplete="off" class="layui-input">
+							<input type="text" name="courierPhone" onblur="checkPhone(this)" id="phone"  placeholder="请输入快递员电话" required  lay-verify="required" autocomplete="off" class="layui-input">
 						</div>
 					</div>
 					<div class="layui-form-item">
@@ -123,13 +123,22 @@
 				}
 			})
 
+			//生成快递单号：时间精确至毫秒
+			function generateExpNum() {
+				var d = new Date();
+				document.getElementById("expNum").value = d.getFullYear().toString()+d.getMonth().toString()
+						+d.getDay().toString()+d.getHours().toString()+d.getMinutes().toString()+d.getSeconds().toString()+d.getMilliseconds().toString();
+			}
 
-				function generateExpNum() {
-					var d = new Date();
-					document.getElementById("expNum").value = d.getFullYear().toString()+d.getMonth().toString()
-							+d.getDay().toString()+d.getHours().toString()+d.getMinutes().toString()+d.getSeconds().toString()+d.getMilliseconds().toString();
+			//检查电话
+			function checkPhone() {
+				var phone = $("#phone").val();
+				var telReg = new RegExp("((\\d{11})|^((\\d{7,8})|(\\d{4}|\\d{3})-(\\d{7,8})|(\\d{4}|\\d{3})-(\\d{7,8})-(\\d{4}|\\d{3}|\\d{2}|\\d{1})|(\\d{7,8})-(\\d{4}|\\d{3}|\\d{2}|\\d{1}))$)");
+				if (!telReg.test(phone)){
+					layer.msg('电话号码不合法！', {icon: 7,anim:6});
+					return;
 				}
-
+			}
 		</script>
 
 	<style type="text/css">

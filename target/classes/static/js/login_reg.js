@@ -1,6 +1,5 @@
 //验证用户名是否已经存在
 function checkUser(obj) {
-
     $.ajax({
         url: contextPath + "/user/checkUserName",
         data: {"username": obj.value},
@@ -47,8 +46,8 @@ function register() {
     var email = $("#email").val();
     var tel = $("#regTel").val();
     var school = $("#regSchool").val();
-    var emailReg = new RegExp("^\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$");
-    var schoolReg = new RegExp("^[\u4e00-\u9fa5]{0,}$");
+    var emailReg = new RegExp("^\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$");//邮箱正则
+    var schoolReg = new RegExp("^[\u4e00-\u9fa5]{0,}$");//汉字正则
     if (username == ''){
         layer.msg('用户名不为空', {icon: 7,anim:6});
         return;
@@ -83,6 +82,7 @@ function register() {
                 layer.msg('邮箱已存在');
                 return;
             }else {
+                //电话号码正则
                 var telReg = new RegExp("((\\d{11})|^((\\d{7,8})|(\\d{4}|\\d{3})-(\\d{7,8})|(\\d{4}|\\d{3})-(\\d{7,8})-(\\d{4}|\\d{3}|\\d{2}|\\d{1})|(\\d{7,8})-(\\d{4}|\\d{3}|\\d{2}|\\d{1}))$)");
                 if (!telReg.test(tel)){
                     layer.msg('电话号码不合法！', {icon: 7,anim:6});

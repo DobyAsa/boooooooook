@@ -36,27 +36,29 @@
 					<thead>
 
 					<tr class="text-success success">
-						<th style="width: 30px;">
+						<!--<th style="width: 30px;">
 							<input type="checkbox" id="selectAll" onclick="selectAll(this)">
-							<!--								<input type="checkbox" id="testId" onclick="selectAll(this)">-->
-						</th>
+							&lt;!&ndash;								<input type="checkbox" id="testId" onclick="selectAll(this)">&ndash;&gt;
+						</th>-->
 						<th id="sequence">序号</th>
 						<th>图片</th>
 						<th>书名</th>
 						<th>作者</th>
 						<th>出版社</th>
 						<th>分类</th>
+						<th>库存</th>
 						<th>原价</th>
 						<th>现价</th>
 						<th>简介</th>
+						<th>状态</th>
 						<th>操作</th>
 					</tr>
 					</thead>
 					<tbody id="tby" th:each="book,iter:${bookList}">
 					<tr>
-						<td style="width: 30px;">
+						<!--<td style="width: 30px;">
 							<input type="checkbox" name="cks"  th:value="${book.id}" >
-						</td>
+						</td>-->
 						<td th:text="${book.id}">1001</td>
 						<td id="layer-photos-demo" class="layer-photos-demo">
 							<img src="images/tenxunchuan.jpg" th:src="@{'/public/' + ${book.imgUrl}}">
@@ -65,6 +67,7 @@
 						<td th:text="${book.author}">作者</td>
 						<td th:text="${book.publisher}">黑龙江科学技术出版社</td>
 						<td th:text="${book.cate}">分类</td>
+						<td th:text="${book.count}">分类</td>
 						<!--							<span th:switch="${book.cate}">
                                                         <td th:case="'SELECTTED'">精选图书</td>
                                                         <td th:case="'RECOMMEND'">精选图书</td>
@@ -75,11 +78,17 @@
 						<td style="width: 146px;">
 							<button class="btn btn-success" th:onclick="displayInfo([[${book.info}]])">预览</button>
 						</td>
+						<td th:if="${book.state == 1}">上架中</td>
+						<td th:if="${book.state == 0}">已下架</td>
 						<td>
-
-							<a class="btn btn-info" th:href="@{/admin/toUpdateBook(bookId=${book.id})}">修改</a>
-							<br>
-							<a th:onclick="deleteBook([[${book.id}]])"  class="btn btn-danger">删除</a>
+							<select id="" value="操作" class="form-control" style="width: 100px;display: inline;" th:onchange="|operate(this,[[${book.id}]])|">
+								<option value=""></option>
+								<option value="update">更新</option>
+								<option value="offShelf" th:if="${book.state == 1}">下架</option>
+								<option value="onShelf" th:if="${book.state == 0}">上架</option>
+								<option value="addCount">补充库存</option>
+								<option value="changePrice">修改价格</option>
+							</select>
 						</td>
 
 					</tr>
@@ -93,9 +102,9 @@
 					</tr>
 					<tr style="background-color: white;">
 						<td>
-							<a th:href="@{/admin/toAddBook}" class="btn btn-info">添加商品＋</a>
+							<a th:href="@{/admin/toAddBook}" class="btn btn-info">上架商品＋</a>
 						</td>
-						<td><button class="btn btn-danger" data-toggle="modal" data-target="#myModal" th:onclick="deleteBooks()">删除商品一</button></td>
+<!--						<td><button class="btn btn-danger" data-toggle="modal" data-target="#myModal" th:onclick="deleteBooks()">删除商品一</button></td>-->
 						<td colspan="4"></td>
 
 					</tr>
@@ -314,6 +323,61 @@
 			});
 
 	}
+
+		//操作
+		function operate(obj,bookId) {
+			if (obj.value=='update'){
+				location.href = contextPath + "/admin/toUpdateBook?bookId="+bookId;
+			}else if (obj.value == 'offShelf'){
+
+				layer.confirm('确定下架？', {
+					icon:3,
+					btn: ['确定', '取消']
+				}, function(index, layero){
+					//按钮【按钮一】的回调
+					location.href = contextPath + "/admin/offShelf?bookId="+bookId;
+				}, function(index){
+					return ;
+				});
+			}else if (obj.value == 'onShelf'){
+				layer.confirm('确定上架？', {
+					icon:3,
+					btn: ['确定', '取消']
+				}, function(index, layero){
+					//按钮【按钮一】的回调
+					location.href = contextPath + "/admin/onShelf?bookId="+bookId;
+				}, function(index){
+					return ;
+				});
+			} else if (obj.value == 'addCount'){
+				layer.prompt({
+					formType: 2,
+					value: '10',
+					title: '请输入补充量',
+					area: ['200px', '20px'] //自定义文本域宽高
+				}, function(value, index, elem){
+					var reg = new RegExp("^\\+?[1-9][0-9]*$");//正整数
+					if (!reg.test(value)){
+						layer.msg('请输入正整数！', {icon: 7,anim:6});
+						return;
+					}else location.href = contextPath + "/admin/addCount?bookId="+bookId+"&count="+value;
+				});
+			}else if (obj.value == 'changePrice'){
+				layer.prompt({
+					formType: 2,
+					value: '20.5',
+					title: '请输入新价格',
+					area: ['200px', '20px'] //自定义文本域宽高
+				}, function(value, index, elem){
+					var reg = new RegExp("^\\d+(\\.\\d+)?$");//非负浮点数
+					if (!reg.test(value)){
+						layer.msg('请输入非负浮点数！', {icon: 7,anim:6});
+						return;
+					}else location.href = contextPath + "/admin/changePrice?bookId="+bookId+"&price="+value;
+				});
+			}
+
+		}
 	</script>
 
 <!--	<script>

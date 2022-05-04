@@ -257,7 +257,24 @@
 					title: '请输入补充量',
 					area: ['200px', '20px'] //自定义文本域宽高
 				}, function(value, index, elem){
-					location.href = contextPath + "/admin/addCount?bookId="+bookId+"&count="+value;
+					var reg = new RegExp("^\\+?[1-9][0-9]*$");//正整数
+					if (!reg.test(value)){
+						layer.msg('请输入正整数！', {icon: 7,anim:6});
+						return;
+					}else location.href = contextPath + "/admin/addCount?bookId="+bookId+"&count="+value;
+				});
+			} else if (obj.value == 'changePrice'){
+				layer.prompt({
+					formType: 2,
+					value: '10',
+					title: '请输入新价格',
+					area: ['200px', '20px'] //自定义文本域宽高
+				}, function(value, index, elem){
+					var reg = new RegExp("^\\d+(\\.\\d+)?$");//非负浮点数>=0
+					if (!reg.test(value)){
+						layer.msg('请输入非负浮点数！', {icon: 7,anim:6});
+						return;
+					}else location.href = contextPath + "/admin/changePrice?bookId="+bookId+"&price="+value;
 				});
 			}
 

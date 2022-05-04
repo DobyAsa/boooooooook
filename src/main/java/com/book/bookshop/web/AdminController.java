@@ -18,10 +18,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * @Author:yizhongwei
@@ -286,7 +283,12 @@ public class AdminController {
             if (book.getCategory().toString().equals("RECOMMEND")) book.setCate("推荐图书");
             if (book.getCategory().toString().equals("BARGAGIN")) book.setCate("特价图书");
         }
-        model.addAttribute("bookList",bookList);
+        //去重
+        Set<Book> bookSet = new HashSet();
+        for (Book book :bookList){
+            bookSet.add(book);
+        }
+        model.addAttribute("bookList",bookSet);
         return "admin/searchBook";
 
     }
@@ -336,6 +338,15 @@ public class AdminController {
         return "admin/bookAdmin";
     }
 
+    //修改价格
+    @RequestMapping("/changePrice")
+    public String changePrice(Integer bookId,double price){
+        Book book = bookService.getById(bookId);
+        book.setOldPrice(book.getNewPrice());
+        book.setNewPrice(price);
+        bookService.updateById(book);
+        return "admin/bookAdmin";
+    }
     //去到所有订单
     @RequestMapping("/toAllOrder")
     public String toAllOrder(Model model){
