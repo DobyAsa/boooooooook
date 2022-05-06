@@ -12,7 +12,7 @@ import lombok.Setter;
  */
 @Getter
 public enum  Category {
-    SELECTTED(1,"精选图书"), RECOMMEND(2,"推荐图书"), BARGAGIN(3,"特价图书");
+    SELECTTED(1,"文学类"), RECOMMEND(2,"经管类"), BARGAGIN(3,"其他类");
     Category(int code, String desc) {
         this.code = code;
         this.desc = desc;

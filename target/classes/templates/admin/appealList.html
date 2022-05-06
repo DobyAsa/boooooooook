@@ -89,6 +89,7 @@
 						<th id="sequence">序号</th>
 						<th>用户名</th>
 						<th>申诉时间</th>
+						<th>封禁原因</th>
 						<th>申诉理由</th>
 						<th>状态</th>
 						<th >操作</th>
@@ -100,10 +101,11 @@
 <!--							<input type="checkbox" name="cks"  th:value="${appeal.id}" >-->
 							<!--								<input type="checkbox" name="cks" onclick="cks(this)" name="testName" value="${item.id}">-->
 						</td>
-						<td th:text="${appeal.id}">1001</td>
-						<td th:text="${appeal.username}">腾讯传</td>
+						<td th:text="${appeal.id}"></td>
+						<td th:text="${appeal.username}"></td>
 
-						<td th:text="${#calendars.format(appeal.createDate,'yyyy-MM-dd HH:mm:ss')}">黑龙江科学技术出版社</td>
+						<td th:text="${#calendars.format(appeal.createDate,'yyyy-MM-dd HH:mm:ss')}"></td>
+						<td th:text="${appeal.forbidReason}"></td>
 						<td>
 							<button class="btn btn-info" th:onclick="displayInfo([[${appeal.appealReason}]])">预览</button>
 						</td>

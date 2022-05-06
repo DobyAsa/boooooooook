@@ -222,17 +222,15 @@ class BookShopApplicationTests {
 
     @Test
     public void asdaa123sd(){
-        OrderQueryVo orderQueryVo = new OrderQueryVo();
-        orderQueryVo.setPage(2);
-        orderQueryVo.setPageSize(4);
-        Integer begin = (orderQueryVo.getPage() - 1) * orderQueryVo.getPageSize();
-//        Integer end = orderQueryVo.getPage() * orderQueryVo.getPageSize(); bug之一：详细了解mysql limit用法
-        Integer end =  orderQueryVo.getPageSize();
-        orderQueryVo.setBegin(begin);
-        orderQueryVo.setEnd(end);
-        orderQueryVo.setUserId(null);
-        List<Order> list = orderMapper.findOrderAndOrderDetailListByUser(orderQueryVo);
-        System.out.println(list);
+        QueryWrapper queryWrapper = new QueryWrapper();
+//        queryWrapper.eq("category","1");
+        System.out.println();
+        List<Book> list = bookService.list(queryWrapper);
+        Iterator iterator = list.iterator();
+        while (iterator.hasNext()){
+            System.out.println(iterator.next());
+        }
+
     }
 
 }

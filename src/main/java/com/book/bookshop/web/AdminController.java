@@ -55,28 +55,50 @@ public class AdminController {
 
     //去后台管理首页
     @RequestMapping("/toBookAdmin")
-    public String toAllBooks(Model model, HttpSession session) {
+    public String toAllBooks(Model model, HttpSession session,String category) {
+        model.addAttribute("category",category);
         return "admin/bookAdmin";
     }
 
     //【分页】【全部书籍】【后台】
     @RequestMapping("/getBookListByPage")
-    public String getBookListByPage(HttpSession session, Model model, Integer page, Integer pageSize) {
+    public String getBookListByPage(HttpSession session, Model model, Integer page, Integer pageSize,String category) {
         Page pages = new Page<Book>(page, pageSize);
-        IPage<Book> iPage = bookService.page(pages, new QueryWrapper<>());
-        List<Book> bookList = iPage.getRecords();
-        for (Book book : bookList) {
-            if (book.getCategory().toString().equals("SELECTTED")) book.setCate("精选图书");
-            if (book.getCategory().toString().equals("RECOMMEND")) book.setCate("推荐图书");
-            if (book.getCategory().toString().equals("BARGAGIN")) book.setCate("特价图书");
+        QueryWrapper queryWrapper = new QueryWrapper();
+
+        if (category == null || category.equals("")){
+            IPage<Book> iPage = bookService.page(pages, queryWrapper);
+            List<Book> bookList = iPage.getRecords();
+            for (Book book : bookList) {
+                if (book.getCategory().toString().equals("SELECTTED")) book.setCate("文学类");
+                if (book.getCategory().toString().equals("RECOMMEND")) book.setCate("经管类");
+                if (book.getCategory().toString().equals("BARGAGIN")) book.setCate("其他类");
+            }
+            model.addAttribute("bookList", bookList);
+            model.addAttribute("pre", page - 1);
+            model.addAttribute("next", page + 1);
+            model.addAttribute("cur", page);
+            model.addAttribute("pages", iPage.getPages());
+            model.addAttribute("pageSize", pageSize);
+            model.addAttribute("total",iPage.getTotal());
         }
-        model.addAttribute("bookList", bookList);
-        model.addAttribute("pre", page - 1);
-        model.addAttribute("next", page + 1);
-        model.addAttribute("cur", page);
-        model.addAttribute("pages", iPage.getPages());
-        model.addAttribute("pageSize", pageSize);
-        model.addAttribute("total",iPage.getTotal());
+        else {//图书类型不为空
+            queryWrapper.eq("category",category);
+            IPage<Book> iPage = bookService.page(pages, queryWrapper);
+            List<Book> bookList = iPage.getRecords();
+            for (Book book : bookList) {
+                if (book.getCategory().toString().equals("SELECTTED")) book.setCate("文学类");
+                if (book.getCategory().toString().equals("RECOMMEND")) book.setCate("经管类");
+                if (book.getCategory().toString().equals("BARGAGIN")) book.setCate("其他类");
+            }
+            model.addAttribute("bookList", bookList);
+            model.addAttribute("pre", page - 1);
+            model.addAttribute("next", page + 1);
+            model.addAttribute("cur", page);
+            model.addAttribute("pages", iPage.getPages());
+            model.addAttribute("pageSize", pageSize);
+            model.addAttribute("total",iPage.getTotal());
+        }
         return "admin/allBooksData";
     }
 
@@ -102,9 +124,9 @@ public class AdminController {
     @RequestMapping("/addBook")
     public String toAddBook(Book book, MultipartFile bookPic,String pubDate) throws IOException, ParseException {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        if (book.getCate().equals("精选图书")) book.setCategory(Category.SELECTTED);
-        if (book.getCate().equals("推荐图书")) book.setCategory(Category.RECOMMEND);
-        if (book.getCate().equals("特价图书")) book.setCategory(Category.BARGAGIN);
+        if (book.getCate().equals("文学类")) book.setCategory(Category.SELECTTED);
+        if (book.getCate().equals("经管类")) book.setCategory(Category.RECOMMEND);
+        if (book.getCate().equals("其他类")) book.setCategory(Category.BARGAGIN);
         book.setPublishDate(simpleDateFormat.parse(pubDate));
 //        book.setAuthorLoc("中国");
 //        book.setSuit(Suit.YES);
@@ -122,6 +144,9 @@ public class AdminController {
     public String toUpdateBook(Model model, @RequestParam("bookId") Integer id,HttpSession session) {
 
         Book book = bookService.getById(id);
+        if (book.getCategory().toString().equals("SELECTTED")) book.setCate("文学类");
+        if (book.getCategory().toString().equals("RECOMMEND")) book.setCate("经管类");
+        if (book.getCategory().toString().equals("BARGAGIN")) book.setCate("其他类");
         book.setOldPrice(book.getNewPrice());
         session.setAttribute("oldPrice",book.getOldPrice());
         model.addAttribute("book", book);
@@ -135,6 +160,14 @@ public class AdminController {
         String bookPicName = bookPic.getOriginalFilename();
         book.setImgUrl(bookPicName);
         book.setPublishDate(simpleDateFormat.parse(pubDate));
+        System.out.println(book.getCate());
+        if (book.getCate().equals("文学类")){
+            book.setCategory(Category.SELECTTED);
+        }else if(book.getCate().equals("经管类")){
+            book.setCategory(Category.RECOMMEND);
+        }else if(book.getCate().equals("其他类")){
+            book.setCategory(Category.BARGAGIN);
+        }
         if (book.getInfo()==null||book.getInfo().equals("")){
             book.setInfo(oldInfo);
         }
@@ -167,18 +200,19 @@ public class AdminController {
     //封号
     @RequestMapping("/forbidUser")
     @ResponseBody
-    public String forbidUser(Integer userId){
+    public String forbidUser(Integer userId,String forbidReason){
         User user = userService.getById(userId);
         user.setState(2);
+        user.setForbidReason(forbidReason);
         if (userService.saveOrUpdate(user)){
             //封号的同时如果申诉列表中有该用户的待审核记录则将其设为不通过
-            QueryWrapper<Appeal> queryWrapper = new QueryWrapper();
+           /* QueryWrapper<Appeal> queryWrapper = new QueryWrapper();
             queryWrapper.eq("user_id",userId).eq("state",1);
             Appeal appeal =appealService.getOne(queryWrapper);
             if (appeal!=null){
                 appeal.setState(3);
                 appealService.updateById(appeal);
-            }
+            }*/
             return "success";
         }else {
             return "fail";
@@ -188,7 +222,6 @@ public class AdminController {
     @RequestMapping("/unforbidUser")
     @ResponseBody
     public String unforbidUser(Integer userId){
-
         User user = userService.getById(userId);
         user.setState(1);
         if (userService.saveOrUpdate(user)){
@@ -279,9 +312,9 @@ public class AdminController {
         queryWrapper3.like("info",inputBookName);
         bookList.addAll(bookService.list(queryWrapper3));
         for (Book book : bookList) {
-            if (book.getCategory().toString().equals("SELECTTED")) book.setCate("精选图书");
-            if (book.getCategory().toString().equals("RECOMMEND")) book.setCate("推荐图书");
-            if (book.getCategory().toString().equals("BARGAGIN")) book.setCate("特价图书");
+            if (book.getCategory().toString().equals("SELECTTED")) book.setCate("文学类");
+            if (book.getCategory().toString().equals("RECOMMEND")) book.setCate("经管类");
+            if (book.getCategory().toString().equals("BARGAGIN")) book.setCate("其他类");
         }
         //去重
         Set<Book> bookSet = new HashSet();

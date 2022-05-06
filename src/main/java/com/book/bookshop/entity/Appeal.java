@@ -22,4 +22,5 @@ public class Appeal extends Model<Appeal> {
     private Integer state;
     @TableField(exist = false)
     private String username;
+    private String forbidReason;
 }

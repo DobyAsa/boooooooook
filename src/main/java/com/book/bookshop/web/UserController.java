@@ -261,7 +261,9 @@ public class UserController {
     @RequestMapping(value = "/appeal", method = RequestMethod.POST)
     @ResponseBody
     public String appeal(Integer userId, String appealReason) {
+        User user = userService.getById(userId);
         Appeal appeal = new Appeal();
+        appeal.setForbidReason(user.getForbidReason());
         appeal.setUserId(userId);
         appeal.setAppealReason(appealReason);
         appeal.setCreateDate(new Date());

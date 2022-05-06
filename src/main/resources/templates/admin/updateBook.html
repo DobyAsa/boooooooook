@@ -86,7 +86,14 @@
 							<input type="file" name="bookPic" class="layui-btn" required  lay-verify="required">
 						</div>
 					</div>
-
+					<div class="layui-form-item">
+						<label class="layui-form-label">分类</label>
+						<div class="layui-input-block">
+							<input type="radio" name="cate" value="文学类" title="文学类" th:checked="${book.cate=='文学类'}">
+							<input type="radio" name="cate" value="经管类" title="经管类" th:checked="${book.cate=='经管类'}">
+							<input type="radio" name="cate" value="其他类" title="其他类" th:checked="${book.cate=='其他类'}">
+						</div>
+					</div>
 					<div class="layui-form-item layui-form-text">
 						<label class="layui-form-label">简介</label>
 						<div class="layui-input-block">

@@ -38,7 +38,8 @@
 			//获取应用路径
 			var contextPath = [[${#request.getContextPath()}]];
 			var pages = [[${pages}]];
-			var admin = [[${session.admin}]]
+			var admin = [[${session.admin}]];
+			var category = [[${category}]];
 		</script>
 		<script type="text/javascript">
 			if(!(/msie [6|7|8|9]/i.test(navigator.userAgent))) {
@@ -96,12 +97,11 @@
 		//页面加载时执行
 		var ids ='';
 		var bookIds = new Set();
-
-	$(function () {
+		$(function () {
 			if (admin == null||admin==undefined||admin == 'undefined'){
 				location.href =contextPath+"/book/index";
 			}
-			$("#allBooksData").load(contextPath + "/admin/getBookListByPage",queryData(1,''));
+			$("#allBooksData").load(contextPath + "/admin/getBookListByPage",queryData(1,'',category));
 /*			if (sessionStorage.getItem("ids") != null){
 				alert(sessionStorage.getItem("ids") );
 			}*/
@@ -145,26 +145,27 @@
 				layer.msg('超出总页数！总页数：'+pages, {icon: 7,anim:6});
 				return;
 			}
-			$("#allBooksData").load(contextPath + "/admin/getBookListByPage",queryData(inputPage,pageSize))
+			$("#allBooksData").load(contextPath + "/admin/getBookListByPage",queryData(inputPage,pageSize,category))
 
 		}
 
 		//修改指定每页显示的记录数
 		function loadDataBySize(obj) {
-			$("#allBooksData").load(contextPath + "/admin/getBookListByPage",queryData(1,obj.value))
+			$("#allBooksData").load(contextPath + "/admin/getBookListByPage",queryData(1,obj.value,category))
 		}
 		//查询
-		function queryData(page, pageSize) {
+		function queryData(page, pageSize,category) {
 			var query = {};
 			query.page = page;
 			query.pageSize = pageSize == '' ? 4 : pageSize;
+			query.category = category == undefined ? '': category;
 			return query;
 
 		}
 		function cks(obj) {
 	}
 	function loadData(page,pageSize) {
-		$("#allBooksData").load(contextPath + "/admin/getBookListByPage",queryData(page,pageSize));
+		$("#allBooksData").load(contextPath + "/admin/getBookListByPage",queryData(page,pageSize,category));
 /*		for (var i = 0;i<bookIds.size;i++){
 			document.getElementsByName("cks")[i].value.checked=true;
 			alert(bookIds.size)

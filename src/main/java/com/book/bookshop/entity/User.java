@@ -19,4 +19,5 @@ public class User extends Model<User> {
     private String email;
     private String phone;
     private String school;
+    private String forbidReason;
 }

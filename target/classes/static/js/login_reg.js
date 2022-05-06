@@ -130,9 +130,9 @@ function login() {
                             $("#userTip").css("display", "block");
                         } else if (data == 103) {
                             $("#codeTip").css("display", "block");
-                        } else if (data == 104) {
+                        } else if (data != 100||data!=101||data!=102||data!=103) {
                             // layer.msg('该账号已被封禁！', {icon: 2,anim:6});
-                            layer.confirm('因违反社区规定，账号已被封禁,是否申诉？', {
+                            layer.confirm('您因'+ data +',账号已被封禁,是否申诉？', {
                                 icon: 3,
                                 btn: ['是', '否']
                             }, function (index, layero) {

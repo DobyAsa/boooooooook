@@ -55,7 +55,7 @@ public class UserService extends ServiceImpl<UserMapper, User> {
 //            model.addAttribute("msg","验证码输入错误");
                 return "103";//验证码错误
             } else if (user.getState()==2){
-                return "104";//该账号被封禁
+                return user.getForbidReason();//该账号被封禁
             }
             else if (loginUser.getPassword().equals((user.getPassword()))) {
                 session.setAttribute("user", user);
@@ -79,7 +79,7 @@ public class UserService extends ServiceImpl<UserMapper, User> {
         queryWrapper.eq("email",email);
         User user = userMapper.selectOne(queryWrapper);
         if (user.getState()==2){
-            return "104";//该账号被封禁
+            return user.getForbidReason();//该账号被封禁
         }
         session.setAttribute("user",user);
         return "100";

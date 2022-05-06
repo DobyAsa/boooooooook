@@ -21,7 +21,7 @@
 <div class="container">
     <ol class="breadcrumb">
         <li><a href="#">图书列表</a></li>
-        <li><a href="#">精选图书</a></li>
+        <li><a href="#" id="cate">文学类</a></li>
     </ol>
 </div>
 
@@ -55,6 +55,13 @@
     //首次进入图书类型
     $(function () {
         $("#bookList").load(contextPath + "/book/getBookListData", queryData(1,'', category))
+        if (category=='1'){
+            $("#cate").html("文学类")
+        }else if (category=='2'){
+            $("#cate").html("经管类")
+        }else if (category=='3'){
+            $("#cate").html("其他类")
+        }
     });
 
     function queryData(page, pageSize, category) {
