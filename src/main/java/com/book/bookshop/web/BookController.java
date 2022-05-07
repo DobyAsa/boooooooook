@@ -9,6 +9,7 @@ import com.book.bookshop.entity.User;
 import com.book.bookshop.service.BookService;
 import com.book.bookshop.service.CommentService;
 import com.book.bookshop.service.UserService;
+import com.book.bookshop.utils.RecBook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -41,16 +42,10 @@ public class BookController {
     public String getBookData(Model model, Integer page, Integer category) {
         //mybatis-plus 分页
         Page pages = new Page<>(page, 4);
-        QueryWrapper queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("category", category);
+        QueryWrapper<Book> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("category", category).eq("state",1);
         IPage<Book> iPage = bookService.page(pages, queryWrapper);
-        List<Book> bookList = new ArrayList<>();
-        for (Book book:iPage.getRecords()){
-            if (book.getState()==1){
-                bookList.add(book);
-            }
-        }
-        model.addAttribute("bookList", bookList);
+        model.addAttribute("bookList", iPage.getRecords());
         model.addAttribute("pre", iPage.getCurrent() - 1);
         model.addAttribute("next", iPage.getCurrent() + 1);
         model.addAttribute("category", category);
@@ -91,7 +86,7 @@ public class BookController {
 
     //商品详情页
     @RequestMapping("/detail")
-    public String bookDetail(Integer id,Model model){
+    public String bookDetail(Integer id,Model model,Integer page){
         Book book = bookService.getById(id);
         QueryWrapper queryWrapper = new QueryWrapper();
         queryWrapper.eq("book_id",id);
@@ -100,6 +95,9 @@ public class BookController {
             User user = userService.getById(comment.getUserId());
             comment.setUsername(user.getUsername());
         }
+
+        RecBook.recBook(page,model,bookService);
+
         model.addAttribute("commentCount",comments.size());
         model.addAttribute("comments",comments);
         model.addAttribute("book",book);

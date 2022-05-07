@@ -6,16 +6,16 @@
             <span class="text-info"><span class="glyphicon glyphicon-heart"></span><span
                     style="font-size: 20px; ">精品推荐</span></span>
         <div class="row" id="love">
-            <div class="col-sm-12 col-md-12 wow fadeInRight animated">
+            <div class="col-sm-12 col-md-12 wow fadeInRight animated" th:each="book:${recBook}">
                 <div class="thumbnail">
-                    <a th:href="@{/book/detail(id=11)}"><img th:src="@{/images/xiaodaolifencunzhijian.jpg }" style="height: 200px; "
-                                                alt="通用的占位符缩略图 "></a>
+                    <a th:href="@{/book/detail(id=${book.id})}">
+                        <img th:src="@{'/public/' + ${book.imgUrl}}" style="height: 200px; " alt="通用的占位符缩略图 "></a>
                     <div class="caption ">
                         <h3>小道理：分寸之间</h3>
                     </div>
                 </div>
             </div>
-            <div class="col-sm-12 col-md-12 wow fadeInRight animated">
+            <!--<div class="col-sm-12 col-md-12 wow fadeInRight animated">
                 <div class="thumbnail ">
                     <a th:href="@{/book/detail(id=${12})}"><img th:src="@{/images/NO SECRETS.jpg} " style="height: 200px; "
                                                 alt="通用的占位符缩略图 "></a>
@@ -32,7 +32,7 @@
                         <h3>卖产品就是卖自己</h3>
                     </div>
                 </div>
-            </div>
+            </div>-->
 
         </div>
     </div>

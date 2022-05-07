@@ -155,7 +155,34 @@
 				</ol>
 
 				<!--猜你喜欢-->
-				<div th:replace="common/guessLike :: guessLike"></div>
+				<div>
+            <span class="text-info"><span class="glyphicon glyphicon-heart"></span><span
+					style="font-size: 20px; ">精品推荐</span></span>
+					<div class="row" id="love">
+						<div class="col-sm-12 col-md-12 wow fadeInRight animated" th:each="book:${recBook}">
+							<div class="thumbnail">
+								<a th:href="@{/book/detail(id=${book.id})}">
+									<img th:src="@{'/public/' + ${book.imgUrl}}" style="height: 200px; " alt="通用的占位符缩略图 "></a>
+								<div class="caption ">
+									<h3 th:text="${book.name}">小道理：分寸之间</h3>
+								</div>
+							</div>
+						</div>
+						<div>
+							<ul class="pager ">
+								<li><a th:href="@{/cart/list(page=1)}">首页</a></li>
+								<li ><a th:href="@{/cart/list(page=${pre})}" th:style="${cur == 1} ? 'pointer-events:none':''" >&laquo;</a></li>
+								<li th:each="i:${#numbers.sequence(1,pages)}">
+									<a th:href="@{/cart/list(page=${i})}" th:text="${i}">2</a>
+								</li>
+								<li><a th:href="@{/cart/list(page=${next})}" th:style="${cur == pages} ? 'pointer-events:none':''"  >&raquo;</a></li>
+								<li><a th:href="@{/cart/list(page=${pages})}" style="border: 1px solid #ddd;" >尾页</a></li>
+								<li><a style="border: 0px;margin-left: 0px;" th:text="${'当前页'+cur+'/'+pages+'总页'}">当前页3/5总页</a></li>
+
+							</ul>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 

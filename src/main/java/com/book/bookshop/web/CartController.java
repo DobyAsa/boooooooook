@@ -6,6 +6,7 @@ import com.book.bookshop.mapper.BookMapper;
 import com.book.bookshop.mapper.CartMapper;
 import com.book.bookshop.service.BookService;
 import com.book.bookshop.service.CartService;
+import com.book.bookshop.utils.RecBook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -60,13 +61,15 @@ public class CartController {
 
     //跳转至购物车
     @RequestMapping("/list")
-    public String toCart(HttpSession session, Model model) {
+    public String toCart(Integer page,HttpSession session, Model model) {
         User user = (User) session.getAttribute("user");
         List<CartVo> cartVos = cartService.findCartByUser(user.getId());
 
         //将用户的购物车信息存放到session中
         UserCartVo userCartVo = cartService.wrapperCart(cartVos);
         session.setAttribute("userCartInfo", userCartVo);
+
+        RecBook.recBook(page,model,bookService);
 
         model.addAttribute("cartList", cartVos);
         return "cart";

@@ -9,6 +9,7 @@ import com.book.bookshop.entity.enums.Category;
 import com.book.bookshop.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -501,6 +502,24 @@ public class AdminController {
             return "success";
         } else
             return "fail";
+    }
+
+    //设置推荐书本
+    @RequestMapping("/setRecBook")
+    public String setRecBook(Integer bookId){
+        Book book = bookService.getById(bookId);
+        book.setRecommend(1);
+        bookService.updateById(book);
+        return "admin/bookAdmin";
+    }
+
+    //设置为非推荐书本
+    @RequestMapping("/setNotRecBook")
+    public String setNotRecBook(Integer bookId){
+        Book book = bookService.getById(bookId);
+        book.setRecommend(0);
+        bookService.updateById(book);
+        return "admin/bookAdmin";
     }
 
 }

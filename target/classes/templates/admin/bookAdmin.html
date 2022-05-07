@@ -55,10 +55,21 @@
 
 
 			//预览图书简介
-			function displayInfo(info) {
+			function displayInfo(book) {
 				layer.open({
-					title: '简介'
-					,content: info
+					title: '书本详情'
+					,content:
+					'ISBN：'+book.isbn+'<br>'
+					+'书名：'+book.name+'<br>'
+					+'作者：'+book.author+'<br>'
+					+'出版社：'+book.publisher+'<br>'
+					+'分类：'+book.cate+'<br>'
+					+'库存：'+book.count+'<br>'
+					+'原价：'+book.oldPrice+'<br>'
+					+'现价：'+book.newPrice+'<br>'
+					+'是否推荐：'+ (book.recommend==0?'否':'是')+'<br>'
+					+'上架状态：'+ (book.state==0?'下架中':'上架中')+'<br>'
+					+'简介：'+book.info+'<br>'
 					,area: '500px'
 				});
 
@@ -277,9 +288,48 @@
 						return;
 					}else location.href = contextPath + "/admin/changePrice?bookId="+bookId+"&price="+value;
 				});
+			} else if(obj.value == 'setRec'){
+				layer.confirm('确定设为推荐？', {
+					icon:3,
+					btn: ['确定', '取消']
+				}, function(index, layero){
+					//按钮【按钮一】的回调
+					location.href = contextPath + "/admin/setRecBook?bookId="+bookId;
+				}, function(index){
+					return ;
+				});
+			}else if(obj.value == 'setNotRec'){
+				layer.confirm('确定设为非推荐？', {
+					icon:3,
+					btn: ['确定', '取消']
+				}, function(index, layero){
+					//按钮【按钮一】的回调
+					location.href = contextPath + "/admin/setNotRecBook?bookId="+bookId;
+				}, function(index){
+					return ;
+				});
 			}
 
 		}
 	</script>
+<!--					$.ajax({
+						url:contextPath + "/admin/setRecBook",
+						data:{"bookId":bookId},
+						type:"post",
+						success:function (data) {
+							if (data=="success"){
+								layer.msg('设置成功', {
+									icon: 1,
+									time: 2000 //2秒关闭（如果不配置，默认是3秒）
+								}, function(){
+									//do something
+									location.href = contextPath +"/admin/toBookAdmin"
+								});
+							} else if (data == "moreThan3"){
+								layer.msg('推荐数量不能大于3！', {icon: 7,anim:6});
+							}
+							else layer.msg("删除失败")
 
+						}
+					})-->
 </html>

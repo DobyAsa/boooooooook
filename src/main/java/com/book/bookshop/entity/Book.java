@@ -33,5 +33,5 @@ public class Book extends Model<Book> {
     private String cate;
     private Integer state;
     private Integer count;
-
+    private Integer recommend;
 }

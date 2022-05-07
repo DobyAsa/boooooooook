@@ -199,7 +199,7 @@
 	</body>
 	<script>
 		//批量封号
-		function deleteUsers(){
+		/*function deleteUsers(){
 			//存储购物记录的id
 			var ids = '';
 			var thirdModel = document.getElementById("third_del");
@@ -245,26 +245,36 @@
 			}, function(index){
 				return ;
 			});
+		}	*/
 		//封号
-		}
 		function forbidUser(userId) {
 			layer.confirm('确定封号？', {
 				icon:3,
 				btn: ['确定', '取消']
 			}, function(index, layero){
 				//按钮【按钮一】的回调
-				$.ajax({
-					url:contextPath + "/admin/forbidUser",
-					data:{"userId":userId},
-					type:"post",
-					success:function (data) {
-						if (data=="success"){
-							location.href = contextPath + "/admin/toAllUsers";
-						}
-						else layer.msg("封号失败")
+				layer.prompt({
+					formType: 2,
+					value: '',
+					title: '请输入封禁原因',
+					area: ['200px', '20px'] //自定义文本域宽高
+				}, function(value, index, elem){
+					alert(value); //得到value
+					$.ajax({
+						url:contextPath + "/admin/forbidUser",
+						data:{"userId":userId,"forbidReason":value},
+						type:"post",
+						success:function (data) {
+							if (data=="success"){
+								location.href = contextPath + "/admin/toAllUsers";
+							}
+							else layer.msg("封号失败")
 
-					}
-				})
+						}
+					})
+					// layer.close(index);
+				});
+
 			}, function(index){
 				return ;
 			});

@@ -73,7 +73,7 @@ public class UserService extends ServiceImpl<UserMapper, User> {
             return "102";//请发送验证码
         }
         if (!realCode.equals(inputCode)){
-            return "101";//验证码错误
+            return "101";//邮箱验证码错误
         }
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("email",email);

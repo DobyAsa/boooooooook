@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.book.bookshop.entity.*;
 import com.book.bookshop.service.*;
 import com.book.bookshop.utils.AlipayUtil;
+import com.book.bookshop.utils.RecBook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -49,7 +50,7 @@ public class OrderController {
      * 确认订单
      */
     @RequestMapping("/confirm")
-    public String confirm(String ids, HttpSession session, Model model) {
+    public String confirm(Integer page,String ids, HttpSession session, Model model) {
 
         List<CartVo> cartVos = cartService.findCartByIds(ids);
         User user = (User) session.getAttribute("user");
@@ -60,8 +61,12 @@ public class OrderController {
 
         //将购买的商品信息添加到session中
         session.setAttribute("cartVos", cartVos);
+
+        RecBook.recBook(page,model,bookService);
+
         model.addAttribute("addressList", addressList);
         model.addAttribute("list", cartVos);
+        model.addAttribute("ids",ids);
         return "confirm_order";
     }
 
