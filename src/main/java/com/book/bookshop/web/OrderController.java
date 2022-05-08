@@ -88,7 +88,6 @@ public class OrderController {
     @RequestMapping("/orderDelete")
     @ResponseBody
     public String orderDelete(String ids) {
-        System.out.println(ids);
         List<Order> orders = (List<Order>) orderService.listByIds(Arrays.asList(ids.split(",")));
         for (Order order : orders){
             //如果订单是1待支付、2已支付/待发货、5已发货/待收货 状态则不允许删除

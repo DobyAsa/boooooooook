@@ -64,16 +64,11 @@ public class BookController {
     @RequestMapping("/getBookListData")
     public String getBookListData(String category, Integer page,Integer pageSize, Model model){
         Page pages = new Page<Book>(page, pageSize);
-        QueryWrapper queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("category", category);
+        QueryWrapper<Book> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("category", category).eq("state",1);
         IPage<Book> iPage = bookService.page(pages, queryWrapper);
         List<Book> bookList = new ArrayList<>();
-        for (Book book:iPage.getRecords()){
-            if (book.getState()==1){
-                bookList.add(book);
-            }
-        }
-        model.addAttribute("bookList", bookList);
+        model.addAttribute("bookList", iPage.getRecords());
         model.addAttribute("pre", iPage.getCurrent() - 1);
         model.addAttribute("next", iPage.getCurrent() + 1);
         model.addAttribute("category", category);

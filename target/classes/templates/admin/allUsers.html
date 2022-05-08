@@ -33,6 +33,26 @@
 						<li >
 							<a th:href="@{/admin/toBookAdmin}">图书管理</a>
 						</li>
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+								图书类型
+								<b class="caret"></b>
+							</a>
+							<ul class="dropdown-menu">
+								<li>
+									<a th:href="@{/admin/toBookAdmin(category=1)}">文学类</a>
+								</li>
+								<li class="divider"></li>
+								<li>
+									<a th:href="@{/admin/toBookAdmin(category=2)}">经管类</a>
+								</li>
+								<li class="divider"></li>
+								<li>
+									<a th:href="@{/admin/toBookAdmin(category=3)}">其他类</a>
+								</li>
+								<li class="divider"></li>
+							</ul>
+						</li>
 						<li th:if="${session.admin != null}">
 							<a href="javascript:void(0)" th:text="${session.admin.username}"></a>
 						</li>
@@ -44,6 +64,9 @@
 						</li>
 						<li>
 							<a th:href="@{/admin/toAppealList}">申诉管理</a>
+						</li>
+						<li>
+							<a th:href="@{/admin/toAllOrder}">订单管理</a>
 						</li>
 
 					</ul>
@@ -252,7 +275,7 @@
 					title: '请输入封禁原因',
 					area: ['200px', '20px'] //自定义文本域宽高
 				}, function(value, index, elem){
-					alert(value); //得到value
+					// alert(value); //得到value
 					$.ajax({
 						url:contextPath + "/admin/forbidUser",
 						data:{"userId":userId,"forbidReason":value},

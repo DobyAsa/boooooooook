@@ -59,7 +59,7 @@
 							<td th:text="${book.oldPrice == 0?'无':book.oldPrice}">原价</td>
 							<td th:text="${book.newPrice}">现价00$</td>
 							<td style="width: 146px;">
-								<button class="btn btn-success" th:onclick="displayInfo([[${book}]])">预览</button>
+								<button class="btn btn-success" th:onclick="displayInfo([[${book}]],[[${#calendars.format(book.publishDate,'yyyy-MM-dd')}]])">预览</button>
 							</td>
 							<td th:if="${book.recommend == 0}">否</td>
 							<td th:if="${book.recommend == 1}">是</td>

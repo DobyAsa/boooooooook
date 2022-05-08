@@ -70,7 +70,7 @@
                         <li class="list-group-item"><span class="text-info"
 												  style="text-decoration: line-through;">原价:￥</span><span style="text-decoration: line-through;"><span th:text="${book.oldPrice}"></span></span></li>
                         <li class="list-group-item"><span class="text-info">现价:￥</span><span th:text="${book.newPrice}">$21.6元</span></li>
-                        <li class="list-group-item"><span class="text-info">说明:</span>
+                        <li class="list-group-item"><span class="text-info">简介:</span>
                             <span th:text="${book.info}">50年心路历程×25年创业思考×80场演讲精华，与不甘平庸的你，谈谈如何度过不悔的青春，实现你心中的梦想。</span>
                         </li>
                     </ul>
@@ -115,6 +115,7 @@
                                         <li class="text-info">作者: <span th:text="${book.author}"></span></li>
                                         <li class="text-info">ISBN编号: <span th:text="${book.isbn}"></span></li>
                                         <li class="text-info">库存: <span th:text="${book.count}"></span></li>
+                                        <li class="text-info">简介: <span th:text="${book.info}"></span></li>
                                     </ul>
                                 </div>
                                 <span class="visible-sm visible-xs"><hr></span>

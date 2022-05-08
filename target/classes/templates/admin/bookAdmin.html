@@ -55,7 +55,7 @@
 
 
 			//预览图书简介
-			function displayInfo(book) {
+			function displayInfo(book,date) {
 				layer.open({
 					title: '书本详情'
 					,content:
@@ -63,6 +63,7 @@
 					+'书名：'+book.name+'<br>'
 					+'作者：'+book.author+'<br>'
 					+'出版社：'+book.publisher+'<br>'
+					+'出版日期：'+date+'<br>'
 					+'分类：'+book.cate+'<br>'
 					+'库存：'+book.count+'<br>'
 					+'原价：'+book.oldPrice+'<br>'
