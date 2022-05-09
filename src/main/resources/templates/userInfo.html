@@ -36,7 +36,7 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">邮箱</label>
                 <div class="layui-input-block">
-                    <input type="text" name="email" required  lay-verify="required" placeholder="请输入标题" th:value="${user.email}" autocomplete="off" class="layui-input">
+                    <input type="text" name="email" id="email" required  lay-verify="required" placeholder="请输入标题" th:value="${user.email}" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
@@ -117,24 +117,38 @@
     //个人信息修改
     function infoChange() {
         var userInfo = $("#userInfo").serialize();
-        layer.confirm('确定修改？', {
-            icon:3,
-            btn: ['确定', '取消']
-        }, function(index, layero){
-            //按钮【按钮一】的回调
-            $.ajax({
-                url: contextPath + "/user/userInfoChange",
-                method: "post",
-                data: userInfo,
-                success: function (data) {
-                    if (data == 'success') {
-                        layer.msg('修改成功');
-                    } else layer.msg('修改失败')
+        $.ajax({
+            url: contextPath + "/user/checkEmail",
+            data: {"email": $("#email").val()},
+            method: "post",
+            success: function (data) {
+                if (data == 101) {//邮箱不存在
+                    layer.confirm('确定修改？', {
+                        icon:3,
+                        btn: ['确定', '取消']
+                    }, function(index, layero){
+                        //按钮【按钮一】的回调
+                        $.ajax({
+                            url: contextPath + "/user/userInfoChange",
+                            method: "post",
+                            data: userInfo,
+                            success: function (data) {
+                                if (data == 'success') {
+                                    layer.msg('修改成功');
+                                } else layer.msg('修改失败')
+                            }
+                        })
+                    }, function(index){
+                        return ;
+                    });
+
+                } else {
+                    layer.msg('邮箱已被注册', {icon: 7,anim:6});
+                    return;
                 }
-            })
-        }, function(index){
-            return ;
-        });
+            }
+        })
+
 
     }
     //跳转至修改密码页面

@@ -110,7 +110,7 @@
 					<td th:text="${#calendars.format(order.createDate,'yyyy/MM/dd')}">01/08/2017</td>
 					<td th:if="${order.orderStatus == '1'}">待支付</td>
 					<td th:if="${order.orderStatus == '3'}">支付失败</td>
-					<td th:if="${order.orderStatus == '4'}">订单已取消</td>
+					<td th:if="${order.orderStatus == '4'}">已取消</td>
 					<td th:if="${order.orderStatus == '2'}">待发货</td>
 					<td th:if="${order.orderStatus == '5'}">已发货</td>
 					<td th:if="${order.orderStatus == '6'&&items.state==1}">已收货</td>

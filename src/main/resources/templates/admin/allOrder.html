@@ -108,7 +108,6 @@
 								<a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">更多筛选条件</a>
 							</li>
 						</ul>-->
-						
 						<ul class="nav navbar-nav">
 							<li>
 								<a href="#" th:onclick="orderDelete()" >删除订单</a>
@@ -342,7 +341,7 @@
 			}, function(index, layero){
 				//按钮【按钮一】的回调
 				$.ajax({
-					url:contextPath + "/order/cancelOrder",
+					url:contextPath + "/admin/cancelOrder",
 					data:{"orderId":orderId},
 					type:"post",
 					success:function (data) {

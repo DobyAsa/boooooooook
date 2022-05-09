@@ -2,7 +2,6 @@ package com.book.bookshop.web;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.book.bookshop.entity.*;
 import com.book.bookshop.entity.enums.Category;
@@ -438,8 +437,33 @@ public class AdminController {
         session.setAttribute("userOrderPages",orderService.findUserOrderPages(userId, orderQueryVo));
         return "admin/orderData";
     }
-
-
+    //取消订单
+    @RequestMapping("/cancelOrder")
+    @ResponseBody
+    public String cancelOrder(Integer orderId) {
+        Order order = orderService.getById(orderId);
+        if (order != null) {
+            //返书本给库存
+            QueryWrapper queryWrapper = new QueryWrapper();
+            queryWrapper.eq("order_id", orderId);
+            List<com.book.bookshop.entity.OrderItem> items = orderItemService.list(queryWrapper);
+            for (OrderItem item : items) {
+                Book book = bookService.getById(item.getBookId());
+                book.setCount(book.getCount() + item.getCount());
+                bookService.updateById(book);
+                //更新订单item状态
+                item.setState(3);
+                orderItemService.updateById(item);
+            }
+            //更新订单状态
+            order.setOrderStatus("4");
+            if (orderService.updateById(order)) {
+                return "success";
+            }
+            return "cancelFail";
+        } else return "emptyOrder";
+    }
+    //发货
     @RequestMapping("/toSendOut")
     public String toSendOut(Integer orderId,Model model){
         Order order = orderService.getById(orderId);

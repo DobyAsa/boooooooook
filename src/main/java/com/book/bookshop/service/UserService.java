@@ -37,7 +37,7 @@ public class UserService extends ServiceImpl<UserMapper, User> {
         queryWrapper.eq("email", email);
         User user = userMapper.selectOne(queryWrapper);
         if (user == null) {
-            //不存在
+            //不存在，可以注册
             return "101";
         } else return "100";
     }

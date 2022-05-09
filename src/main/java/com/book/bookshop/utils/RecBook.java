@@ -13,15 +13,15 @@ import org.springframework.ui.Model;
  * 封装推荐书本模块
  */
 public class RecBook {
-    public static void recBook(Integer page, Model model,BookService bookService){
-        Page pages = new Page<>(page == null?1:page, 3);
+    public static void recBook(Integer page, Model model, BookService bookService) {
+        Page pages = new Page<>(page == null ? 1 : page, 3);
         QueryWrapper<Book> queryWrapper1 = new QueryWrapper();
-        queryWrapper1.eq("recommend",1).eq("state",1);
+        queryWrapper1.eq("recommend", 1).eq("state", 1);
         IPage<Book> iPage = bookService.page(pages, queryWrapper1);
-        model.addAttribute("recBook",iPage.getRecords());
+        model.addAttribute("recBook", iPage.getRecords());
         model.addAttribute("pre", iPage.getCurrent() - 1);
         model.addAttribute("next", iPage.getCurrent() + 1);
-        model.addAttribute("cur",iPage.getCurrent());
-        model.addAttribute("pages",iPage.getPages());
+        model.addAttribute("cur", iPage.getCurrent());
+        model.addAttribute("pages", iPage.getPages());
     }
 }

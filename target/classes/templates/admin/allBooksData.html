@@ -75,7 +75,7 @@
 									<option value=""></option>
 									<option value="update">更新</option>
 									<option value="offShelf" th:if="${book.state == 1}">下架</option>
-									<option value="onShelf" th:if="${book.state == 0}">上架</option>
+									<option value="onShelf" th:if="${book.state == 0}">恢复上架</option>
 									<option value="addCount">补充库存</option>
 									<option value="changePrice">修改价格</option>
 									<option value="setRec" th:if="${book.recommend == 0}">设为推荐</option>
