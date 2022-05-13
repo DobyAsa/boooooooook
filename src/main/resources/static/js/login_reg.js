@@ -68,10 +68,6 @@ function register() {
         layer.msg('邮箱不合法！', {icon: 7,anim:6});
         return;
     }
-    if (!school.test(schoolReg)){
-        layer.msg('请输入中文！', {icon: 7,anim:6});
-        return;
-    }
 
     $.ajax({
         url:contextPath + "/user/checkRegEmail",

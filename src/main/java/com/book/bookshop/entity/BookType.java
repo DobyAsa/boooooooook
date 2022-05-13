@@ -14,4 +14,5 @@ import lombok.Data;
 public class BookType {
     @TableId(type = IdType.AUTO)
     private Integer id;
+    private String typeName;
 }
