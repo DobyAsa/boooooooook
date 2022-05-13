@@ -46,6 +46,7 @@ public class AdminController {
     private AddressService addressService;
     @Autowired
     private ExpressService expressService;
+
     //管理员登录
     @ResponseBody
     @PostMapping("/login")
@@ -200,10 +201,11 @@ public class AdminController {
     //封号
     @RequestMapping("/forbidUser")
     @ResponseBody
-    public String forbidUser(Integer userId,String forbidReason){
+    public String forbidUser(Integer userId,String forbidReason,HttpSession session){
         User user = userService.getById(userId);
         user.setState(2);
         user.setForbidReason(forbidReason);
+        User onlineUser = (User)session.getAttribute("user");
         if (userService.saveOrUpdate(user)){
             //封号的同时如果申诉列表中有该用户的待审核记录则将其设为不通过
            /* QueryWrapper<Appeal> queryWrapper = new QueryWrapper();
@@ -213,6 +215,10 @@ public class AdminController {
                 appeal.setState(3);
                 appealService.updateById(appeal);
             }*/
+           if (onlineUser.getUsername().equals(user.getUsername())){
+               //如果封的号刚好在线，则强制其下线
+               session.removeAttribute("user");
+           }
             return "success";
         }else {
             return "fail";

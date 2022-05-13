@@ -319,16 +319,22 @@
 				var addressData = $("#addressForm").serialize();
 				var tel = $("#tel").val();
 				var emailCode = $("#emailCode").val();
-				//数字正则
-				var emailCodeReg = new RegExp("[1-9]\\d{5}(?!\\d)");
+				var receiver = $("#username").val();
 				//邮编正则
+				var emailCodeReg = new RegExp("[1-9]\\d{5}(?!\\d)");
+
+				if (!emailCodeReg.test(emailCode)){
+					layer.msg('邮编不合法！', {icon: 7,anim:6});
+					return;
+				}
+				if (receiver==''){
+					layer.msg('收件人不为空！', {icon: 7,anim:6});
+					return;
+				}
+				//电话号码正则
 				var telReg = new RegExp("((\\d{11})|^((\\d{7,8})|(\\d{4}|\\d{3})-(\\d{7,8})|(\\d{4}|\\d{3})-(\\d{7,8})-(\\d{4}|\\d{3}|\\d{2}|\\d{1})|(\\d{7,8})-(\\d{4}|\\d{3}|\\d{2}|\\d{1}))$)");
 				if (!telReg.test(tel)){
 					layer.msg('电话号码不合法！', {icon: 7,anim:6});
-					return;
-				}
-				if (!emailCodeReg.test(emailCode)){
-					layer.msg('邮编不合法！', {icon: 7,anim:6});
 					return;
 				}
 				$.ajax({

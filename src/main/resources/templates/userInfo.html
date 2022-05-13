@@ -42,13 +42,13 @@
             <div class="layui-form-item">
                 <label class="layui-form-label" style="width: 90px">电话号码</label>
                 <div class="layui-input-block">
-                    <input type="text" name="phone" required  lay-verify="required" placeholder="请输入标题" th:value="${user.phone}" autocomplete="off" class="layui-input">
+                    <input type="text" name="phone" id="phone" required  lay-verify="required" placeholder="请输入标题" th:value="${user.phone}" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">学校</label>
                 <div class="layui-input-block">
-                    <input type="text" name="school" required  lay-verify="required" placeholder="请输入标题" th:value="${user.school}" autocomplete="off" class="layui-input">
+                    <input type="text" name="school" id="school" required  lay-verify="required" placeholder="请输入标题" th:value="${user.school}" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
@@ -117,9 +117,21 @@
     //个人信息修改
     function infoChange() {
         var userInfo = $("#userInfo").serialize();
+        var email = $("#email").val();
+        var phone = $("#phone").val();
+        var school = $("#school").val();
+        if (email==''||phone== ''||school==''){
+            layer.msg('必填项不为空', {icon: 7,anim:6});
+            return;
+        }
+        var telReg = new RegExp("((\\d{11})|^((\\d{7,8})|(\\d{4}|\\d{3})-(\\d{7,8})|(\\d{4}|\\d{3})-(\\d{7,8})-(\\d{4}|\\d{3}|\\d{2}|\\d{1})|(\\d{7,8})-(\\d{4}|\\d{3}|\\d{2}|\\d{1}))$)");
+        if (!telReg.test(phone)){
+            layer.msg('电话号码不合法！', {icon: 7,anim:6});
+            return;
+        }
         $.ajax({
             url: contextPath + "/user/checkEmail",
-            data: {"email": $("#email").val()},
+            data: {"email":email},
             method: "post",
             success: function (data) {
                 if (data == 101) {//邮箱不存在

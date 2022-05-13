@@ -110,8 +110,11 @@ public class OrderController {
     //删除所有订单
     @RequestMapping("/deleteAll")
     @ResponseBody
-    public String deleteAll() {
-        List<Order> orders = orderService.list();
+    public String deleteAll(HttpSession session) {
+        QueryWrapper queryWrapper = new QueryWrapper();
+        User user = (User)session.getAttribute("user");
+        queryWrapper.eq("user_id",user.getId());
+        List<Order> orders = orderService.list(queryWrapper);
         for (Order order : orders){
             //如果订单是1待支付、2已支付/待发货、5已发货/待收货 状态则不允许删除
             if (order.getOrderStatus().equals("1")||
@@ -183,7 +186,6 @@ public class OrderController {
     @PostMapping("/notify")
     public void notifyUrl(String trade_no, String total_amount, String trade_status) {
         System.out.println("支付宝订单编号：" + trade_no + ", 订单金额： " + total_amount + ",订单状态：" + trade_status);
-
     }
 
     //取消订单
