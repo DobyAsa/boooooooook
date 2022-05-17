@@ -121,7 +121,7 @@ public class AdminController {
     }
 
 
-    //添加商品
+    //新书上架
     @RequestMapping("/addBook")
     public String toAddBook(Book book, MultipartFile bookPic,String pubDate) throws IOException, ParseException {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -215,10 +215,13 @@ public class AdminController {
                 appeal.setState(3);
                 appealService.updateById(appeal);
             }*/
-           if (onlineUser.getUsername().equals(user.getUsername())){
-               //如果封的号刚好在线，则强制其下线
-               session.removeAttribute("user");
+           if(onlineUser!=null){
+               if (onlineUser.getUsername().equals(user.getUsername())){
+                   //如果封的号刚好在线，则强制其下线
+                   session.removeAttribute("user");
+               }
            }
+
             return "success";
         }else {
             return "fail";

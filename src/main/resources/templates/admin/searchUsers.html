@@ -34,6 +34,26 @@
 						<li >
 							<a th:href="@{/admin/toBookAdmin}">图书管理</a>
 						</li>
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+								图书类型
+								<b class="caret"></b>
+							</a>
+							<ul class="dropdown-menu">
+								<li>
+									<a th:href="@{/admin/toBookAdmin(category=1)}">文学类</a>
+								</li>
+								<li class="divider"></li>
+								<li>
+									<a th:href="@{/admin/toBookAdmin(category=2)}">经管类</a>
+								</li>
+								<li class="divider"></li>
+								<li>
+									<a th:href="@{/admin/toBookAdmin(category=3)}">其他类</a>
+								</li>
+								<li class="divider"></li>
+							</ul>
+						</li>
 						<li th:if="${session.admin != null}">
 							<a href="javascript:void(0)" th:text="${session.admin.username}"></a>
 						</li>
@@ -45,6 +65,9 @@
 						</li>
 						<li>
 							<a th:href="@{/admin/toAppealList}">申诉管理</a>
+						</li>
+						<li>
+							<a th:href="@{/admin/toAllOrder}">订单管理</a>
 						</li>
 
 					</ul>
@@ -93,7 +116,7 @@
                                             </tr>-->
 					<tr class="text-success success">
 						<th style="width: 30px;">
-							<input type="checkbox" id="selectAll" onclick="selectAll(this)">
+<!--							<input type="checkbox" id="selectAll" onclick="selectAll(this)">-->
 							<!--								<input type="checkbox" id="testId" onclick="selectAll(this)">-->
 						</th>
 						<th id="sequence">序号</th>
@@ -108,7 +131,7 @@
 					<tbody id="tby" th:each="user,iter:${userList}">
 					<tr>
 						<td style="width: 30px;">
-							<input type="checkbox" name="cks"  th:value="${user.id}" >
+<!--							<input type="checkbox" name="cks"  th:value="${user.id}" >-->
 							<!--								<input type="checkbox" name="cks" onclick="cks(this)" name="testName" value="${item.id}">-->
 						</td>
 						<td th:text="${user.id}">1001</td>
@@ -142,7 +165,7 @@
 					</tr>
 					<tr style="background-color: white;">
 
-						<td><button class="btn btn-success" data-toggle="modal" data-target="#myModal" th:onclick="deleteUsers()">批量封号</button></td>
+<!--						<td><button class="btn btn-success" data-toggle="modal" data-target="#myModal" th:onclick="deleteUsers()">批量封号</button></td>-->
 						<td colspan="4"></td>
 						<!--							<td>
                                                         <a href="confirm_order.html" class="btn btn-warning">结算商品</a>

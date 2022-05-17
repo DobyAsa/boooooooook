@@ -116,7 +116,7 @@
                                             </tr>-->
 					<tr class="text-success success">
 						<th style="width: 30px;">
-							<input type="checkbox" id="selectAll" onclick="selectAll(this)">
+<!--							<input type="checkbox" id="selectAll" onclick="selectAll(this)">-->
 							<!--								<input type="checkbox" id="testId" onclick="selectAll(this)">-->
 						</th>
 						<th id="sequence">序号</th>
@@ -131,7 +131,7 @@
 					<tbody id="tby" th:each="user,iter:${userList}">
 					<tr>
 						<td style="width: 30px;">
-							<input type="checkbox" name="cks"  th:value="${user.id}" >
+<!--							<input type="checkbox" name="cks"  th:value="${user.id}" >-->
 							<!--								<input type="checkbox" name="cks" onclick="cks(this)" name="testName" value="${item.id}">-->
 						</td>
 						<td th:text="${user.id}">1001</td>

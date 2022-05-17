@@ -108,18 +108,17 @@
                             <div class="row">
                                 <div class="col-sm-12 col-md-6">
                                     <ul class="nav navbar-collapse" style="line-height: 3" ;>
+                                        <li class="text-info">ISBN: <span th:text="${book.isbn}"></span></li>
                                         <li class="text-info">书名:<span th:text="${book.name}"></span></li>
                                         <li class="text-info">定价: <span th:text="${book.newPrice}"></span>元</li>
                                         <li class="text-info">出版社名称: <span th:text="${book.publisher}"></span></li>
                                         <li class="text-info">出版时间: <span th:text="${#calendars.format(book.publishDate,'yyyy-MM-dd')}"></span></li>
                                         <li class="text-info">作者: <span th:text="${book.author}"></span></li>
-                                        <li class="text-info">ISBN编号: <span th:text="${book.isbn}"></span></li>
                                         <li class="text-info">库存: <span th:text="${book.count}"></span></li>
                                         <li class="text-info">简介: <span th:text="${book.info}"></span></li>
                                     </ul>
                                 </div>
                                 <span class="visible-sm visible-xs"><hr></span>
-
                             </div>
                             </p>
                         </div>
