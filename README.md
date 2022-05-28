@@ -8,7 +8,7 @@
 #### 安装教程
 1.  执行script中的SQL文件，这是数据库的表，端口为3306。
 2.  沙箱支付的参数需要修改。
-配置文件在src/main/resources/application.yml
+配置文件为src/main/resources/application.yml
 3.  下载用于沙箱支付异步请求的内网穿透工具（netapp），将公网内部请求的url设置为内网穿透的url
 #### 使用说明
 
