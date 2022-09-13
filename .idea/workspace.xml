@@ -3,15 +3,17 @@
   <component name="ChangeListManager">
     <list default="true" id="a89b3715-3253-41ee-a81d-e446e61e211a" name="Default Changelist" comment="普通用户申诉、管理员审核">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/book/bookshop/web/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/book/bookshop/web/AdminController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/allUsers.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/allUsers.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/appealList.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/appealList.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/common/header.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/common/header.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin/searchUsers.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin/searchUsers.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/details.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/details.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/book/bookshop/web/AdminController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/book/bookshop/web/AdminController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/templates/admin/allUsers.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/admin/allUsers.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/admin/appealList.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/admin/appealList.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/admin/common/header.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/admin/common/header.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/templates/admin/searchUsers.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/admin/searchUsers.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/details.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/details.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -371,6 +373,13 @@
       <workItem from="1652427034656" duration="8612000" />
       <workItem from="1652451687526" duration="4394000" />
       <workItem from="1652484161919" duration="1726000" />
+      <workItem from="1652795467997" duration="995000" />
+      <workItem from="1653398114638" duration="55000" />
+      <workItem from="1653728750498" duration="2385000" />
+      <workItem from="1657034555928" duration="1019000" />
+      <workItem from="1657036482127" duration="616000" />
+      <workItem from="1661072239831" duration="1216000" />
+      <workItem from="1663075124745" duration="458000" />
     </task>
     <task id="LOCAL-00001" summary="分页功能完成">
       <created>1646995980855</created>
@@ -460,137 +469,9 @@
     <option name="LAST_COMMIT_MESSAGE" value="普通用户申诉、管理员审核" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="344" y="62" key="#BookShopApplicationTests.asd" timestamp="1647794035905">
+    <state x="372" y="6" key="CommitChangelistDialog2" timestamp="1663075556210">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="344" y="62" key="#BookShopApplicationTests.asd/0.0.1536.824@0.0.1536.824" timestamp="1647794035905" />
-    <state x="391" y="85" width="977" height="681" key="#Project_Structure" timestamp="1648986226876">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state x="391" y="85" width="977" height="681" key="#Project_Structure/0.0.1536.824@0.0.1536.824" timestamp="1648986226876" />
-    <state x="361" y="71" key="#Scopes" timestamp="1647610406549">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state x="361" y="71" key="#Scopes/0.0.1536.824@0.0.1536.824" timestamp="1647610406549" />
-    <state x="170" y="56" width="1164" height="688" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1646895810514">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state x="170" y="56" width="1164" height="688" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.824@0.0.1536.824" timestamp="1646895810514" />
-    <state x="574" y="122" key="#com.intellij.ide.util.MemberChooser" timestamp="1646813634821">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state x="574" y="122" key="#com.intellij.ide.util.MemberChooser/0.0.1536.824@0.0.1536.824" timestamp="1646813634821" />
-    <state x="404" y="338" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog" timestamp="1644769091777">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state x="404" y="338" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog/0.0.1536.824@0.0.1536.824" timestamp="1644769091777" />
-    <state x="499" y="159" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1647610090582">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state x="499" y="159" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1536.824@0.0.1536.824" timestamp="1647610090582" />
-    <state x="266" y="7" width="950" height="817" key="CommitChangelistDialog2" timestamp="1650966715016">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state x="266" y="7" width="950" height="817" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1650966715016" />
-    <state x="14" y="92" width="1350" height="638" key="DiffContextDialog" timestamp="1651073206007">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state x="14" y="92" width="1350" height="638" key="DiffContextDialog/0.0.1536.824@0.0.1536.824" timestamp="1651073206006" />
-    <state x="549" y="168" key="FileChooserDialogImpl" timestamp="1651910706457">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state x="549" y="168" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1651910706457" />
-    <state width="1493" height="235" key="GridCell.Tab.0.bottom" timestamp="1652490204969">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1493" height="235" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1652490204969" />
-    <state width="1493" height="235" key="GridCell.Tab.0.center" timestamp="1652490204968">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1493" height="235" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1652490204968" />
-    <state width="1493" height="235" key="GridCell.Tab.0.left" timestamp="1652490204968">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1493" height="235" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1652490204968" />
-    <state width="1493" height="235" key="GridCell.Tab.0.right" timestamp="1652490204968">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1493" height="235" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1652490204968" />
-    <state width="1493" height="235" key="GridCell.Tab.1.bottom" timestamp="1652490204969">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1493" height="235" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1652490204969" />
-    <state width="1493" height="235" key="GridCell.Tab.1.center" timestamp="1652490204969">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1493" height="235" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1652490204969" />
-    <state width="1493" height="235" key="GridCell.Tab.1.left" timestamp="1652490204969">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1493" height="235" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1652490204969" />
-    <state width="1493" height="235" key="GridCell.Tab.1.right" timestamp="1652490204969">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1493" height="235" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1652490204969" />
-    <state width="1493" height="211" key="GridCell.Tab.2.bottom" timestamp="1651164580748">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1493" height="211" key="GridCell.Tab.2.bottom/0.0.1536.824@0.0.1536.824" timestamp="1651164580748" />
-    <state width="1493" height="211" key="GridCell.Tab.2.center" timestamp="1651164580748">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1493" height="211" key="GridCell.Tab.2.center/0.0.1536.824@0.0.1536.824" timestamp="1651164580748" />
-    <state width="1493" height="211" key="GridCell.Tab.2.left" timestamp="1651164580748">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1493" height="211" key="GridCell.Tab.2.left/0.0.1536.824@0.0.1536.824" timestamp="1651164580748" />
-    <state width="1493" height="211" key="GridCell.Tab.2.right" timestamp="1651164580748">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1493" height="211" key="GridCell.Tab.2.right/0.0.1536.824@0.0.1536.824" timestamp="1651164580748" />
-    <state width="212" height="477" key="HiddenNamespacesPopup" timestamp="1647164606074">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="212" height="477" key="HiddenNamespacesPopup/0.0.1536.824@0.0.1536.824" timestamp="1647164606074" />
-    <state x="564" y="123" key="RollbackChangesDialog" timestamp="1651073206616">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state x="564" y="123" key="RollbackChangesDialog/0.0.1536.824@0.0.1536.824" timestamp="1651073206616" />
-    <state x="267" y="0" key="SettingsEditor" timestamp="1648818033889">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state x="267" y="0" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1648818033889" />
-    <state x="361" y="146" key="Vcs.Push.Dialog.v2" timestamp="1647520483750">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state x="361" y="146" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1647520483750" />
-    <state x="519" y="0" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1651852352613">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state x="519" y="0" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1536.824@0.0.1536.824" timestamp="1651852352612" />
-    <state x="562" y="330" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1651944370020">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state x="562" y="330" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1536.824@0.0.1536.824" timestamp="1651944370020" />
-    <state x="290" y="114" width="928" height="634" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2" timestamp="1647794163756">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state x="290" y="114" width="928" height="634" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/0.0.1536.824@0.0.1536.824" timestamp="1647794163756" />
-    <state x="266" y="129" width="881" height="658" key="find.popup" timestamp="1652490197651">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state x="266" y="129" width="881" height="658" key="find.popup/0.0.1536.824@0.0.1536.824" timestamp="1652490197651" />
-    <state x="510" y="42" key="refactoring.ChangeSignatureDialog" timestamp="1644629814106">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state x="510" y="42" key="refactoring.ChangeSignatureDialog/0.0.1536.824@0.0.1536.824" timestamp="1644629814106" />
-    <state x="425" y="187" key="run.anything.popup" timestamp="1651075158300">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state x="425" y="187" key="run.anything.popup/0.0.1536.824@0.0.1536.824" timestamp="1651075158300" />
-    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1651943440895">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1651943440895" />
+    <state x="372" y="6" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1663075556210" />
   </component>
 </project>
