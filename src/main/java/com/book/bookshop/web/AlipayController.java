@@ -23,12 +23,12 @@ public class AlipayController {
     }
 
     @GetMapping("/index1")
-    public String index(){
+    public String index() {
         return "index1";
     }
 
     @PostMapping("/create")
-    public String create(String id, String price, String title, Model model){
+    public String create(String id, String price, String title, Model model) {
         String pay = alipayUtil.pay(id, price, title);
         model.addAttribute("form", pay);
         return "pay";
@@ -42,20 +42,20 @@ public class AlipayController {
     }*/
 
     @PostMapping("/notify")
-    public void notifyUrl(String trade_no,String out_trade_no, String total_amount, String trade_status){
+    public void notifyUrl(String trade_no, String out_trade_no, String total_amount, String trade_status) {
 
-        System.out.println("订单编号："+out_trade_no+ ", 订单金额： " + total_amount + ",订单状态：" + trade_status);
+        System.out.println("订单编号：" + out_trade_no + ", 订单金额： " + total_amount + ",订单状态：" + trade_status);
         QueryWrapper queryWrapper = new QueryWrapper();
-        queryWrapper.eq("order_num",out_trade_no);
+        queryWrapper.eq("order_num", out_trade_no);
         Order order = orderService.getOne(queryWrapper);
         /*TRADE_SUCCESS 交易成功
          * TRADE_CLOSED 交易关闭
          * TRADE_FINISHED 交易完成
          * WAIT_BUYER_PAY 交易创建
          * */
-        if (trade_status.equals("TRADE_SUCCESS")){
+        if (trade_status.equals("TRADE_SUCCESS")) {
             order.setOrderStatus("2");
-        }else {
+        } else {
             order.setOrderStatus("3");
         }
         orderService.updateById(order);

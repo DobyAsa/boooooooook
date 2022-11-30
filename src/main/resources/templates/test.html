@@ -5,7 +5,7 @@
     <title>Title</title>
 </head>
 <body>
-<input type="button" value="测试请求" th:onclick="test(1)">
+<input th:onclick="test(1)" type="button" value="测试请求">
 <script th:inline="javascript">
     //获取应用路径
     var contextPath = [[${#request.getContextPath()}]];
@@ -14,10 +14,10 @@
 <script>
     function test(bookId) {
         $.ajax({
-            url: contextPath +"/admin/offShelf",
-            type:"post",
-            data:{"bookId":bookId},
-            success:function (data) {
+            url: contextPath + "/admin/offShelf",
+            type: "post",
+            data: {"bookId": bookId},
+            success: function (data) {
 
             }
         })

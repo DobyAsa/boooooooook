@@ -12,6 +12,6 @@ class CodeController {
     //登录的验证码
     @RequestMapping("/getCode")
     public void validateCode(HttpServletRequest request, HttpServletResponse response) {
-        Code.getCode(request,response);
+        Code.getCode(request, response);
     }
 }

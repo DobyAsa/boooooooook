@@ -27,9 +27,9 @@ public class AlipayUtil {
     @Value("${alipay.returnUrl}")
     private String returnUrl;
 
-    public String pay(String id, String price, String title ){
+    public String pay(String id, String price, String title) {
 
-        AlipayClient alipayClient = new DefaultAlipayClient(url,appid,privateKey,"json","UTF-8",publicKey,"RSA2");
+        AlipayClient alipayClient = new DefaultAlipayClient(url, appid, privateKey, "json", "UTF-8", publicKey, "RSA2");
         AlipayTradePagePayRequest request = new AlipayTradePagePayRequest();
         request.setNotifyUrl(notifyUrl);
         request.setReturnUrl(returnUrl);
@@ -48,7 +48,7 @@ public class AlipayUtil {
         } catch (AlipayApiException e) {
             e.printStackTrace();
         }
-        if(response.isSuccess()){
+        if (response.isSuccess()) {
             System.out.println("调用成功");
         } else {
             System.out.println("调用失败");
@@ -56,30 +56,8 @@ public class AlipayUtil {
         return form;
     }
 
-    public String query(String id){
-        AlipayClient alipayClient = new DefaultAlipayClient(url,appid,privateKey,"json","UTF-8",publicKey,"RSA2");
-        AlipayTradeQueryRequest request = new AlipayTradeQueryRequest();
-        JSONObject bizContent = new JSONObject();
-        bizContent.put("out_trade_no", id);
-        request.setBizContent(bizContent.toString());
-        AlipayTradeQueryResponse response = null;
-        String body = null;
-        try {
-            response = alipayClient.execute(request);
-             body = response.getBody();
-        } catch (AlipayApiException e) {
-            e.printStackTrace();
-        }
-        if(response.isSuccess()){
-            System.out.println("调用成功");
-        } else {
-            System.out.println("调用失败");
-        }
-        return body;
-    }
-
-    public boolean isSuccess(String id){
-        AlipayClient alipayClient = new DefaultAlipayClient(url,appid,privateKey,"json","UTf-8",publicKey,"RSA2");
+    public String query(String id) {
+        AlipayClient alipayClient = new DefaultAlipayClient(url, appid, privateKey, "json", "UTF-8", publicKey, "RSA2");
         AlipayTradeQueryRequest request = new AlipayTradeQueryRequest();
         JSONObject bizContent = new JSONObject();
         bizContent.put("out_trade_no", id);
@@ -92,7 +70,29 @@ public class AlipayUtil {
         } catch (AlipayApiException e) {
             e.printStackTrace();
         }
-        if(response.isSuccess()){
+        if (response.isSuccess()) {
+            System.out.println("调用成功");
+        } else {
+            System.out.println("调用失败");
+        }
+        return body;
+    }
+
+    public boolean isSuccess(String id) {
+        AlipayClient alipayClient = new DefaultAlipayClient(url, appid, privateKey, "json", "UTf-8", publicKey, "RSA2");
+        AlipayTradeQueryRequest request = new AlipayTradeQueryRequest();
+        JSONObject bizContent = new JSONObject();
+        bizContent.put("out_trade_no", id);
+        request.setBizContent(bizContent.toString());
+        AlipayTradeQueryResponse response = null;
+        String body = null;
+        try {
+            response = alipayClient.execute(request);
+            body = response.getBody();
+        } catch (AlipayApiException e) {
+            e.printStackTrace();
+        }
+        if (response.isSuccess()) {
             System.out.println("调用成功");
             return true;
         } else {

@@ -7,13 +7,13 @@ import com.book.bookshop.utils.Email;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 /**
  * @Author:yizhongwei
@@ -44,12 +44,14 @@ public class UserController {
     public String checkUserName(String username) {
         return userService.checkUser(username);
     }
+
     //验证邮箱是否存在
     @ResponseBody
     @PostMapping("/checkEmail")
     public String checkEamil(String email) {
         return userService.checkEmail(email);
     }
+
     //用户注册
     @ResponseBody
     @PostMapping("/register")
@@ -64,25 +66,27 @@ public class UserController {
     public String login(User user, HttpSession session, String code) {
         return userService.loginCheck(user, session, code);
     }
+
     //邮箱登录
     @ResponseBody
     @PostMapping("/emailLogin")
-    public String emailLogin(String inputCode, String email,HttpSession session){
-        return userService.emailLoginCheck(inputCode,email,session);
+    public String emailLogin(String inputCode, String email, HttpSession session) {
+        return userService.emailLoginCheck(inputCode, email, session);
     }
 
     //发送邮件，获取验证码
     @PostMapping("/sendEmail")
     @ResponseBody
-    public String sendEmail(String email, HttpSession session){
-        String eCode =  Email.sendEmail(email);
-        if (eCode==null){
+    public String sendEmail(String email, HttpSession session) {
+        String eCode = Email.sendEmail(email);
+        if (eCode == null) {
             return "201";//发送失败
         }
-        session.setAttribute("eCode",eCode);
+        session.setAttribute("eCode", eCode);
         //System.out.println(verCode);
         return "200";//发送成功
     }
+
     //注销
     @RequestMapping("/logout")
     public String logout(HttpSession session) {
@@ -100,16 +104,17 @@ public class UserController {
 
     @RequestMapping("/checkRegEmail")
     @ResponseBody
-    public String checkRegEmail(String email){
+    public String checkRegEmail(String email) {
         QueryWrapper queryWrapper = new QueryWrapper();
         queryWrapper.eq("email", email);
         //如果查询到则返回success
 
-        if (userService.list(queryWrapper).size()>0){
+        if (userService.list(queryWrapper).size() > 0) {
             return "success";
-        }else return "fail";
+        } else return "fail";
 
     }
+
     //个人信息修改
     @PostMapping("/userInfoChange")
     @ResponseBody
@@ -134,11 +139,11 @@ public class UserController {
     }
 
     @RequestMapping("/toChangePwdbyEmail")
-    public String toChangePwdbyEmail(String email,HttpSession session) {
+    public String toChangePwdbyEmail(String email, HttpSession session) {
         QueryWrapper queryWrapper = new QueryWrapper();
         queryWrapper.eq("email", email);
         User user = userService.getOne(queryWrapper);
-        session.setAttribute("user",user);
+        session.setAttribute("user", user);
         return "pwdChange";
     }
 
@@ -191,36 +196,36 @@ public class UserController {
         Book book = bookService.getById(orderItem.getBookId());
         // 再获取session的userid
         User user = (User) session.getAttribute("user");
-        model.addAttribute("book",book);
-        model.addAttribute("user",user);
-        model.addAttribute("orderItem",orderItem);
+        model.addAttribute("book", book);
+        model.addAttribute("user", user);
+        model.addAttribute("orderItem", orderItem);
         return "commentPage";
     }
 
 
-/*    @RequestMapping("/comment")
-    public String comment(HttpSession session, String content) {
-        List<Book> booksOfComment = (List<Book>) session.getAttribute("booksOfComment");
-        Order order = (Order) session.getAttribute("orderOfComment");
-        User user = (User) session.getAttribute("user");
-        List<Comment> comments = new ArrayList<>();
-        for (Book book : booksOfComment) {
-            Comment comment = new Comment();
-            comment.setBookId(book.getId());
-            comment.setContent(content);
-            comment.setCreateTime(new Date());
-            comment.setUserId(user.getId());
-            comments.add(comment);
-        }
-        commentService.saveBatch(comments);
-        order.setOrderStatus("3");
-        orderService.updateById(order);
-        return "order_list";
+    /*    @RequestMapping("/comment")
+        public String comment(HttpSession session, String content) {
+            List<Book> booksOfComment = (List<Book>) session.getAttribute("booksOfComment");
+            Order order = (Order) session.getAttribute("orderOfComment");
+            User user = (User) session.getAttribute("user");
+            List<Comment> comments = new ArrayList<>();
+            for (Book book : booksOfComment) {
+                Comment comment = new Comment();
+                comment.setBookId(book.getId());
+                comment.setContent(content);
+                comment.setCreateTime(new Date());
+                comment.setUserId(user.getId());
+                comments.add(comment);
+            }
+            commentService.saveBatch(comments);
+            order.setOrderStatus("3");
+            orderService.updateById(order);
+            return "order_list";
 
-    }*/
+        }*/
     //点击评论
     @RequestMapping("/comment")
-    public String comment(HttpSession session, String content,Integer orderItemId) {
+    public String comment(HttpSession session, String content, Integer orderItemId) {
         User user = (User) session.getAttribute("user");
         OrderItem orderItem = orderItemService.getById(orderItemId);
         Book book = bookService.getById(orderItem.getBookId());
@@ -306,9 +311,9 @@ public class UserController {
     }
 
     @RequestMapping(value = "/forgetPwd", method = RequestMethod.GET)
-    public String forgetPwd(){
+    public String forgetPwd() {
         return "forgetPwd";
-        }
-
     }
+
+}
 

@@ -2,12 +2,12 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <article th:fragment="bookModal">
     <!-- 登录模态框（Modal） -->
-    <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel"
-         aria-hidden="true">
+    <div aria-hidden="true" aria-labelledby="loginModalLabel" class="modal fade" id="loginModal" role="dialog"
+         tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    <button aria-hidden="true" class="close" data-dismiss="modal" type="button">
                         &times;
                     </button>
                     <h4 class="modal-title" id="loginModalLabel">
@@ -16,11 +16,12 @@
                 </div>
                 <div class="modal-body">
                     <!--登录的form表单-->
-                    <form id="loginForm" class="form-horizontal" role="form" action="">
+                    <form action="" class="form-horizontal" id="loginForm" role="form">
                         <div class="form-group has-feedback">
                             <label class="col-sm-2 control-label">用户名</label>
                             <div class="col-sm-5">
-                                <input type="text" class="form-control" name="username" id="username" placeholder="请输入用户名">
+                                <input class="form-control" id="username" name="username" placeholder="请输入用户名"
+                                       type="text">
                                 <span class="glyphicon glyphicon-user form-control-feedback"></span>
                             </div>
                             <div class="col-sm-3" id="userTip" style="padding-top: 10px; display: none">
@@ -30,7 +31,7 @@
                         <div class="form-group has-feedback">
                             <label class="col-sm-2 control-label">密码</label>
                             <div class="col-sm-5">
-                                <input type="password" class="form-control" name="password" placeholder="请输入密码">
+                                <input class="form-control" name="password" placeholder="请输入密码" type="password">
                                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                             </div>
                             <div class="col-sm-3" id="pwdTip" style="padding-top: 10px; display: none">
@@ -42,11 +43,12 @@
                             <label class="col-sm-2 control-label">验证码</label>
                             <div class="col-sm-5">
                                 <p class="txtL txt">
-                                    <input class="code form-control" type="text"  name="code" id="code" value="" placeholder="请输入验证码">
-                                    <img  id="mycode" th:src="@{/getCode}" height="34px">
+                                    <input class="code form-control" id="code" name="code" placeholder="请输入验证码" type="text"
+                                           value="">
+                                    <img height="34px" id="mycode" th:src="@{/getCode}">
                                 </p>
                                 <p style="font-size: 15px">
-                                    <a href="javascript:refreshCode()" >看不清? 换一张</a>
+                                    <a href="javascript:refreshCode()">看不清? 换一张</a>
                                 </p>
 
                             </div>
@@ -58,8 +60,8 @@
                         <div class="form-group has-feedback">
                             <label class="col-sm-2 control-label">角色</label>
                             <div class="col-sm-5">
-                                <input type="radio" name="sex" value="user" title="普通用户" checked>普通用户
-                                <input type="radio" name="sex" value="admin " title="管理员" >管理员
+                                <input checked name="sex" title="普通用户" type="radio" value="user">普通用户
+                                <input name="sex" title="管理员" type="radio" value="admin ">管理员
                             </div>
                         </div>
 
@@ -73,10 +75,11 @@
                                                     </div>
                                                 </div>-->
                         <div class="modal-footer">
-                           <!-- <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>-->
-                            <a th:href="@{/user/forgetPwd}" class="btn-default">忘记密码？</a>
-                            <input type="button" class="btn btn-primary" value="登录"  th:onclick="|login()|">
-                            <a href="#" data-toggle="modal" class="btn btn-info" id="emailLoginBtn"  data-target="#emailLoginModal">邮箱登录>></a>
+                            <!-- <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>-->
+                            <a class="btn-default" th:href="@{/user/forgetPwd}">忘记密码？</a>
+                            <input class="btn btn-primary" th:onclick="|login()|" type="button" value="登录">
+                            <a class="btn btn-info" data-target="#emailLoginModal" data-toggle="modal" href="#"
+                               id="emailLoginBtn">邮箱登录>></a>
                         </div>
                     </form>
                     <!--form结束-->
@@ -86,12 +89,12 @@
         </div>
     </div>
     <!-- 邮箱登录模态框 -->
-    <div class="modal fade" id="emailLoginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel"
-         aria-hidden="true">
+    <div aria-hidden="true" aria-labelledby="loginModalLabel" class="modal fade" id="emailLoginModal" role="dialog"
+         tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    <button aria-hidden="true" class="close" data-dismiss="modal" type="button">
                         &times;
                     </button>
                     <h4 class="modal-title" id="emailLoginModalLabel">
@@ -100,28 +103,30 @@
                 </div>
                 <div class="modal-body">
                     <!--邮箱登录的form表单-->
-                    <form id="emailLoginForm" class="form-horizontal" role="form" action="">
+                    <form action="" class="form-horizontal" id="emailLoginForm" role="form">
                         <div class="form-group has-feedback">
                             <label class="col-sm-2 control-label">邮箱</label>
                             <div class="col-sm-5">
-                                <input type="text" class="form-control" name="username" id="emailLogin" placeholder="请输入邮箱" th:onblur="|checkEmail(this)|">
+                                <input class="form-control" id="emailLogin" name="username" placeholder="请输入邮箱"
+                                       th:onblur="|checkEmail(this)|" type="text">
                                 <span class="glyphicon glyphicon-user form-control-feedback"></span>
                             </div>
                             <div class="col-sm-3" id="emailTip" style="padding-top: 10px; display: none">
-<!--                                <label class="alert-danger" id="noEmail">邮箱不存在</label>-->
+                                <!--                                <label class="alert-danger" id="noEmail">邮箱不存在</label>-->
                             </div>
                         </div>
 
                         <div class="form-group has-feedback">
                             <label class="col-sm-2 control-label" style="padding-right: 10px;">邮箱验证码</label>
                             <div class="col-sm-5">
-                                <input type="text" class="form-control" id="inputCode" disabled="disabled" placeholder="">
+                                <input class="form-control" disabled="disabled" id="inputCode" placeholder=""
+                                       type="text">
                                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
                             </div>
-                            <a href="#" class="btn btn-info" id="sendBtn" th:onclick="sendCode()">发送验证码</a>
+                            <a class="btn btn-info" href="#" id="sendBtn" th:onclick="sendCode()">发送验证码</a>
                         </div>
                         <div class="modal-footer">
-                            <input type="button" class="btn btn-primary" value="登录" th:onclick="|doEmailLogin()|">
+                            <input class="btn btn-primary" th:onclick="|doEmailLogin()|" type="button" value="登录">
                         </div>
                     </form>
                     <!--form结束-->
@@ -131,11 +136,12 @@
         </div>
     </div>
     <!-- 注册modal end/.modal -->
-    <div class="modal fade" id="register" tabindex="-1" role="dialog" aria-labelledby="regModalLabel" aria-hidden="true">
+    <div aria-hidden="true" aria-labelledby="regModalLabel" class="modal fade" id="register" role="dialog"
+         tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    <button aria-hidden="true" class="close" data-dismiss="modal" type="button">
                         &times;
                     </button>
                     <h4 class="modal-title" id="regModalLabel">
@@ -144,43 +150,46 @@
                 </div>
                 <div class="modal-body">
                     <!--register的form表单-->
-                    <form id="regForm" action="" class="form-horizontal" role="form">
+                    <form action="" class="form-horizontal" id="regForm" role="form">
                         <div class="form-group has-feedback">
-                            <label for="firstname" class="col-sm-2 control-label">用户名</label>
+                            <label class="col-sm-2 control-label" for="firstname">用户名</label>
                             <div class="col-sm-5">
-                                <input type="text" name="username" class="form-control" id="regUsername" required placeholder="请输入用户名"
-                                       th:onblur="|checkUser(this)|">
+                                <input class="form-control" id="regUsername" name="username" placeholder="请输入用户名" required
+                                       th:onblur="|checkUser(this)|"
+                                       type="text">
                                 <span class="glyphicon glyphicon-user form-control-feedback"></span>
                             </div>
-                            <div id="msg" class="col-sm-3" style="padding-top: 10px; display: none">
+                            <div class="col-sm-3" id="msg" style="padding-top: 10px; display: none">
                                 <label class="alert-danger" id="tip">用户名不合法</label>
                             </div>
                         </div>
                         <div class="form-group has-feedback">
-                            <label for="lastname" class="col-sm-2 control-label">密码</label>
+                            <label class="col-sm-2 control-label" for="lastname">密码</label>
                             <div class="col-sm-5">
-                                <input type="password" name="password" id="regPwd" class="form-control" placeholder="请输入密码"
-                                       minlength="6"
-                                       maxlength="8">
+                                <input class="form-control" id="regPwd" maxlength="8" minlength="6"
+                                       name="password"
+                                       placeholder="请输入密码"
+                                       type="password">
                                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                             </div>
                             <!--<div class="col-sm-3" style="padding-top: 10px;">
                                 <label class="alert-danger">密码不正确</label>
                             </div>-->
                         </div>
-<!--                        <div class="form-group has-feedback">
-                            <label class="col-sm-2 control-label">确认密码</label>
-                            <div class="col-sm-5">
-                                <input type="password" class="form-control" id="lastname2" minlength="6" maxlength="8"
-                                       placeholder="和密码保持一致">
-                                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-                            </div>
-                        </div>-->
+                        <!--                        <div class="form-group has-feedback">
+                                                    <label class="col-sm-2 control-label">确认密码</label>
+                                                    <div class="col-sm-5">
+                                                        <input type="password" class="form-control" id="lastname2" minlength="6" maxlength="8"
+                                                               placeholder="和密码保持一致">
+                                                        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                                                    </div>
+                                                </div>-->
 
                         <div class="form-group has-feedback">
                             <label class="col-sm-2 control-label">邮箱</label>
                             <div class="col-sm-5">
-                                <input type="email" name="email" th:onblur="|checkRegEmail()|" class="form-control" id="email" placeholder="请输入邮箱">
+                                <input class="form-control" id="email" name="email" placeholder="请输入邮箱"
+                                       th:onblur="|checkRegEmail()|" type="email">
                                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
                             </div>
                         </div>
@@ -188,7 +197,8 @@
                         <div class="form-group has-feedback">
                             <label class="col-sm-2 control-label">电话号码</label>
                             <div class="col-sm-5">
-                                <input type="tel" name="phone" id="regTel" class="form-control" placeholder="请输入电话号码">
+                                <input class="form-control" id="regTel" name="phone" placeholder="请输入电话号码"
+                                       type="tel">
                                 <span class="glyphicon glyphicon-earphone form-control-feedback"></span>
                             </div>
                         </div>
@@ -196,7 +206,8 @@
                         <div class="form-group has-feedback">
                             <label class="col-sm-2 control-label">学校</label>
                             <div class="col-sm-5">
-                                <input type="text" name="school" id="regSchool" class="form-control" placeholder="请输入学校">
+                                <input class="form-control" id="regSchool" name="school" placeholder="请输入学校"
+                                       type="text">
                                 <span class="glyphicon glyphicon-home form-control-feedback"></span>
                             </div>
                         </div>
@@ -210,8 +221,8 @@
                         </div>
     -->
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                            <input type="button" class="btn btn-primary" value="注册" th:onclick="|register()|">
+                            <button class="btn btn-default" data-dismiss="modal" type="button">关闭</button>
+                            <input class="btn btn-primary" th:onclick="|register()|" type="button" value="注册">
                         </div>
                     </form>
                     <!--form结束-->

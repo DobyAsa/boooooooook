@@ -3,7 +3,6 @@ package com.book.bookshop.service;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.book.bookshop.entity.*;
-import com.book.bookshop.mapper.OrderItemMapper;
 import com.book.bookshop.mapper.OrderMapper;
 import com.book.bookshop.utils.OrderUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +12,6 @@ import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * @Author:yizhongwei
@@ -30,8 +28,9 @@ public class OrderService extends ServiceImpl<OrderMapper, Order> {
     private CartService cartService;
     @Autowired
     private ExpressService expressService;
+
     //购买
-    public String buy(List<CartVo> cartVos, Integer addrId, HttpSession session){
+    public String buy(List<CartVo> cartVos, Integer addrId, HttpSession session) {
         User user = (User) session.getAttribute("user");
         //1 生成订单表记录
         Order order = new Order();
@@ -44,12 +43,12 @@ public class OrderService extends ServiceImpl<OrderMapper, Order> {
         //2.生成订单明细表记录
         List<com.book.bookshop.entity.OrderItem> orderItems = new ArrayList<>();
         List<Integer> cartIds = new ArrayList<>();
-        for (CartVo cart: cartVos) {
+        for (CartVo cart : cartVos) {
             com.book.bookshop.entity.OrderItem orderItem = new OrderItem();
             orderItem.setBookId(cart.getBookId());
             orderItem.setCount(cart.getCount());
             orderItem.setOrderId(order.getId());
-            orderItem.setPrice(cart.getNewPrice()*cart.getCount());
+            orderItem.setPrice(cart.getNewPrice() * cart.getCount());
             orderItem.setSinglePrice(cart.getNewPrice());
             orderItems.add(orderItem);
             cartIds.add(cart.getId());
@@ -61,26 +60,26 @@ public class OrderService extends ServiceImpl<OrderMapper, Order> {
     }
 
     //查询用户订单
-    public List<Order> findUserOrder(Integer userId,OrderQueryVo orderQueryVo){
+    public List<Order> findUserOrder(Integer userId, OrderQueryVo orderQueryVo) {
         Integer begin = (orderQueryVo.getPage() - 1) * orderQueryVo.getPageSize();
 //        Integer end = orderQueryVo.getPage() * orderQueryVo.getPageSize(); bug之一：详细了解mysql limit用法
-        Integer end =  orderQueryVo.getPageSize();
+        Integer end = orderQueryVo.getPageSize();
         orderQueryVo.setBegin(begin);
         orderQueryVo.setEnd(end);
         orderQueryVo.setUserId(userId);
         List<Order> list = orderMapper.findOrderAndOrderDetailListByUser(orderQueryVo);
 
-        for (Order order: list) {
+        for (Order order : list) {
             QueryWrapper queryWrapper = new QueryWrapper();
-            queryWrapper.eq("order_id",order.getId());
+            queryWrapper.eq("order_id", order.getId());
             List<OrderItem> items = order.getOrderItems();
             double price = 0.0;
-            for (OrderItem item:items) {
+            for (OrderItem item : items) {
                 price += item.getCount() * item.getBook().getNewPrice();
             }
             order.setTotalPrice(price);//计算订单总金额
             Express express = expressService.getOne(queryWrapper);
-            if (express!=null) order.setExpress(express);
+            if (express != null) order.setExpress(express);
         }
 
         return list;
@@ -89,7 +88,7 @@ public class OrderService extends ServiceImpl<OrderMapper, Order> {
     /**
      * 查询总页数
      */
-    public Integer findUserOrderPages(Integer userId,OrderQueryVo orderQueryVo){
+    public Integer findUserOrderPages(Integer userId, OrderQueryVo orderQueryVo) {
         orderQueryVo.setUserId(userId);
         int count = orderMapper.findOrderCountByUser(orderQueryVo);
         return (count - 1) / orderQueryVo.getPageSize() + 1;

@@ -8,10 +8,14 @@
 -->
 <mapper namespace="com.book.bookshop.mapper.AddressMapper">
     <update id="setAllTo0" parameterType="integer">
-        update bs_address set is_default = '0' where user_id = #{userId}
+        update bs_address
+        set is_default = '0'
+        where user_id = #{userId}
     </update>
 
     <update id="setDefault" parameterType="integer">
-        update bs_address set is_default = '1' where  id = #{addressId}
+        update bs_address
+        set is_default = '1'
+        where id = #{addressId}
     </update>
 </mapper>

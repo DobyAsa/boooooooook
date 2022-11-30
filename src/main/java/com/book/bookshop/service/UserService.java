@@ -4,10 +4,8 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.book.bookshop.entity.User;
 import com.book.bookshop.mapper.UserMapper;
-import jdk.nashorn.internal.runtime.regexp.RegExp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
 
 import javax.servlet.http.HttpSession;
 
@@ -31,6 +29,7 @@ public class UserService extends ServiceImpl<UserMapper, User> {
             return "101";
         } else return "102";
     }
+
     //验证邮箱是否存在
     public String checkEmail(String email) {
         QueryWrapper queryWrapper = new QueryWrapper<>();
@@ -41,8 +40,9 @@ public class UserService extends ServiceImpl<UserMapper, User> {
             return "101";
         } else return "100";
     }
+
     //用户登录验证
-    public String loginCheck(User loginUser, HttpSession session,String code) {
+    public String loginCheck(User loginUser, HttpSession session, String code) {
         //获取生成的验证码
         String code1 = (String) session.getAttribute("code");
         QueryWrapper queryWrapper = new QueryWrapper<>();
@@ -54,10 +54,9 @@ public class UserService extends ServiceImpl<UserMapper, User> {
             if (!code1.equalsIgnoreCase(code)) {//// 无视大小写
 //            model.addAttribute("msg","验证码输入错误");
                 return "103";//验证码错误
-            } else if (user.getState()==2){
+            } else if (user.getState() == 2) {
                 return user.getForbidReason();//该账号被封禁
-            }
-            else if (loginUser.getPassword().equals((user.getPassword()))) {
+            } else if (loginUser.getPassword().equals((user.getPassword()))) {
                 session.setAttribute("user", user);
                 return "100";//密码正确 正常登录
             } else {
@@ -67,21 +66,21 @@ public class UserService extends ServiceImpl<UserMapper, User> {
     }
 
     //邮箱登录验证
-    public String emailLoginCheck(String inputCode, String email,HttpSession session){
+    public String emailLoginCheck(String inputCode, String email, HttpSession session) {
         String realCode = (String) session.getAttribute("eCode");
-        if (realCode==null){
+        if (realCode == null) {
             return "102";//请发送验证码
         }
-        if (!realCode.equals(inputCode)){
+        if (!realCode.equals(inputCode)) {
             return "101";//邮箱验证码错误
         }
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("email",email);
+        queryWrapper.eq("email", email);
         User user = userMapper.selectOne(queryWrapper);
-        if (user.getState()==2){
+        if (user.getState() == 2) {
             return user.getForbidReason();//该账号被封禁
         }
-        session.setAttribute("user",user);
+        session.setAttribute("user", user);
         return "100";
     }
 

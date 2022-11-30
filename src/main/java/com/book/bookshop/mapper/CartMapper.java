@@ -40,7 +40,7 @@ public interface CartMapper extends BaseMapper<Cart> {
                     "<foreach item='item' collection='ids' open='(' separator=',' close=')' >" +
                     "#{item}" +
                     "</foreach>" +
-            "</script>"})
+                    "</script>"})
     List<CartVo> findCartByIds(@Param("ids") List<String> ids);
 
 }

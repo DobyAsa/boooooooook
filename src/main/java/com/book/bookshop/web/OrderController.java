@@ -8,11 +8,9 @@ import com.book.bookshop.utils.RecBook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.w3c.dom.ls.LSOutput;
 
 import javax.servlet.http.HttpSession;
 import java.util.Arrays;
@@ -39,18 +37,18 @@ public class OrderController {
     private BookService bookService;
     @Autowired
     private ExpressService expressService;
+    private AlipayUtil alipayUtil;
+
     @Autowired
     public void setAlipayUtil(AlipayUtil alipayUtil) {
         this.alipayUtil = alipayUtil;
     }
 
-    private AlipayUtil alipayUtil;
-
     /**
      * 确认订单
      */
     @RequestMapping("/confirm")
-    public String confirm(Integer page,String ids, HttpSession session, Model model) {
+    public String confirm(Integer page, String ids, HttpSession session, Model model) {
 
         List<CartVo> cartVos = cartService.findCartByIds(ids);
         User user = (User) session.getAttribute("user");
@@ -62,11 +60,11 @@ public class OrderController {
         //将购买的商品信息添加到session中
         session.setAttribute("cartVos", cartVos);
 
-        RecBook.recBook(page,model,bookService);
+        RecBook.recBook(page, model, bookService);
 
         model.addAttribute("addressList", addressList);
         model.addAttribute("list", cartVos);
-        model.addAttribute("ids",ids);
+        model.addAttribute("ids", ids);
         return "confirm_order";
     }
 
@@ -89,11 +87,11 @@ public class OrderController {
     @ResponseBody
     public String orderDelete(String ids) {
         List<Order> orders = (List<Order>) orderService.listByIds(Arrays.asList(ids.split(",")));
-        for (Order order : orders){
+        for (Order order : orders) {
             //如果订单是1待支付、2已支付/待发货、5已发货/待收货 状态则不允许删除
-            if (order.getOrderStatus().equals("1")||
-            order.getOrderStatus().equals("2")||
-            order.getOrderStatus().equals("5")){
+            if (order.getOrderStatus().equals("1") ||
+                    order.getOrderStatus().equals("2") ||
+                    order.getOrderStatus().equals("5")) {
                 return "notDelete";
             }
         }
@@ -112,14 +110,14 @@ public class OrderController {
     @ResponseBody
     public String deleteAll(HttpSession session) {
         QueryWrapper queryWrapper = new QueryWrapper();
-        User user = (User)session.getAttribute("user");
-        queryWrapper.eq("user_id",user.getId());
+        User user = (User) session.getAttribute("user");
+        queryWrapper.eq("user_id", user.getId());
         List<Order> orders = orderService.list(queryWrapper);
-        for (Order order : orders){
+        for (Order order : orders) {
             //如果订单是1待支付、2已支付/待发货、5已发货/待收货 状态则不允许删除
-            if (order.getOrderStatus().equals("1")||
-                    order.getOrderStatus().equals("2")||
-                    order.getOrderStatus().equals("5")){
+            if (order.getOrderStatus().equals("1") ||
+                    order.getOrderStatus().equals("2") ||
+                    order.getOrderStatus().equals("5")) {
                 return "notDelete";
             }
         }
@@ -149,7 +147,7 @@ public class OrderController {
         model.addAttribute("cur", orderQueryVo.getPage());
         model.addAttribute("pages", orderService.findUserOrderPages(user.getId(), orderQueryVo));
         model.addAttribute("pageSize", orderQueryVo.getPageSize());
-        session.setAttribute("userOrderPages",orderService.findUserOrderPages(user.getId(), orderQueryVo));
+        session.setAttribute("userOrderPages", orderService.findUserOrderPages(user.getId(), orderQueryVo));
         return "orderData";
     }
 
@@ -218,19 +216,18 @@ public class OrderController {
     //收货
     @RequestMapping("/takeOver")
     @ResponseBody
-    public String takeOver(Integer orderId){
+    public String takeOver(Integer orderId) {
         //根据orderId在在express表中查出对应的express,然后设置收货时间
         QueryWrapper queryWrapper = new QueryWrapper();
-        queryWrapper.eq("order_id",orderId);
+        queryWrapper.eq("order_id", orderId);
         Express express = expressService.getOne(queryWrapper);
         express.setReceiveTime(new Date());
         expressService.updateById(express);
         Order order = orderService.getById(orderId);
         order.setOrderStatus("6");
-        if (orderService.updateById(order)){
+        if (orderService.updateById(order)) {
             return "success";
-        }
-        else return "fail";
+        } else return "fail";
     }
 
 }

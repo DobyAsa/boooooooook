@@ -53,21 +53,22 @@
             </association>
 
             <!--物流-->
-<!--            <association property="express" javaType="com.book.bookshop.entity.Express">
-                <id column="id" property="id"></id>
-                <result column="exp_num" property="expNum"></result>
-                <result column="exp_company" property="expCompany"></result>
-                <result column="address_id" property="addressId"></result>
-                <result column="send_time" property="sendTime"></result>
-                <result column="receive_time" property="receiveTime"></result>
-                <result column="courier" property="courier"></result>
-                <result column="courier_phone" property="courierPhone"></result>
-                <result column="order_id" property="orderId"></result>
-            </association>-->
+            <!--            <association property="express" javaType="com.book.bookshop.entity.Express">
+                            <id column="id" property="id"></id>
+                            <result column="exp_num" property="expNum"></result>
+                            <result column="exp_company" property="expCompany"></result>
+                            <result column="address_id" property="addressId"></result>
+                            <result column="send_time" property="sendTime"></result>
+                            <result column="receive_time" property="receiveTime"></result>
+                            <result column="courier" property="courier"></result>
+                            <result column="courier_phone" property="courierPhone"></result>
+                            <result column="order_id" property="orderId"></result>
+                        </association>-->
         </collection>
     </resultMap>
 
-    <select id="findOrderAndOrderDetailListByUser" parameterType="OrderQueryVo" resultMap="orderAndOrderDetailResultMap">
+    <select id="findOrderAndOrderDetailListByUser" parameterType="OrderQueryVo"
+            resultMap="orderAndOrderDetailResultMap">
         SELECT
         bo.*,
         bu.username,
@@ -92,7 +93,7 @@
         bb.name,
         bb.new_price
 
-/*        be.exp_num,
+        /* be.exp_num,
         be.id,
         be.exp_company,
         be.address_id,

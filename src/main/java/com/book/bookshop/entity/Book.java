@@ -24,7 +24,7 @@ public class Book extends Model<Book> {
     private Date publishDate;
     private double oldPrice;
     private double newPrice;
-//    private String authorLoc;
+    //    private String authorLoc;
 //    private Suit suit;
     private Category category;
     private String info;

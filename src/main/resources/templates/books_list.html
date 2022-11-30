@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>图书列表</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/dist/css/bootstrap.min.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/css/index.css}"/>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/animate.css}"/>
+    <link rel="stylesheet" th:href="@{/dist/css/bootstrap.min.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/index.css}" type="text/css"/>
+    <link rel="stylesheet" th:href="@{/css/animate.css}" type="text/css"/>
     <link rel="stylesheet" th:href="@{/layui/css/layui.css}">
 
 </head>
@@ -37,7 +37,7 @@
 <div th:replace="common/bookModal :: bookModal"></div>
 <!--end-->
 <script src="dist/js/jquery.min.js" th:src="@{/dist/js/jquery.min.js}"></script>
-<script src="js/carousel.js" th:src="@{/js/carousel.js}" type="text/javascript" charset="utf-8"></script>
+<script charset="utf-8" src="js/carousel.js" th:src="@{/js/carousel.js}" type="text/javascript"></script>
 <script src="dist/js/bootstrap.min.js" th:src="@{/dist/js/bootstrap.min.js}"></script>
 <script src="js/wow.js" th:src="@{/js/wow.js}"></script>
 <script th:src="@{/js/login_reg.js}"></script>
@@ -51,15 +51,16 @@
 <script type="text/javascript">
     if (!(/msie [6|7|8|9]/i.test(navigator.userAgent))) {
         new WOW().init();
-    };
+    }
+    ;
     //首次进入图书类型
     $(function () {
-        $("#bookList").load(contextPath + "/book/getBookListData", queryData(1,'', category))
-        if (category=='1'){
+        $("#bookList").load(contextPath + "/book/getBookListData", queryData(1, '', category))
+        if (category == '1') {
             $("#cate").html("文学类")
-        }else if (category=='2'){
+        } else if (category == '2') {
             $("#cate").html("经管类")
-        }else if (category=='3'){
+        } else if (category == '3') {
             $("#cate").html("其他类")
         }
     });
@@ -72,47 +73,49 @@
         return query;
     };
 
-    function loadData(page,pageSize, category) {
-        $("#bookList").load(contextPath + "/book/getBookListData", queryData(page,pageSize, category));
+    function loadData(page, pageSize, category) {
+        $("#bookList").load(contextPath + "/book/getBookListData", queryData(page, pageSize, category));
     };
 
     //跳转至指定页
-    function goPage(pageSize,category,pages) {
+    function goPage(pageSize, category, pages) {
         var page = $("#inputPage").val();
         //数字正则
         var reg = new RegExp("^[0-9]*$");
-        if (!reg.test(page)){
-            layer.msg('请输入正整数！', {icon: 7,anim:6});
+        if (!reg.test(page)) {
+            layer.msg('请输入正整数！', {icon: 7, anim: 6});
             return;
         }
-        if (page==''){
-            layer.msg('请输入页码！', {icon: 7,anim:6});
+        if (page == '') {
+            layer.msg('请输入页码！', {icon: 7, anim: 6});
             return;
         }
 
         if (page > pages) {//如果输入的页数大于总页数
-            layer.msg('超出总页数！总页数：'+pages, {icon: 7,anim:6});
+            layer.msg('超出总页数！总页数：' + pages, {icon: 7, anim: 6});
             return;
         }
-        $("#bookList").load(contextPath + "/book/getBookListData", queryData(page,pageSize, category));
+        $("#bookList").load(contextPath + "/book/getBookListData", queryData(page, pageSize, category));
     }
 
     //每页显示条数
     function loadDataBySize(obj) {
         var pageSize = obj.value;
         //回到第一页
-		$("#bookList").load(contextPath + "/book/getBookListData", queryData(1,pageSize, category));
+        $("#bookList").load(contextPath + "/book/getBookListData", queryData(1, pageSize, category));
     }
+
     //根据图书名搜索
     function searchBookName() {
         var inputBookName = $("#inputBookName").val();
-        if (inputBookName != ''){
+        if (inputBookName != '') {
             window.location.href = contextPath + "/book/searchBook?inputBookName=" + inputBookName;
-        }else alert('查找内容不为空')
+        } else alert('查找内容不为空')
     }
+
     //刷新验证码
-    function refreshCode(){
-        $("#mycode").attr("src","/book/getCode?time="+new Date().getTime());
+    function refreshCode() {
+        $("#mycode").attr("src", "/book/getCode?time=" + new Date().getTime());
     }
 </script>
 </body>

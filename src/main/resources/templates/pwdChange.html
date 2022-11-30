@@ -4,9 +4,9 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title>网上书店</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/dist/css/bootstrap.min.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/css/index.css}"/>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/animate.css}"/>
+    <link rel="stylesheet" th:href="@{/dist/css/bootstrap.min.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/index.css}" type="text/css"/>
+    <link rel="stylesheet" th:href="@{/css/animate.css}" type="text/css"/>
     <link rel="stylesheet" th:href="@{/layui/css/layui.css}">
 </head>
 
@@ -22,38 +22,43 @@
     </ol>
 </div>
 <div class="container">
-<!--个人信息begin-->
+    <!--个人信息begin-->
     <div>
-        <form class="layui-form" action="" id="userInfo">
+        <form action="" class="layui-form" id="userInfo">
             <div class="layui-form-item">
                 <label class="layui-form-label">用户名</label>
                 <div class="layui-input-block">
-                    <input type="text" id="usernmae" name="oldPwd" required  lay-verify="required" placeholder="请输入标题" th:value="${session.user.username}" autocomplete="off" class="layui-input" disabled="disabled">
+                    <input autocomplete="off" class="layui-input" disabled="disabled" id="usernmae" lay-verify="required"
+                           name="oldPwd" placeholder="请输入标题" required
+                           th:value="${session.user.username}" type="text">
                 </div>
             </div>
 
-<!--            <div class="layui-form-item">
-                <label class="layui-form-label">旧密码</label>
-                <div class="layui-input-block">
-                    <input type="text" id="oldPwd" name="oldPwd" required  lay-verify="required" placeholder="请输入标题" th:value="${session.user.password}" autocomplete="off" class="layui-input" disabled="disabled">
-                </div>
-            </div>-->
+            <!--            <div class="layui-form-item">
+                            <label class="layui-form-label">旧密码</label>
+                            <div class="layui-input-block">
+                                <input type="text" id="oldPwd" name="oldPwd" required  lay-verify="required" placeholder="请输入标题" th:value="${session.user.password}" autocomplete="off" class="layui-input" disabled="disabled">
+                            </div>
+                        </div>-->
             <div class="layui-form-item">
                 <label class="layui-form-label">新密码</label>
                 <div class="layui-input-block">
-                    <input type="password" id="newPwd" name="email" required  lay-verify="required" placeholder="请输入新密码"  autocomplete="off" class="layui-input">
+                    <input autocomplete="off" class="layui-input" id="newPwd" lay-verify="required" name="email"
+                           placeholder="请输入新密码" required type="password">
                 </div>
             </div>
             <div class="layui-form-item">
                 <div class="layui-input-block">
-                    <button class="layui-btn" lay-submit lay-filter="formDemo" type="button" th:onclick="pwdChange()" >确认修改</button>
+                    <button class="layui-btn" lay-filter="formDemo" lay-submit th:onclick="pwdChange()" type="button">
+                        确认修改
+                    </button>
 
                 </div>
             </div>
         </form>
     </div>
 
-<!--个人信息end-->
+    <!--个人信息end-->
     <hr>
     <!--首页底部信息 begin-->
     <div th:replace="common/footer :: footer"></div>
@@ -66,7 +71,7 @@
 <div th:replace="common/bookModal :: bookModal"></div>
 
 <script src="dist/js/jquery.min.js" th:src="@{/dist/js/jquery.min.js}"></script>
-<script src="js/carousel.js" th:src="@{/js/carousel.js}" type="text/javascript" charset="utf-8"></script>
+<script charset="utf-8" src="js/carousel.js" th:src="@{/js/carousel.js}" type="text/javascript"></script>
 <script src="dist/js/bootstrap.min.js" th:src="@{/dist/js/bootstrap.min.js}"></script>
 <script src="js/wow.js" th:src="@{/js/wow.js}"></script>
 <script th:src="@{/js/login_reg.js}"></script>
@@ -77,16 +82,16 @@
     var contextPath = [[${#request.getContextPath()}]];
 </script>
 <script>
-/*    //Demo
-    layui.use('form', function(){
-        var form = layui.form;
+    /*    //Demo
+        layui.use('form', function(){
+            var form = layui.form;
 
-        //监听提交
-        form.on('submit(formDemo)', function(data){
-            layer.msg(JSON.stringify(data.field));
-            return false;
-        });
-    });*/
+            //监听提交
+            form.on('submit(formDemo)', function(data){
+                layer.msg(JSON.stringify(data.field));
+                return false;
+            });
+        });*/
 </script>
 <!-- 引入 layui.js 的 <script> 标签最好放置在 html 末尾 -->
 <script type="text/javascript">
@@ -122,9 +127,9 @@
     //根据图书名搜索
     function searchBookName() {
         var inputBookName = $("#inputBookName").val();
-        if (inputBookName != ''){
+        if (inputBookName != '') {
             window.location.href = contextPath + "/book/searchBook?inputBookName=" + inputBookName;
-        }else layer.msg('查找内容不为空！', {icon: 7,anim:6});
+        } else layer.msg('查找内容不为空！', {icon: 7, anim: 6});
 
     }
 
@@ -133,32 +138,33 @@
         var newPwd = $("#newPwd").val();
 
         layer.confirm('确定修改？', {
-            icon:3,
+            icon: 3,
             btn: ['确定', '取消']
-        }, function(index, layero){
+        }, function (index, layero) {
             //按钮【按钮一】的回调
             $.ajax({
                 url: contextPath + "/user/pwdChange",
                 method: "post",
-                data: {"newPwd":newPwd},
+                data: {"newPwd": newPwd},
                 success: function (data) {
                     if (data == 'success') {
                         layer.msg('修改成功，请重新登录', {
                             icon: 1,
                             time: 2000 //2秒关闭（如果不配置，默认是3秒）
-                        }, function(){
+                        }, function () {
                             window.location.href = contextPath + "/book/index";
                         });
                     } else layer.msg('修改失败')
                 }
             })
-        }, function(index){
-            return ;
+        }, function (index) {
+            return;
         });
 
     }
+
     //禁止a标签点击
-    $(".praise").attr("disabled",true).css("pointer-events","none");
+    $(".praise").attr("disabled", true).css("pointer-events", "none");
 </script>
 </body>
 

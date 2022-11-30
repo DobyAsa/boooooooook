@@ -1,418 +1,431 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-	<head>
-		<meta charset="UTF-8">
-		<title>后台管理页面</title>
-		<link rel="stylesheet" type="text/css" th:href="@{/css/cart.css}" />
-		<link rel="stylesheet" type="text/css" th:href="@{/dist/css/bootstrap.min.css}">
-		<link rel="stylesheet" type="text/css" th:href="@{/css/index.css}"/>
-		<link rel="stylesheet" type="text/css" th:href="@{/css/animate.css}"/>
-		<link rel="stylesheet" th:href="@{/layui/css/layui.css}">
+<head>
+    <meta charset="UTF-8">
+    <title>后台管理页面</title>
+    <link rel="stylesheet" th:href="@{/css/cart.css}" type="text/css"/>
+    <link rel="stylesheet" th:href="@{/dist/css/bootstrap.min.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/index.css}" type="text/css"/>
+    <link rel="stylesheet" th:href="@{/css/animate.css}" type="text/css"/>
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}">
 
-	</head>
+</head>
 
-	<body>
-	<!--导航部分  begin-->
+<body>
+<!--导航部分  begin-->
 <!--	<div th:replace="common/header :: nav"></div>-->
-	<div th:replace="admin/common/header :: nav"></div>
-	<!--导航部分 end-->
+<div th:replace="admin/common/header :: nav"></div>
+<!--导航部分 end-->
 
-		<!--购物车 begin-->
-		<!--外层div-->
+<!--购物车 begin-->
+<!--外层div-->
 
-	<div class="container">
-		<!--左边-->
-		<div class="col-md-8 col-sm-12" style="width:100%">
-			<!--左边-->
-			<ol class="breadcrumb">
-				<li>
-					<a href="#" class="text-success"><span class="glyphicon glyphicon-heart"></span>&nbsp;&nbsp;商品管理</a>
-				</li>
-			</ol>
+<div class="container">
+    <!--左边-->
+    <div class="col-md-8 col-sm-12" style="width:100%">
+        <!--左边-->
+        <ol class="breadcrumb">
+            <li>
+                <a class="text-success" href="#"><span class="glyphicon glyphicon-heart"></span>&nbsp;&nbsp;商品管理</a>
+            </li>
+        </ol>
 
-			<!--购物车表格 begin-->
-			<div class="table-responsive" id="imgDiv">
-				<table class="table table-hover table-striped" style="vertical-align:middle;">
-					<thead>
+        <!--购物车表格 begin-->
+        <div class="table-responsive" id="imgDiv">
+            <table class="table table-hover table-striped" style="vertical-align:middle;">
+                <thead>
 
-					<tr class="text-success success">
-						<!--<th style="width: 30px;">
-							<input type="checkbox" id="selectAll" onclick="selectAll(this)">
-							&lt;!&ndash;								<input type="checkbox" id="testId" onclick="selectAll(this)">&ndash;&gt;
-						</th>-->
-						<th id="sequence">序号</th>
-						<th>图片</th>
-						<th>书名</th>
-						<th>出版时间</th>
-						<th>分类</th>
-						<th>库存</th>
-						<th>原价</th>
-						<th>现价</th>
-						<th>书本详情</th>
-						<th>是否推荐</th>
-						<th>上架状态</th>
-						<th>操作</th>
-					</tr>
-					</thead>
-					<tbody id="tby" th:each="book,iter:${bookList}">
-					<tr>
-						<!--<td style="width: 30px;">
-							<input type="checkbox" name="cks"  th:value="${book.id}" >
-						</td>-->
-						<td th:text="${book.id}">1001</td>
-						<td id="layer-photos-demo" class="layer-photos-demo">
-							<img src="images/tenxunchuan.jpg" th:src="@{'/public/' + ${book.imgUrl}}">
-						</td>
-						<td th:text="${book.name}">腾讯传</td>
-						<td th:text="${#calendars.format(book.publishDate,'yyyy-MM-dd')}">出版时间</td>
-						<td th:text="${book.cate}">分类</td>
-						<td th:text="${book.count}">分类</td>
-						<!--							<span th:switch="${book.cate}">
-                                                        <td th:case="'SELECTTED'">精选图书</td>
-                                                        <td th:case="'RECOMMEND'">精选图书</td>
-                                                        <td th:case="'BARGAGIN'">精选图书</td>
-                                                    </span>-->
-						<td th:text="${book.oldPrice}">原价</td>
-						<td th:text="${book.newPrice}">1现价00$</td>
-						<td style="width: 146px;">
-							<button class="btn btn-success" th:onclick="displayInfo([[${book}]],[[${#calendars.format(book.publishDate,'yyyy-MM-dd')}]])">预览</button>
-						</td>
-						<td th:if="${book.recommend == 0}">否</td>
-						<td th:if="${book.recommend == 1}">是</td>
-						<td th:if="${book.state == 1}">上架中</td>
-						<td th:if="${book.state == 0}">已下架</td>
-						<td>
-							<select id="" value="操作" class="form-control" style="width: 100px;display: inline;" th:onchange="|operate(this,[[${book.id}]])|">
-								<option value=""></option>
-								<option value="update">更新</option>
-								<option value="offShelf" th:if="${book.state == 1}">下架</option>
-								<option value="onShelf" th:if="${book.state == 0}">恢复上架</option>
-								<option value="addCount">补充库存</option>
-								<option value="changePrice">修改价格</option>
-								<option value="setRec" th:if="${book.recommend == 0}">设为推荐</option>
-								<option value="setNotRec" th:if="${book.recommend == 1}">设为非推荐</option>
-							</select>
-						</td>
+                <tr class="text-success success">
+                    <!--<th style="width: 30px;">
+                        <input type="checkbox" id="selectAll" onclick="selectAll(this)">
+                        &lt;!&ndash;								<input type="checkbox" id="testId" onclick="selectAll(this)">&ndash;&gt;
+                    </th>-->
+                    <th id="sequence">序号</th>
+                    <th>图片</th>
+                    <th>书名</th>
+                    <th>出版时间</th>
+                    <th>分类</th>
+                    <th>库存</th>
+                    <th>原价</th>
+                    <th>现价</th>
+                    <th>书本详情</th>
+                    <th>是否推荐</th>
+                    <th>上架状态</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody id="tby" th:each="book,iter:${bookList}">
+                <tr>
+                    <!--<td style="width: 30px;">
+                        <input type="checkbox" name="cks"  th:value="${book.id}" >
+                    </td>-->
+                    <td th:text="${book.id}">1001</td>
+                    <td class="layer-photos-demo" id="layer-photos-demo">
+                        <img src="images/tenxunchuan.jpg" th:src="@{'/public/' + ${book.imgUrl}}">
+                    </td>
+                    <td th:text="${book.name}">腾讯传</td>
+                    <td th:text="${#calendars.format(book.publishDate,'yyyy-MM-dd')}">出版时间</td>
+                    <td th:text="${book.cate}">分类</td>
+                    <td th:text="${book.count}">分类</td>
+                    <!--							<span th:switch="${book.cate}">
+                                                    <td th:case="'SELECTTED'">精选图书</td>
+                                                    <td th:case="'RECOMMEND'">精选图书</td>
+                                                    <td th:case="'BARGAGIN'">精选图书</td>
+                                                </span>-->
+                    <td th:text="${book.oldPrice}">原价</td>
+                    <td th:text="${book.newPrice}">1现价00$</td>
+                    <td style="width: 146px;">
+                        <button class="btn btn-success"
+                                th:onclick="displayInfo([[${book}]],[[${#calendars.format(book.publishDate,'yyyy-MM-dd')}]])">
+                            预览
+                        </button>
+                    </td>
+                    <td th:if="${book.recommend == 0}">否</td>
+                    <td th:if="${book.recommend == 1}">是</td>
+                    <td th:if="${book.state == 1}">上架中</td>
+                    <td th:if="${book.state == 0}">已下架</td>
+                    <td>
+                        <select class="form-control" id="" style="width: 100px;display: inline;" th:onchange="|operate(this,[[${book.id}]])|"
+                                value="操作">
+                            <option value=""></option>
+                            <option value="update">更新</option>
+                            <option th:if="${book.state == 1}" value="offShelf">下架</option>
+                            <option th:if="${book.state == 0}" value="onShelf">恢复上架</option>
+                            <option value="addCount">补充库存</option>
+                            <option value="changePrice">修改价格</option>
+                            <option th:if="${book.recommend == 0}" value="setRec">设为推荐</option>
+                            <option th:if="${book.recommend == 1}" value="setNotRec">设为非推荐</option>
+                        </select>
+                    </td>
 
-					</tr>
+                </tr>
 
-					</tbody>
-					<tfoot>
-					<tr>
-						<td colspan="5"></td>
-						<td class="text-success">总数量:</td>
-						<td class="text-success" th:text="${bookList.size()}+'本'">20本</td>
-					</tr>
-					<tr style="background-color: white;">
-						<td>
-							<a th:href="@{/admin/toAddBook}" class="btn btn-info">上架商品＋</a>
-						</td>
-<!--						<td><button class="btn btn-danger" data-toggle="modal" data-target="#myModal" th:onclick="deleteBooks()">删除商品一</button></td>-->
-						<td colspan="4"></td>
+                </tbody>
+                <tfoot>
+                <tr>
+                    <td colspan="5"></td>
+                    <td class="text-success">总数量:</td>
+                    <td class="text-success" th:text="${bookList.size()}+'本'">20本</td>
+                </tr>
+                <tr style="background-color: white;">
+                    <td>
+                        <a class="btn btn-info" th:href="@{/admin/toAddBook}">上架商品＋</a>
+                    </td>
+                    <!--						<td><button class="btn btn-danger" data-toggle="modal" data-target="#myModal" th:onclick="deleteBooks()">删除商品一</button></td>-->
+                    <td colspan="4"></td>
 
-					</tr>
-					</tfoot>
-				</table>
-			</div>
-			<!--购物车 end-->
-		</div>
-	</div>
-		<div class="container">
-			<!--首页底部信息 begin-->
-			<div th:replace="common/footer :: footer"></div>
-		</div>
-		<!--end-->
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+        <!--购物车 end-->
+    </div>
+</div>
+<div class="container">
+    <!--首页底部信息 begin-->
+    <div th:replace="common/footer :: footer"></div>
+</div>
+<!--end-->
 
-		<!--引入js文件-->
-		<script src="js/details.js" th:src="@{/js/details.js}" type="text/javascript" charset="utf-8"></script>
-		<script src="js/cart.js" th:src="@{/js/cart.js}" type="text/javascript" charset="utf-8"></script>
-		<script src="dist/js/jquery.min.js" th:src="@{/dist/js/jquery.min.js}"></script>
-		<script src="js/carousel.js" th:src="@{/js/carousel.js}" type="text/javascript" charset="utf-8"></script>
-		<script src="dist/js/bootstrap.min.js" th:src="@{/dist/js/bootstrap.min.js}"></script>
-		<script src="js/wow.js" th:src="@{/js/wow.js}"></script>
-		<script th:src="@{/layui/layui.js}"></script>
-		<script th:inline="javascript">
-			//获取应用路径
-			var contextPath = [[${#request.getContextPath()}]];
-			var pages = [[${pages}]];
-			var admin = [[${session.admin}]]
-		</script>
-		<script type="text/javascript">
-			$(function () {
-				if (admin == null || admin == undefined || admin == 'undefined') {
-					location.href = contextPath + "/book/index";
-				}
-			})
-			if(!(/msie [6|7|8|9]/i.test(navigator.userAgent))) {
-				new WOW().init();
-			};
-			//根据图书名搜索
-			function searchBookName() {
-				var inputBookName = $("#inputBookName").val();
-				if (inputBookName != ''){
-					window.location.href = contextPath + "/admin/searchBook?inputBookName=" + inputBookName;
-				}else alert('查找内容不为空')
-			}
+<!--引入js文件-->
+<script charset="utf-8" src="js/details.js" th:src="@{/js/details.js}" type="text/javascript"></script>
+<script charset="utf-8" src="js/cart.js" th:src="@{/js/cart.js}" type="text/javascript"></script>
+<script src="dist/js/jquery.min.js" th:src="@{/dist/js/jquery.min.js}"></script>
+<script charset="utf-8" src="js/carousel.js" th:src="@{/js/carousel.js}" type="text/javascript"></script>
+<script src="dist/js/bootstrap.min.js" th:src="@{/dist/js/bootstrap.min.js}"></script>
+<script src="js/wow.js" th:src="@{/js/wow.js}"></script>
+<script th:src="@{/layui/layui.js}"></script>
+<script th:inline="javascript">
+    //获取应用路径
+    var contextPath = [[${#request.getContextPath()}]];
+    var pages = [[${pages}]];
+    var admin = [[${session.admin}]]
+</script>
+<script type="text/javascript">
+    $(function () {
+        if (admin == null || admin == undefined || admin == 'undefined') {
+            location.href = contextPath + "/book/index";
+        }
+    })
+    if (!(/msie [6|7|8|9]/i.test(navigator.userAgent))) {
+        new WOW().init();
+    }
+    ;
 
-
-			//预览图书简介
-			function displayInfo(book,date) {
-				layer.open({
-					title: '书本详情'
-					,content:'ISBN：'+book.isbn+'<br>'
-							+'书名：'+book.name+'<br>'
-							+'作者：'+book.author+'<br>'
-							+'出版社：'+book.publisher+'<br>'
-							+'出版日期：'+date+'<br>'
-							+'分类：'+book.cate+'<br>'
-							+'库存：'+book.count+'<br>'
-							+'原价：'+book.oldPrice+'<br>'
-							+'现价：'+book.newPrice+'<br>'
-							+'是否推荐：'+ (book.recommend==0?'否':'是')+'<br>'
-							+'上架状态：'+ (book.state==0?'下架中':'上架中')+'<br>'
-							+'简介：'+book.info+'<br>'
-					,area: '500px'
-				});
-
-			}
-
-			//删除图书
-			function deleteBook(bookId){
-				layer.confirm('确定删除？', {
-					icon:3,
-					btn: ['确定', '取消']
-				}, function(index, layero){
-					//按钮【按钮一】的回调
-					$.ajax({
-						url: contextPath + "/admin/deleteBook",
-						method: "post",
-						data: {"bookId":bookId},
-						success: function (data) {
-							if (data == 'success') {
-								window.location.href = contextPath + "/admin/toBookAdmin"
-							} else layer.msg('修改失败')
-						}
-					})
-				}, function(index){
-					return ;
-				});
-			}
-		</script>
-
-	<style type="text/css">
-		td {text-align: center}
-		th {text-align: center}
-	</style>
-	</body>
-	<script>
-		//分页js
-		//页面加载时执行
-		var ids ='';
-		var bookIds = new Set();
-	$(function () {
-			$("#allBooksData").load(contextPath + "/admin/getBookListByPage",queryData(1,''));
-/*			if (sessionStorage.getItem("ids") != null){
-				alert(sessionStorage.getItem("ids") );
-			}*/
-			//存储购物记录的id
-/*			var ids = sessionStorage.getItem("ids");
-			// var thirdModel = document.getElementById("third_del");
-			//判断是否选择了商品
-			var count = 0;
-			//获取所有的checkbox
-			var cks = document.getElementsByName("cks");
-			//遍历
-			for(var i = 0; i < cks.length; i++) {
-				if(cks[i].checked) {
-					count++;
-					ids += cks[i].value + ",";
-				}
-			}
-			sessionStorage.setItem("ids",ids);*/
-			for (var x of bookIds) { // 遍历Set
-				// alert(x);
-				document.getElementsByName("cks").checked = true;
-			}
-
-		})
+    //根据图书名搜索
+    function searchBookName() {
+        var inputBookName = $("#inputBookName").val();
+        if (inputBookName != '') {
+            window.location.href = contextPath + "/admin/searchBook?inputBookName=" + inputBookName;
+        } else alert('查找内容不为空')
+    }
 
 
-		//跳转到指定页
-		function goPage(pageSize,pages) {
-			var inputPage = $("#inputPage").val();
-			//数字正则
-			var reg = new RegExp("^[0-9]*$");
-			if (!reg.test(inputPage)){
-				layer.msg('请输入正整数！', {icon: 7,anim:6});
-				return;
-			}
-			if (inputPage==''){
-				layer.msg('请输入页码', {icon: 7,anim:6});
-				return;
-			}
-			if (inputPage > pages) {//如果输入的页数大于总页数
-				layer.msg('超出总页数！总页数：'+pages, {icon: 7,anim:6});
-				return;
-			}
-			$("#allBooksData").load(contextPath + "/admin/getBookListByPage",queryData(inputPage,pageSize))
+    //预览图书简介
+    function displayInfo(book, date) {
+        layer.open({
+            title: '书本详情'
+            , content: 'ISBN：' + book.isbn + '<br>'
+                + '书名：' + book.name + '<br>'
+                + '作者：' + book.author + '<br>'
+                + '出版社：' + book.publisher + '<br>'
+                + '出版日期：' + date + '<br>'
+                + '分类：' + book.cate + '<br>'
+                + '库存：' + book.count + '<br>'
+                + '原价：' + book.oldPrice + '<br>'
+                + '现价：' + book.newPrice + '<br>'
+                + '是否推荐：' + (book.recommend == 0 ? '否' : '是') + '<br>'
+                + '上架状态：' + (book.state == 0 ? '下架中' : '上架中') + '<br>'
+                + '简介：' + book.info + '<br>'
+            , area: '500px'
+        });
 
-		}
+    }
 
-		//修改指定每页显示的记录数
-		function loadDataBySize(obj) {
-			$("#allBooksData").load(contextPath + "/admin/getBookListByPage",queryData(1,obj.value))
-		}
-		//查询
-		function queryData(page, pageSize) {
-			var query = {};
-			query.page = page;
-			query.pageSize = pageSize == '' ? 4 : pageSize;
-			return query;
+    //删除图书
+    function deleteBook(bookId) {
+        layer.confirm('确定删除？', {
+            icon: 3,
+            btn: ['确定', '取消']
+        }, function (index, layero) {
+            //按钮【按钮一】的回调
+            $.ajax({
+                url: contextPath + "/admin/deleteBook",
+                method: "post",
+                data: {"bookId": bookId},
+                success: function (data) {
+                    if (data == 'success') {
+                        window.location.href = contextPath + "/admin/toBookAdmin"
+                    } else layer.msg('修改失败')
+                }
+            })
+        }, function (index) {
+            return;
+        });
+    }
+</script>
 
-		}
-		function cks(obj) {
-/*			if (obj.checked){
-			bookIds.add(obj.value);
-		}*/
-	}
-	function loadData(page,pageSize) {
-		$("#allBooksData").load(contextPath + "/admin/getBookListByPage",queryData(page,pageSize));
-/*		for (var i = 0;i<bookIds.size;i++){
-			document.getElementsByName("cks")[i].value.checked=true;
-			alert(bookIds.size)
-		}*/
+<style type="text/css">
+    td {
+        text-align: center
+    }
 
-	}
+    th {
+        text-align: center
+    }
+</style>
+</body>
+<script>
+    //分页js
+    //页面加载时执行
+    var ids = '';
+    var bookIds = new Set();
+    $(function () {
+        $("#allBooksData").load(contextPath + "/admin/getBookListByPage", queryData(1, ''));
+        /*			if (sessionStorage.getItem("ids") != null){
+                        alert(sessionStorage.getItem("ids") );
+                    }*/
+        //存储购物记录的id
+        /*			var ids = sessionStorage.getItem("ids");
+                    // var thirdModel = document.getElementById("third_del");
+                    //判断是否选择了商品
+                    var count = 0;
+                    //获取所有的checkbox
+                    var cks = document.getElementsByName("cks");
+                    //遍历
+                    for(var i = 0; i < cks.length; i++) {
+                        if(cks[i].checked) {
+                            count++;
+                            ids += cks[i].value + ",";
+                        }
+                    }
+                    sessionStorage.setItem("ids",ids);*/
+        for (var x of bookIds) { // 遍历Set
+            // alert(x);
+            document.getElementsByName("cks").checked = true;
+        }
 
-		function deleteBooks(){
-			//存储购物记录的id
-			var ids = '';
-			var thirdModel = document.getElementById("third_del");
-			//判断是否选择了商品
-			var count = 0;
-			//获取所有的checkbox
-			var cks = document.getElementsByName("cks");
-			//遍历
-			for(var i = 0; i < cks.length; i++) {
-				if(cks[i].checked) {
-					count++;
-					ids += cks[i].value + ",";
-					bookIds.add(cks[i].value);
-				}
-			}
-			// var s = new Array();
-			for(var x of bookIds){
-				console.log(x)
-			}
+    })
 
-			if (ids==''){
-				layer.msg('请勾选图书！');
-				return;
-			}
-			layer.confirm('确定删除？', {
-				icon:3,
-				btn: ['确定', '取消']
-			}, function(index, layero){
-				//按钮【按钮一】的回调
-				$.ajax({
-					url:contextPath + "/admin/deleteBooks",
-					data:{"ids":ids},
-					type:"post",
-					success:function (data) {
-						if (data=="success"){
-							layer.msg('删除成功', {
-								icon: 1,
-								time: 2000 //2秒关闭（如果不配置，默认是3秒）
-							}, function(){
-								//do something
-								location.href = contextPath +"/admin/toBookAdmin"
-							});
-						}
-						else layer.msg("删除失败")
 
-					}
-				})
-			}, function(index){
-				return ;
-			});
+    //跳转到指定页
+    function goPage(pageSize, pages) {
+        var inputPage = $("#inputPage").val();
+        //数字正则
+        var reg = new RegExp("^[0-9]*$");
+        if (!reg.test(inputPage)) {
+            layer.msg('请输入正整数！', {icon: 7, anim: 6});
+            return;
+        }
+        if (inputPage == '') {
+            layer.msg('请输入页码', {icon: 7, anim: 6});
+            return;
+        }
+        if (inputPage > pages) {//如果输入的页数大于总页数
+            layer.msg('超出总页数！总页数：' + pages, {icon: 7, anim: 6});
+            return;
+        }
+        $("#allBooksData").load(contextPath + "/admin/getBookListByPage", queryData(inputPage, pageSize))
 
-	}
+    }
 
-		//操作
-		function operate(obj,bookId) {
-			if (obj.value=='update'){
-				location.href = contextPath + "/admin/toUpdateBook?bookId="+bookId;
-			}else if (obj.value == 'offShelf'){
+    //修改指定每页显示的记录数
+    function loadDataBySize(obj) {
+        $("#allBooksData").load(contextPath + "/admin/getBookListByPage", queryData(1, obj.value))
+    }
 
-				layer.confirm('确定下架？', {
-					icon:3,
-					btn: ['确定', '取消']
-				}, function(index, layero){
-					//按钮【按钮一】的回调
-					location.href = contextPath + "/admin/offShelf?bookId="+bookId;
-				}, function(index){
-					return ;
-				});
-			}else if (obj.value == 'onShelf'){
-				layer.confirm('确定上架？', {
-					icon:3,
-					btn: ['确定', '取消']
-				}, function(index, layero){
-					//按钮【按钮一】的回调
-					location.href = contextPath + "/admin/onShelf?bookId="+bookId;
-				}, function(index){
-					return ;
-				});
-			} else if (obj.value == 'addCount'){
-				layer.prompt({
-					formType: 2,
-					value: '10',
-					title: '请输入补充量',
-					area: ['200px', '20px'] //自定义文本域宽高
-				}, function(value, index, elem){
-					var reg = new RegExp("^\\+?[1-9][0-9]*$");//正整数
-					if (!reg.test(value)){
-						layer.msg('请输入正整数！', {icon: 7,anim:6});
-						return;
-					}else location.href = contextPath + "/admin/addCount?bookId="+bookId+"&count="+value;
-				});
-			}else if (obj.value == 'changePrice'){
-				layer.prompt({
-					formType: 2,
-					value: '20.5',
-					title: '请输入新价格',
-					area: ['200px', '20px'] //自定义文本域宽高
-				}, function(value, index, elem){
-					var reg = new RegExp("^\\d+(\\.\\d+)?$");//非负浮点数
-					if (!reg.test(value)){
-						layer.msg('请输入非负浮点数！', {icon: 7,anim:6});
-						return;
-					}else location.href = contextPath + "/admin/changePrice?bookId="+bookId+"&price="+value;
-				});
-			}else if(obj.value == 'setRec'){
-				layer.confirm('确定设为推荐？', {
-					icon:3,
-					btn: ['确定', '取消']
-				}, function(index, layero){
-					//按钮【按钮一】的回调
-					location.href = contextPath + "/admin/setRecBook?bookId="+bookId;
-				}, function(index){
-					return ;
-				});
-			}else if(obj.value == 'setNotRec'){
-				layer.confirm('确定设为非推荐？', {
-					icon:3,
-					btn: ['确定', '取消']
-				}, function(index, layero){
-					//按钮【按钮一】的回调
-					location.href = contextPath + "/admin/setNotRecBook?bookId="+bookId;
-				}, function(index){
-					return ;
-				});
-			}
+    //查询
+    function queryData(page, pageSize) {
+        var query = {};
+        query.page = page;
+        query.pageSize = pageSize == '' ? 4 : pageSize;
+        return query;
 
-		}
-	</script>
+    }
+
+    function cks(obj) {
+        /*			if (obj.checked){
+                    bookIds.add(obj.value);
+                }*/
+    }
+
+    function loadData(page, pageSize) {
+        $("#allBooksData").load(contextPath + "/admin/getBookListByPage", queryData(page, pageSize));
+        /*		for (var i = 0;i<bookIds.size;i++){
+                    document.getElementsByName("cks")[i].value.checked=true;
+                    alert(bookIds.size)
+                }*/
+
+    }
+
+    function deleteBooks() {
+        //存储购物记录的id
+        var ids = '';
+        var thirdModel = document.getElementById("third_del");
+        //判断是否选择了商品
+        var count = 0;
+        //获取所有的checkbox
+        var cks = document.getElementsByName("cks");
+        //遍历
+        for (var i = 0; i < cks.length; i++) {
+            if (cks[i].checked) {
+                count++;
+                ids += cks[i].value + ",";
+                bookIds.add(cks[i].value);
+            }
+        }
+        // var s = new Array();
+        for (var x of bookIds) {
+            console.log(x)
+        }
+
+        if (ids == '') {
+            layer.msg('请勾选图书！');
+            return;
+        }
+        layer.confirm('确定删除？', {
+            icon: 3,
+            btn: ['确定', '取消']
+        }, function (index, layero) {
+            //按钮【按钮一】的回调
+            $.ajax({
+                url: contextPath + "/admin/deleteBooks",
+                data: {"ids": ids},
+                type: "post",
+                success: function (data) {
+                    if (data == "success") {
+                        layer.msg('删除成功', {
+                            icon: 1,
+                            time: 2000 //2秒关闭（如果不配置，默认是3秒）
+                        }, function () {
+                            //do something
+                            location.href = contextPath + "/admin/toBookAdmin"
+                        });
+                    } else layer.msg("删除失败")
+
+                }
+            })
+        }, function (index) {
+            return;
+        });
+
+    }
+
+    //操作
+    function operate(obj, bookId) {
+        if (obj.value == 'update') {
+            location.href = contextPath + "/admin/toUpdateBook?bookId=" + bookId;
+        } else if (obj.value == 'offShelf') {
+
+            layer.confirm('确定下架？', {
+                icon: 3,
+                btn: ['确定', '取消']
+            }, function (index, layero) {
+                //按钮【按钮一】的回调
+                location.href = contextPath + "/admin/offShelf?bookId=" + bookId;
+            }, function (index) {
+                return;
+            });
+        } else if (obj.value == 'onShelf') {
+            layer.confirm('确定上架？', {
+                icon: 3,
+                btn: ['确定', '取消']
+            }, function (index, layero) {
+                //按钮【按钮一】的回调
+                location.href = contextPath + "/admin/onShelf?bookId=" + bookId;
+            }, function (index) {
+                return;
+            });
+        } else if (obj.value == 'addCount') {
+            layer.prompt({
+                formType: 2,
+                value: '10',
+                title: '请输入补充量',
+                area: ['200px', '20px'] //自定义文本域宽高
+            }, function (value, index, elem) {
+                var reg = new RegExp("^\\+?[1-9][0-9]*$");//正整数
+                if (!reg.test(value)) {
+                    layer.msg('请输入正整数！', {icon: 7, anim: 6});
+                    return;
+                } else location.href = contextPath + "/admin/addCount?bookId=" + bookId + "&count=" + value;
+            });
+        } else if (obj.value == 'changePrice') {
+            layer.prompt({
+                formType: 2,
+                value: '20.5',
+                title: '请输入新价格',
+                area: ['200px', '20px'] //自定义文本域宽高
+            }, function (value, index, elem) {
+                var reg = new RegExp("^\\d+(\\.\\d+)?$");//非负浮点数
+                if (!reg.test(value)) {
+                    layer.msg('请输入非负浮点数！', {icon: 7, anim: 6});
+                    return;
+                } else location.href = contextPath + "/admin/changePrice?bookId=" + bookId + "&price=" + value;
+            });
+        } else if (obj.value == 'setRec') {
+            layer.confirm('确定设为推荐？', {
+                icon: 3,
+                btn: ['确定', '取消']
+            }, function (index, layero) {
+                //按钮【按钮一】的回调
+                location.href = contextPath + "/admin/setRecBook?bookId=" + bookId;
+            }, function (index) {
+                return;
+            });
+        } else if (obj.value == 'setNotRec') {
+            layer.confirm('确定设为非推荐？', {
+                icon: 3,
+                btn: ['确定', '取消']
+            }, function (index, layero) {
+                //按钮【按钮一】的回调
+                location.href = contextPath + "/admin/setNotRecBook?bookId=" + bookId;
+            }, function (index) {
+                return;
+            });
+        }
+
+    }
+</script>
 
 <!--	<script>
 		$(function () {

@@ -17,11 +17,11 @@ public class OrderUtils {
      */
     public static synchronized String createOrderNum() {
         String str = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
-        if(date == null || !date.equals(str)){
+        if (date == null || !date.equals(str)) {
             date = str;
             orderNum = 0l;
         }
-        orderNum ++;
+        orderNum++;
         long orderNo = Long.parseLong(date) * 10000;
         orderNo += orderNum;
         return String.valueOf(orderNo);

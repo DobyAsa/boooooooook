@@ -16,7 +16,7 @@ import java.io.File;
 @Controller
 public class Upload {
     @RequestMapping("/toUpload")
-    public String  toUpload(){
+    public String toUpload() {
         return "upload";
     }
 

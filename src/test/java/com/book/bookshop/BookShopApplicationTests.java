@@ -1,16 +1,13 @@
 package com.book.bookshop;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.book.bookshop.entity.*;
-import com.book.bookshop.entity.enums.Category;
 import com.book.bookshop.mapper.*;
 import com.book.bookshop.service.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
 @SpringBootTest
@@ -41,6 +38,7 @@ class BookShopApplicationTests {
     private AddressService addressService;
     @Autowired
     private AddressMapper addressMapper;
+
     @Test
     void findBooks() {
         userService.list().forEach(System.out::println);
@@ -137,12 +135,12 @@ class BookShopApplicationTests {
     }
 
     @Test
-    public void asdas(){
+    public void asdas() {
         Book book = bookService.getById(1);
         QueryWrapper queryWrapper = new QueryWrapper();
-        queryWrapper.eq("book_id",1);
+        queryWrapper.eq("book_id", 1);
         List<Comment> comments = commentService.list(queryWrapper);
-        for (Comment comment:comments){
+        for (Comment comment : comments) {
             User user = userService.getById(comment.getUserId());
             comment.setUsername(user.getUsername());
         }
@@ -151,68 +149,69 @@ class BookShopApplicationTests {
 
     //随机生成一个0到9的数，生成一百次。输出为0~9及其生成次数
     @Test
-    public void asd(){
+    public void asd() {
         Random random = new Random();
         Map map = new HashMap();
-        for (int i=0;i<100;i++){
-            int n  = random.nextInt(10);
+        for (int i = 0; i < 100; i++) {
+            int n = random.nextInt(10);
             //            list.add();
-            if (map.size()!=0){
-                if (!map.containsKey(n)){
-                    map.put(n,1);
+            if (map.size() != 0) {
+                if (!map.containsKey(n)) {
+                    map.put(n, 1);
 
-                }else {
-                    int c  = (int) map.get(n);
-                    map.replace(n,++c);
+                } else {
+                    int c = (int) map.get(n);
+                    map.replace(n, ++c);
                 }
-            }else {
-                map.put(n,1);
+            } else {
+                map.put(n, 1);
             }
 
 
         }
-        for (int i =0 ;i<map.size();i++){
-            System.out.println(i+"出现的次数："+map.get(i));
+        for (int i = 0; i < map.size(); i++) {
+            System.out.println(i + "出现的次数：" + map.get(i));
         }
 
-      }
-
-      @Test
-      public void asdasd() {
-        String inputBookName = "男";
-          QueryWrapper<Book> queryWrapper1 = new QueryWrapper();
-          QueryWrapper<Book> queryWrapper2 = new QueryWrapper();
-          QueryWrapper<Book> queryWrapper3 = new QueryWrapper();
-          List<Book> bookList = new ArrayList<>();
-          queryWrapper1.like("name",inputBookName);
-
-           bookList.addAll(bookService.list(queryWrapper1));
-           queryWrapper2.like("author",inputBookName);
-          bookList.addAll(bookService.list(queryWrapper2));
-          queryWrapper3.like("info",inputBookName);
-          bookList.addAll(bookService.list(queryWrapper3));
-
-
-          Iterator it = bookList.iterator();
-          while(it.hasNext()) {
-              Book book = (Book) it.next();
-              if (book.getState() == 0) {
-                  it.remove(); //移除该对象
-              }
-          }
-          for (Book book : bookList){
-              System.out.println(book);
-          }
     }
+
     @Test
-    public void asdaasd(){
+    public void asdasd() {
+        String inputBookName = "男";
+        QueryWrapper<Book> queryWrapper1 = new QueryWrapper();
+        QueryWrapper<Book> queryWrapper2 = new QueryWrapper();
+        QueryWrapper<Book> queryWrapper3 = new QueryWrapper();
+        List<Book> bookList = new ArrayList<>();
+        queryWrapper1.like("name", inputBookName);
+
+        bookList.addAll(bookService.list(queryWrapper1));
+        queryWrapper2.like("author", inputBookName);
+        bookList.addAll(bookService.list(queryWrapper2));
+        queryWrapper3.like("info", inputBookName);
+        bookList.addAll(bookService.list(queryWrapper3));
+
+
+        Iterator it = bookList.iterator();
+        while (it.hasNext()) {
+            Book book = (Book) it.next();
+            if (book.getState() == 0) {
+                it.remove(); //移除该对象
+            }
+        }
+        for (Book book : bookList) {
+            System.out.println(book);
+        }
+    }
+
+    @Test
+    public void asdaasd() {
         List<Order> orders = orderService.list();
-        for (Order order:orders){
+        for (Order order : orders) {
             QueryWrapper queryWrapper = new QueryWrapper();
-            queryWrapper.eq("order_id",order.getId());
+            queryWrapper.eq("order_id", order.getId());
             List<com.book.bookshop.entity.OrderItem> orderItems = orderItemService.list(queryWrapper);
             order.setOrderItems(orderItems);
-            for (com.book.bookshop.entity.OrderItem item:orderItems){
+            for (com.book.bookshop.entity.OrderItem item : orderItems) {
                 Book book = bookService.getById(item.getBookId());
                 item.setBook(book);
             }
@@ -221,13 +220,13 @@ class BookShopApplicationTests {
     }
 
     @Test
-    public void asdaa123sd(){
+    public void asdaa123sd() {
         QueryWrapper queryWrapper = new QueryWrapper();
 //        queryWrapper.eq("category","1");
         System.out.println();
         List<Book> list = bookService.list(queryWrapper);
         Iterator iterator = list.iterator();
-        while (iterator.hasNext()){
+        while (iterator.hasNext()) {
             System.out.println(iterator.next());
         }
 

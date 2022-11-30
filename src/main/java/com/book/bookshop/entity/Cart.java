@@ -8,8 +8,6 @@ import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.util.List;
-
 
 @Data
 @TableName(value = "bs_cart")

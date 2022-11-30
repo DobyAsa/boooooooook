@@ -19,6 +19,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
     //自定义拦截器
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new PermissionInterceptor()).addPathPatterns("/order/**","/cart/**","/user/userInfo/**","/user/toComment/**");
+        registry.addInterceptor(new PermissionInterceptor()).addPathPatterns("/order/**", "/cart/**", "/user/userInfo/**", "/user/toComment/**");
     }
 }

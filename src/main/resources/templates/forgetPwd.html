@@ -4,9 +4,9 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title>网上书店</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/dist/css/bootstrap.min.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/css/index.css}"/>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/animate.css}"/>
+    <link rel="stylesheet" th:href="@{/dist/css/bootstrap.min.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/index.css}" type="text/css"/>
+    <link rel="stylesheet" th:href="@{/css/animate.css}" type="text/css"/>
     <link rel="stylesheet" th:href="@{/layui/css/layui.css}">
 </head>
 
@@ -18,39 +18,44 @@
 
 <div class="container">
     <ol class="breadcrumb">
-        <li><a href="#" class="praise">邮箱找回密码</a></li>
+        <li><a class="praise" href="#">邮箱找回密码</a></li>
     </ol>
 </div>
 
 <div class="container">
     <!--个人信息begin-->
     <div>
-        <form class="layui-form" action="" id="userInfo">
+        <form action="" class="layui-form" id="userInfo">
 
 
             <div class="layui-form-item">
                 <label class="layui-form-label">邮箱</label>
                 <div class="layui-input-block">
-                    <input type="text" name="email" required lay-verify="required" placeholder="请输入邮箱" id="email" autocomplete="off" class="layui-input">
+                    <input autocomplete="off" class="layui-input" id="email" lay-verify="required" name="email" placeholder="请输入邮箱"
+                           required type="text">
                 </div>
             </div>
 
             <div class="layui-form-item">
                 <label class="layui-form-label">验证码</label>
                 <div class="layui-input-block">
-                    <input type="text" name="email" required lay-verify="required"  placeholder="请输入收到的验证码" disabled="disabled" id="inputCode"
-                           autocomplete="off" class="layui-input">
+                    <input autocomplete="off" class="layui-input" disabled="disabled" id="inputCode" lay-verify="required"
+                           name="email" placeholder="请输入收到的验证码"
+                           required type="text">
                     <br>
-                    <a href="javascript:void(0)" class="btn btn-info" id="sendBtn" th:onclick="sendCode()">发送验证码</a>
+                    <a class="btn btn-info" href="javascript:void(0)" id="sendBtn"
+                       th:onclick="sendCode()">发送验证码</a>
                 </div>
             </div>
             <br>
             <div class="layui-form-item">
                 <div class="layui-input-block">
-                    <button class="layui-btn" lay-submit lay-filter="formDemo" type="button" th:onclick="checkCode()">提交</button>
-                    <button type="reset" class="layui-btn layui-btn-normal">重置</button>
-<!--                    <button type="reset" th:href="@{/book/index}" class="layui-btn layui-btn-primary">返回首页</button>-->
-                    <a th:href="@{/book/index}" class="layui-btn layui-btn-primary">返回首页</a>
+                    <button class="layui-btn" lay-filter="formDemo" lay-submit th:onclick="checkCode()" type="button">
+                        提交
+                    </button>
+                    <button class="layui-btn layui-btn-normal" type="reset">重置</button>
+                    <!--                    <button type="reset" th:href="@{/book/index}" class="layui-btn layui-btn-primary">返回首页</button>-->
+                    <a class="layui-btn layui-btn-primary" th:href="@{/book/index}">返回首页</a>
                     <!-- <button type="reset" class="layui-btn layui-btn-danger" th:onclick="pwdChange()">密码修改 >></button>-->
                 </div>
             </div>
@@ -70,7 +75,7 @@
 <div th:replace="common/bookModal :: bookModal"></div>
 
 <script src="dist/js/jquery.min.js" th:src="@{/dist/js/jquery.min.js}"></script>
-<script src="js/carousel.js" th:src="@{/js/carousel.js}" type="text/javascript" charset="utf-8"></script>
+<script charset="utf-8" src="js/carousel.js" th:src="@{/js/carousel.js}" type="text/javascript"></script>
 <script src="dist/js/bootstrap.min.js" th:src="@{/dist/js/bootstrap.min.js}"></script>
 <script src="js/wow.js" th:src="@{/js/wow.js}"></script>
 <script th:src="@{/js/login_reg.js}"></script>
@@ -100,6 +105,7 @@
         //倒计时
         var count = 20;
         var countdown = setInterval(CountDown, 500);
+
         function CountDown() {
             $("#sendBtn").attr("disabled", true);
             $("#sendBtn").html("请等待 " + count + " 秒!");
@@ -109,6 +115,7 @@
             }
             count--;
         }
+
         //////////////////////////////////////////////
         $.ajax({
             url: contextPath + "/user/checkEmail",
@@ -118,7 +125,7 @@
                 if (data == 101) {
                     layer.msg('邮箱不存在');
                     return;
-                }else {
+                } else {
                     layer.msg('已发送，请注意查收！')
                     $.post(contextPath + "/user/sendEmail", {"email": email}, function (data) {
                         if (data == 200) {
@@ -130,11 +137,12 @@
             }
         })
     }
+
     //提交
     function checkCode() {
         var inputCode = $("#inputCode").val();
         var email = $("#email").val();
-        if (inputCode==''||email=='')return;
+        if (inputCode == '' || email == '') return;
         $.ajax({
             url: contextPath + "/user/emailLogin",
             data: {"inputCode": inputCode, "email": email},
@@ -144,8 +152,8 @@
                     layer.msg('跳转至修改密码页面...', {
                         icon: 16,//转圈
                         time: 2000 //2秒关闭（如果不配置，默认是3秒）
-                    }, function(){
-                        window.location.href = contextPath + "/user/toChangePwdbyEmail?email="+email;
+                    }, function () {
+                        window.location.href = contextPath + "/user/toChangePwdbyEmail?email=" + email;
                     });
                 } else {//验证吗错误
                     layer.msg('验证码错误')
@@ -153,9 +161,10 @@
             }
         })
     }
-/*    $(function () {
 
-    })*/
+    /*    $(function () {
+
+        })*/
 </script>
 </body>
 

@@ -7,35 +7,40 @@
 </head>
 
 <body>
-    <div class="row">
-        <div class="container">
-            <div class="col-sm-6 col-md-3" th:each="book:${bookList}">
-                <div class="thumbnail">
-                    <a th:href="@{/book/detail(id=${book.id})}"><img th:src="@{'/public/'+ ${book.imgUrl}}" alt="通用的占位符缩略图"></a>
-                    <div class="caption">
-                        <h3 th:classappend="h3-height" th:text="${book.name}">北纬78°</h3>
-                        <p th:classappend="p-height" >价格:<span th:text="'￥'+${book.newPrice}" style="color:#FA5000">19.5元</span>&nbsp;&nbsp;作者:<span th:text="${book.author}">陈丹燕</span>&nbsp;&nbsp;</p>
-                        <p>
-                            <a href="details.html" th:href="@{/book/detail(id=${book.id})}">
-                                更多信息
-                            </a>
-                        </p>
-                    </div>
+<div class="row">
+    <div class="container">
+        <div class="col-sm-6 col-md-3" th:each="book:${bookList}">
+            <div class="thumbnail">
+                <a th:href="@{/book/detail(id=${book.id})}"><img alt="通用的占位符缩略图"
+                                                                 th:src="@{'/images/'+ ${book.imgUrl}}"></a>
+                <div class="caption">
+                    <h3 th:classappend="h3-height" th:text="${book.name}">北纬78°</h3>
+                    <p th:classappend="p-height">价格:<span style="color:#FA5000"
+                                                            th:text="'￥'+${book.newPrice}">19.5元</span>&nbsp;&nbsp;作者:<span
+                            th:text="${book.author}">陈丹燕</span>&nbsp;&nbsp;</p>
+                    <p>
+                        <a href="details.html" th:href="@{/book/detail(id=${book.id})}">
+                            更多信息
+                        </a>
+                    </p>
                 </div>
             </div>
         </div>
+    </div>
 
     <!--分页-->
-        <div class="container">
-            <ul class="pager">
-                <li th:classappend="${cur==1} ? 'disabled':''">
-                    <a th:style="${cur == 1} ? 'pointer-events:none':''" href="javascript:void(0)" th:onclick="|loadData(${pre},${category})|">&larr;上一页</a>
-                </li>
-                <li th:classappend="${cur==last} ? 'disabled':''">
-                    <a th:style="${cur == last} ? 'pointer-events:none':''" href="javascript:void(0)" th:onclick="|loadData(${next},${category})|">下一页 &rarr;</a>
-                </li>
-            </ul>
-        </div>
+    <div class="container">
+        <ul class="pager">
+            <li th:classappend="${cur==1} ? 'disabled':''">
+                <a href="javascript:void(0)" th:onclick="|loadData(${pre},${category})|"
+                   th:style="${cur == 1} ? 'pointer-events:none':''">&larr;上一页</a>
+            </li>
+            <li th:classappend="${cur==last} ? 'disabled':''">
+                <a href="javascript:void(0)" th:onclick="|loadData(${next},${category})|"
+                   th:style="${cur == last} ? 'pointer-events:none':''">下一页 &rarr;</a>
+            </li>
+        </ul>
+    </div>
 </div>
 
 </body>

@@ -1,337 +1,359 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-	<head>
-		<meta charset="UTF-8">
-		<title>我的购物车</title>
-		<link rel="stylesheet" type="text/css" th:href="@{/css/cart.css}" />
-		<link rel="stylesheet" type="text/css" th:href="@{/dist/css/bootstrap.min.css}">
-		<link rel="stylesheet" type="text/css" th:href="@{/css/index.css}"/>
-		<link rel="stylesheet" type="text/css" th:href="@{/css/animate.css}"/>
-		<link rel="stylesheet" th:href="@{/layui/css/layui.css}">
-	</head>
+<head>
+    <meta charset="UTF-8">
+    <title>我的购物车</title>
+    <link rel="stylesheet" th:href="@{/css/cart.css}" type="text/css"/>
+    <link rel="stylesheet" th:href="@{/dist/css/bootstrap.min.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/index.css}" type="text/css"/>
+    <link rel="stylesheet" th:href="@{/css/animate.css}" type="text/css"/>
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}">
+</head>
 
-	<body>
-	<!--导航部分  begin-->
-	<div th:replace="common/header :: nav"></div>
-	<!--导航部分 end-->
+<body>
+<!--导航部分  begin-->
+<div th:replace="common/header :: nav"></div>
+<!--导航部分 end-->
 
-	<!--最顶端轮播图片 begin-->
-	<div th:replace="common/carousel :: carousel"></div>
-	<!--最顶端轮播图片 end-->
-		<!--购物车 begin-->
-		<!--外层div-->
-		<div class="container">
-			<!--左边-->
-			<div class="col-md-8 col-sm-12">
-				<!--左边-->
-				<ol class="breadcrumb">
-					<li>
-						<a href="#" class="text-success"><span class="glyphicon glyphicon-heart"></span>&nbsp;&nbsp;我的宝贝</a>
-					</li>
-				</ol>
+<!--最顶端轮播图片 begin-->
+<div th:replace="common/carousel :: carousel"></div>
+<!--最顶端轮播图片 end-->
+<!--购物车 begin-->
+<!--外层div-->
+<div class="container">
+    <!--左边-->
+    <div class="col-md-8 col-sm-12">
+        <!--左边-->
+        <ol class="breadcrumb">
+            <li>
+                <a class="text-success" href="#"><span class="glyphicon glyphicon-heart"></span>&nbsp;&nbsp;我的宝贝</a>
+            </li>
+        </ol>
 
-				<!--购物车表格 begin-->
-				<div class="table-responsive" id="imgDiv">
-					<table class="table table-hover table-striped" style="vertical-align:middle;">
-						<thead>
-							<tr>
-<!--								<td colspan="8">
-									<label class="text-primary">显示条数:</label>
-									<select id="cartSzie" class="form-control" style="display: inline" onchange="displaySize(this)">
-										<option value="2">2</option>
-										<option value="4">4</option>
-										<option value="6" selected>6</option>
-										<option value="8">8</option>
-									</select>
-								</td>-->
-							</tr>
-							<tr class="text-success success">
-								<th><input type="checkbox" id="selectAll" onclick="selectAll(this)"></th>
-								<th id="sequence">序号</th>
-								<th>图片</th>
-								<th>书名</th>
-								<th>单价</th>
-								<th>数量</th>
-								<th>合计</th>
-							</tr>
-						</thead>
-						<tbody id="tby">
-							<tr th:each="cart,iter:${cartList}">
-								<td><input type="checkbox" name="cks" th:value="${cart.id}"></td>
-								<td th:text="${cart.bookId}">1001</td>
-								<td><img src="images/tenxunchuan.jpg" th:src="@{'/public/'+ ${cart.imgUrl}}"></td>
-								<td th:text="${cart.bookName}">腾讯传</td>
-								<td th:text="${cart.newPrice}">35.0元</td>
-								<td>
-									<div class='input-group' style='width: 115px;'>
+        <!--购物车表格 begin-->
+        <div class="table-responsive" id="imgDiv">
+            <table class="table table-hover table-striped" style="vertical-align:middle;">
+                <thead>
+                <tr>
+                    <!--								<td colspan="8">
+                                                        <label class="text-primary">显示条数:</label>
+                                                        <select id="cartSzie" class="form-control" style="display: inline" onchange="displaySize(this)">
+                                                            <option value="2">2</option>
+                                                            <option value="4">4</option>
+                                                            <option value="6" selected>6</option>
+                                                            <option value="8">8</option>
+                                                        </select>
+                                                    </td>-->
+                </tr>
+                <tr class="text-success success">
+                    <th><input id="selectAll" onclick="selectAll(this)" type="checkbox"></th>
+                    <th id="sequence">序号</th>
+                    <th>图片</th>
+                    <th>书名</th>
+                    <th>单价</th>
+                    <th>数量</th>
+                    <th>合计</th>
+                </tr>
+                </thead>
+                <tbody id="tby">
+                <tr th:each="cart,iter:${cartList}">
+                    <td><input name="cks" th:value="${cart.id}" type="checkbox"></td>
+                    <td th:text="${cart.bookId}">1001</td>
+                    <td><img src="images/tenxunchuan.jpg" th:src="@{'/images/'+ ${cart.imgUrl}}"></td>
+                    <td th:text="${cart.bookName}">腾讯传</td>
+                    <td th:text="${cart.newPrice}">35.0元</td>
+                    <td>
+                        <div class='input-group' style='width: 115px;'>
 										<span class='input-group-btn'>
-											<button class='btn btn-default' type='button' th:onclick="minus([[${cart.id}]],[[${cart.newPrice}]],[[${iter.index}]])">-</button>
+											<button class='btn btn-default' th:onclick="minus([[${cart.id}]],[[${cart.newPrice}]],[[${iter.index}]])"
+                                                    type='button'>-</button>
 										</span>
-										<input type='text' class='form-control' th:id="${'cartCount' + iter.index}" th:value="${cart.count}" th:onblur="countChange([[${cart.id}]],[[${cart.newPrice}]],[[${iter.index}]])">
-										<span class='input-group-btn'>
-											<button class='btn btn-default' type='button' th:onclick="plus([[${cart.id}]],[[${cart.newPrice}]],[[${iter.index}]])">+</button>
+                            <input class='form-control' th:id="${'cartCount' + iter.index}" th:onblur="countChange([[${cart.id}]],[[${cart.newPrice}]],[[${iter.index}]])"
+                                   th:value="${cart.count}"
+                                   type='text'>
+                            <span class='input-group-btn'>
+											<button class='btn btn-default' th:onclick="plus([[${cart.id}]],[[${cart.newPrice}]],[[${iter.index}]])"
+                                                    type='button'>+</button>
 										</span>
-									</div>
-								</td>
-								<td th:text="${#numbers.formatDecimal(cart.newPrice * cart.count, 0, 1)}" th:id="${'cartPrice' + iter.index}">100$</td>
-							</tr>
-						</tbody>
-						<tfoot>
-							<tr>
-								<td colspan="5"></td>
-								<td class="text-success">总价：</td>
-								<td class="text-success cartPrice"  th:text="${#numbers.formatDecimal(session.userCartInfo.totalPrice,0,1)}+ '元'" >345$:</td>
-							</tr>
-							<tr style="background-color: white;">
-								<td>
-									<a th:href="@{/book/index}" class="btn btn-info">&lt;&lt;继续购买</a>
-								</td>
-								<td><button class="btn btn-danger" data-toggle="modal" data-target="#myModal" onclick="del()">删除商品</button></td>
-								<td colspan="4"></td>
-								<td>
-									<a href="javascript:void(0)" th:onclick="confirmOrder()" class="btn btn-success">结算商品</a>
-								</td>
-							</tr>
-						</tfoot>
-					</table>
-				</div>
-				<!--购物车 end-->
+                        </div>
+                    </td>
+                    <td th:id="${'cartPrice' + iter.index}"
+                        th:text="${#numbers.formatDecimal(cart.newPrice * cart.count, 0, 1)}">100$
+                    </td>
+                </tr>
+                </tbody>
+                <tfoot>
+                <tr>
+                    <td colspan="5"></td>
+                    <td class="text-success">总价：</td>
+                    <td class="text-success cartPrice"
+                        th:text="${#numbers.formatDecimal(session.userCartInfo.totalPrice,0,1)}+ '元'">345$:
+                    </td>
+                </tr>
+                <tr style="background-color: white;">
+                    <td>
+                        <a class="btn btn-info" th:href="@{/book/index}">&lt;&lt;继续购买</a>
+                    </td>
+                    <td>
+                        <button class="btn btn-danger" data-target="#myModal" data-toggle="modal" onclick="del()">
+                            删除商品
+                        </button>
+                    </td>
+                    <td colspan="4"></td>
+                    <td>
+                        <a class="btn btn-success" href="javascript:void(0)" th:onclick="confirmOrder()">结算商品</a>
+                    </td>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+        <!--购物车 end-->
 
-				<!--删除提示模态框 begin-->
-				<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-					<!--如果没有选中任何一个商品的时候,出现-->
-					<div id="first_del" style="display: none;">
-						<div class="modal-dialog">
-							<div class="modal-content">
-								<div class="modal-header">
-									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-									<h4 class="modal-title text-warning" id="myModalLabel">抱歉!请您先选择商品!</h4>
-								</div>
-								<div class="modal-body">请选进行勾选!再执行删除删除!</div>
-								<div class="modal-footer">
-									<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-								</div>
-							</div>
-							<!-- /.modal-content -->
-						</div>
-					</div>
-					<!--first_del  end-->
+        <!--删除提示模态框 begin-->
+        <div aria-hidden="true" aria-labelledby="myModalLabel" class="modal fade" id="myModal" role="dialog"
+             tabindex="-1">
+            <!--如果没有选中任何一个商品的时候,出现-->
+            <div id="first_del" style="display: none;">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button aria-hidden="true" class="close" data-dismiss="modal" type="button">&times;</button>
+                            <h4 class="modal-title text-warning" id="myModalLabel">抱歉!请您先选择商品!</h4>
+                        </div>
+                        <div class="modal-body">请选进行勾选!再执行删除删除!</div>
+                        <div class="modal-footer">
+                            <button class="btn btn-default" data-dismiss="modal" type="button">关闭</button>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+            </div>
+            <!--first_del  end-->
 
-					<!--如果没有选中了一个商品的时候,出现-->
-					<div id="two_del" style="display: none;">
-						<div class="modal-dialog">
-							<div class="modal-content">
-								<div class="modal-header">
-									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-									<h4 class="modal-title text-warning" id="myModalLabel">删除商品,慎重操作!</h4>
-								</div>
-								<div class="modal-body">此操作一旦进行,数据将不可恢复!</div>
-								<div class="modal-footer">
-									<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-									<button type="button" class="btn btn-danger" onclick="delRows(this)">确定删除</button>
-								</div>
-							</div>
-							<!-- /.modal-content -->
-						</div>
-					</div>
-					<!--two_del  end-->
-				</div>
-				<!--删除提示模态框 end-->
-			</div>
+            <!--如果没有选中了一个商品的时候,出现-->
+            <div id="two_del" style="display: none;">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button aria-hidden="true" class="close" data-dismiss="modal" type="button">&times;</button>
+                            <h4 class="modal-title text-warning" id="myModalLabel">删除商品,慎重操作!</h4>
+                        </div>
+                        <div class="modal-body">此操作一旦进行,数据将不可恢复!</div>
+                        <div class="modal-footer">
+                            <button class="btn btn-default" data-dismiss="modal" type="button">关闭</button>
+                            <button class="btn btn-danger" onclick="delRows(this)" type="button">确定删除</button>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+            </div>
+            <!--two_del  end-->
+        </div>
+        <!--删除提示模态框 end-->
+    </div>
 
-			<!--右边-->
-			<div class="col-md-4 col-sm-3 col-xs-8">
-				<ol class="breadcrumb ">
-					<li>
-						<a href="javascript:void(0)" class="text-success "><span class="glyphicon glyphicon-shopping-cart "></span>我的购物车</a>
-					</li>
-					<li>
-						<a href="javascript:void(0)" th:text="${session.userCartInfo.num+'样商品'}" >0个商品</a>
-					</li>
-					<li>
-						<a href="javascript:void(0)" th:text="'总价'+${#numbers.formatDecimal(session.userCartInfo.totalPrice,0,1)+'元'}" id="total" >总价0元</a>
-					</li>
-				</ol>
+    <!--右边-->
+    <div class="col-md-4 col-sm-3 col-xs-8">
+        <ol class="breadcrumb ">
+            <li>
+                <a class="text-success " href="javascript:void(0)"><span
+                        class="glyphicon glyphicon-shopping-cart "></span>我的购物车</a>
+            </li>
+            <li>
+                <a href="javascript:void(0)" th:text="${session.userCartInfo.num+'样商品'}">0个商品</a>
+            </li>
+            <li>
+                <a href="javascript:void(0)"
+                   id="total"
+                   th:text="'总价'+${#numbers.formatDecimal(session.userCartInfo.totalPrice,0,1)+'元'}">总价0元</a>
+            </li>
+        </ol>
 
-				<!--猜你喜欢-->
-				<div>
+        <!--猜你喜欢-->
+        <div>
             <span class="text-info"><span class="glyphicon glyphicon-heart"></span><span
-					style="font-size: 20px; ">精品推荐</span></span>
-					<div class="row" id="love">
-						<div class="col-sm-12 col-md-12 wow fadeInRight animated" th:each="book:${recBook}">
-							<div class="thumbnail">
-								<a th:href="@{/book/detail(id=${book.id})}">
-									<img th:src="@{'/public/' + ${book.imgUrl}}" style="height: 200px; " alt="通用的占位符缩略图 "></a>
-								<div class="caption ">
-									<h3 th:text="${book.name}">小道理：分寸之间</h3>
-								</div>
-							</div>
-						</div>
-						<div>
-							<ul class="pager ">
-								<li><a th:href="@{/cart/list(page=1)}">首页</a></li>
-								<li ><a th:href="@{/cart/list(page=${pre})}" th:style="${cur == 1} ? 'pointer-events:none':''" >&laquo;</a></li>
-								<li th:each="i:${#numbers.sequence(1,pages)}">
-									<a th:href="@{/cart/list(page=${i})}" th:text="${i}">2</a>
-								</li>
-								<li><a th:href="@{/cart/list(page=${next})}" th:style="${cur == pages} ? 'pointer-events:none':''"  >&raquo;</a></li>
-								<li><a th:href="@{/cart/list(page=${pages})}" style="border: 1px solid #ddd;" >尾页</a></li>
-								<li><a style="border: 0px;margin-left: 0px;" th:text="${'当前页'+cur+'/'+pages+'总页'}">当前页3/5总页</a></li>
+                    style="font-size: 20px; ">精品推荐</span></span>
+            <div class="row" id="love">
+                <div class="col-sm-12 col-md-12 wow fadeInRight animated" th:each="book:${recBook}">
+                    <div class="thumbnail">
+                        <a th:href="@{/book/detail(id=${book.id})}">
+                            <img alt="通用的占位符缩略图 " style="height: 200px; "
+                                 th:src="@{'/images/' + ${book.imgUrl}}"></a>
+                        <div class="caption ">
+                            <h3 th:text="${book.name}">小道理：分寸之间</h3>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <ul class="pager ">
+                        <li><a th:href="@{/cart/list(page=1)}">首页</a></li>
+                        <li><a th:href="@{/cart/list(page=${pre})}" th:style="${cur == 1} ? 'pointer-events:none':''">&laquo;</a>
+                        </li>
+                        <li th:each="i:${#numbers.sequence(1,pages)}">
+                            <a th:href="@{/cart/list(page=${i})}" th:text="${i}">2</a>
+                        </li>
+                        <li><a th:href="@{/cart/list(page=${next})}"
+                               th:style="${cur == pages} ? 'pointer-events:none':''">&raquo;</a></li>
+                        <li><a style="border: 1px solid #ddd;" th:href="@{/cart/list(page=${pages})}">尾页</a></li>
+                        <li><a style="border: 0px;margin-left: 0px;"
+                               th:text="${'当前页'+cur+'/'+pages+'总页'}">当前页3/5总页</a></li>
 
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-		<div class="container">
-			<!--首页底部信息 begin-->
-			<div th:replace="common/footer :: footer"></div>
-		</div>
-		<!--end-->
+<div class="container">
+    <!--首页底部信息 begin-->
+    <div th:replace="common/footer :: footer"></div>
+</div>
+<!--end-->
 
-		<!--引入js文件-->
-		<script src="js/details.js" th:src="@{/js/details.js}" type="text/javascript" charset="utf-8"></script>
-		<script src="js/cart.js" th:src="@{/js/cart.js}" type="text/javascript" charset="utf-8"></script>
-		<script src="dist/js/jquery.min.js" th:src="@{/dist/js/jquery.min.js}"></script>
-		<script src="js/carousel.js" th:src="@{/js/carousel.js}" type="text/javascript" charset="utf-8"></script>
-		<script src="dist/js/bootstrap.min.js" th:src="@{/dist/js/bootstrap.min.js}"></script>
-		<script src="js/wow.js" th:src="@{/js/wow.js}"></script>
-		<script th:src="@{/layui/layui.js}"></script>
+<!--引入js文件-->
+<script charset="utf-8" src="js/details.js" th:src="@{/js/details.js}" type="text/javascript"></script>
+<script charset="utf-8" src="js/cart.js" th:src="@{/js/cart.js}" type="text/javascript"></script>
+<script src="dist/js/jquery.min.js" th:src="@{/dist/js/jquery.min.js}"></script>
+<script charset="utf-8" src="js/carousel.js" th:src="@{/js/carousel.js}" type="text/javascript"></script>
+<script src="dist/js/bootstrap.min.js" th:src="@{/dist/js/bootstrap.min.js}"></script>
+<script src="js/wow.js" th:src="@{/js/wow.js}"></script>
+<script th:src="@{/layui/layui.js}"></script>
 
-	<script th:inline="javascript">
-			//获取应用路径
-			var contextPath = [[${#request.getContextPath()}]];
-		</script>
-		<script type="text/javascript">
-			if(!(/msie [6|7|8|9]/i.test(navigator.userAgent))) {
-				new WOW().init();
-			};
+<script th:inline="javascript">
+    //获取应用路径
+    var contextPath = [[${#request.getContextPath()}]];
+</script>
+<script type="text/javascript">
+    if (!(/msie [6|7|8|9]/i.test(navigator.userAgent))) {
+        new WOW().init();
+    }
+    ;
 
-			//修改商品数量
-			function minus(cartId,price,index) {
-				var count = parseInt($("#cartCount" + index).val());
-				var _price = parseFloat(price);
-				if(count != 1){
-					$("#cartCount" + index ).val(count - 1);
-					//toFixed(保留小数位)
-					var singlePrice = parseFloat((count - 1) * _price).toFixed(1);
-					$("#cartPrice" + index ).html(singlePrice);
-					$.ajax({
-						url:contextPath + "/cart/plusBook",
-						data:{"cartId":cartId,"count":count},
-						method:"post",
-						success:function (data) {
-						}
-					})
-					updateCart(cartId,count - 1);
-				}
-			}
+    //修改商品数量
+    function minus(cartId, price, index) {
+        var count = parseInt($("#cartCount" + index).val());
+        var _price = parseFloat(price);
+        if (count != 1) {
+            $("#cartCount" + index).val(count - 1);
+            //toFixed(保留小数位)
+            var singlePrice = parseFloat((count - 1) * _price).toFixed(1);
+            $("#cartPrice" + index).html(singlePrice);
+            $.ajax({
+                url: contextPath + "/cart/plusBook",
+                data: {"cartId": cartId, "count": count},
+                method: "post",
+                success: function (data) {
+                }
+            })
+            updateCart(cartId, count - 1);
+        }
+    }
 
-			function plus(cartId,price,index) {
-				var count = parseInt($("#cartCount" + index).val());
-				var _price = parseFloat(price);
-				$.ajax({
-					url:contextPath + "/cart/minusBook",
-					data:{"cartId":cartId,"count":count},
-					method:"post",
-					success:function (data) {
-						if (data == 'fail'){
-							layer.msg('库存不足!', {icon: 7,anim:6});
-							return;
-						}else {
-							$("#cartCount" + index ).val(count + 1);
-							var singlePrice = parseFloat((count + 1) * _price).toFixed(1);
-							$("#cartPrice" + index ).html(singlePrice);
-							updateCart(cartId,count + 1);
-						}
-					}
-				})
+    function plus(cartId, price, index) {
+        var count = parseInt($("#cartCount" + index).val());
+        var _price = parseFloat(price);
+        $.ajax({
+            url: contextPath + "/cart/minusBook",
+            data: {"cartId": cartId, "count": count},
+            method: "post",
+            success: function (data) {
+                if (data == 'fail') {
+                    layer.msg('库存不足!', {icon: 7, anim: 6});
+                    return;
+                } else {
+                    $("#cartCount" + index).val(count + 1);
+                    var singlePrice = parseFloat((count + 1) * _price).toFixed(1);
+                    $("#cartPrice" + index).html(singlePrice);
+                    updateCart(cartId, count + 1);
+                }
+            }
+        })
 
-			}
+    }
 
-			//手动输入商品数量
-			function countChange(cartId,price,index) {
-				var count = parseInt($("#cartCount" + index).val());
-				if (count < 1){
-					layer.msg('商品数大于0')
-					return;
-				}
-				var _price = parseFloat(price);
-				$.ajax({
-					url:contextPath + "/cart/onBlurCount",
-					data:{"cartId":cartId,"count":count},
-					method:"post",
-					success:function (data) {
-						if (data !='success'){
-							layer.msg('库存不足！库存：' + data, {icon: 7,anim:6});
-							return;
-						}else {
-							$("#cartCount" + index ).val(count);
-							var singlePrice = parseFloat(count * _price).toFixed(1);
-							$("#cartPrice" + index ).html(singlePrice);
-							updateCart(cartId,count);
-						}
-					}
-				})
+    //手动输入商品数量
+    function countChange(cartId, price, index) {
+        var count = parseInt($("#cartCount" + index).val());
+        if (count < 1) {
+            layer.msg('商品数大于0')
+            return;
+        }
+        var _price = parseFloat(price);
+        $.ajax({
+            url: contextPath + "/cart/onBlurCount",
+            data: {"cartId": cartId, "count": count},
+            method: "post",
+            success: function (data) {
+                if (data != 'success') {
+                    layer.msg('库存不足！库存：' + data, {icon: 7, anim: 6});
+                    return;
+                } else {
+                    $("#cartCount" + index).val(count);
+                    var singlePrice = parseFloat(count * _price).toFixed(1);
+                    $("#cartPrice" + index).html(singlePrice);
+                    updateCart(cartId, count);
+                }
+            }
+        })
 
-			}
+    }
 
-			//更新购物车信息
-			function updateCart(cartId,count) {
-				$.ajax({
-					url:contextPath + "/cart/update",
-					data:{"id":cartId,"count":count},
-					method:"post",
-					success:function (data) {
-						var total = parseFloat(data).toFixed(1);
-						$("#total").html('总价' + total + '元');
-						$(".cartPrice").html(total);
-					}
-				})
-			}
+    //更新购物车信息
+    function updateCart(cartId, count) {
+        $.ajax({
+            url: contextPath + "/cart/update",
+            data: {"id": cartId, "count": count},
+            method: "post",
+            success: function (data) {
+                var total = parseFloat(data).toFixed(1);
+                $("#total").html('总价' + total + '元');
+                $(".cartPrice").html(total);
+            }
+        })
+    }
 
-			//确认订单
-			function confirmOrder() {
-				//存储购物记录的id
-				var ids = '';
-				var thirdModel = document.getElementById("third_del");
-				//判断是否选择了商品
-				var count = 0;
-				//获取所有的checkbox
-				var cks = document.getElementsByName("cks");
-				//遍历
-				for(var i = 0; i < cks.length; i++) {
-					if(cks[i].checked) {
-						count++;
-						ids += cks[i].value + ",";
-					}
-				}
-				if(count == 0) {
-					layer.msg('请勾选图书！', {icon: 7,anim:6});
-					// thirdModel.style.display = "block";
-					// $("#third_del").css("display","block");
-				} else {
-					window.location.href = contextPath + '/order/confirm?ids=' + ids.substring(0,ids.length-1);
-				}
-			}
-			//每过2秒钟进行一次轮播
-			$(function() {
-				$('#myCarousel').carousel({
-					interval: 2000
-				});
-			});
+    //确认订单
+    function confirmOrder() {
+        //存储购物记录的id
+        var ids = '';
+        var thirdModel = document.getElementById("third_del");
+        //判断是否选择了商品
+        var count = 0;
+        //获取所有的checkbox
+        var cks = document.getElementsByName("cks");
+        //遍历
+        for (var i = 0; i < cks.length; i++) {
+            if (cks[i].checked) {
+                count++;
+                ids += cks[i].value + ",";
+            }
+        }
+        if (count == 0) {
+            layer.msg('请勾选图书！', {icon: 7, anim: 6});
+            // thirdModel.style.display = "block";
+            // $("#third_del").css("display","block");
+        } else {
+            window.location.href = contextPath + '/order/confirm?ids=' + ids.substring(0, ids.length - 1);
+        }
+    }
 
-			//根据图书名搜索
-			function searchBookName() {
-				var inputBookName = $("#inputBookName").val();
-				if (inputBookName != ''){
-					window.location.href = contextPath + "/book/searchBook?inputBookName=" + inputBookName;
-				}else alert('查找内容不为空')
-			}
-		</script>
-	</body>
+    //每过2秒钟进行一次轮播
+    $(function () {
+        $('#myCarousel').carousel({
+            interval: 2000
+        });
+    });
+
+    //根据图书名搜索
+    function searchBookName() {
+        var inputBookName = $("#inputBookName").val();
+        if (inputBookName != '') {
+            window.location.href = contextPath + "/book/searchBook?inputBookName=" + inputBookName;
+        } else alert('查找内容不为空')
+    }
+</script>
+</body>
 
 </html>

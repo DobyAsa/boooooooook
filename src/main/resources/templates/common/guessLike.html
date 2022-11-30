@@ -9,7 +9,7 @@
             <div class="col-sm-12 col-md-12 wow fadeInRight animated" th:each="book:${recBook}">
                 <div class="thumbnail">
                     <a th:href="@{/book/detail(id=${book.id})}">
-                        <img th:src="@{'/public/' + ${book.imgUrl}}" style="height: 200px; " alt="通用的占位符缩略图 "></a>
+                        <img alt="通用的占位符缩略图 " style="height: 200px; " th:src="@{'/images/' + ${book.imgUrl}}"></a>
                     <div class="caption ">
                         <h3>小道理：分寸之间</h3>
                     </div>

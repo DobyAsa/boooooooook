@@ -12,16 +12,17 @@ import java.util.Random;
 
 
 public class Code {
-    private static char code[] = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j',
-            'k', 'm', 'n', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y',
-            'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'J', 'K', 'L', 'M',
-            'N', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '2',
-            '3', '4', '5', '6', '7', '8', '9' };
     private static final int WIDTH = 50;
     private static final int HEIGHT = 20;
     private static final int LENGTH = 4;
+    private static char code[] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j',
+            'k', 'm', 'n', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y',
+            'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'J', 'K', 'L', 'M',
+            'N', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '2',
+            '3', '4', '5', '6', '7', '8', '9'};
+
     public static void getCode(HttpServletRequest request,
-                               HttpServletResponse response){
+                               HttpServletResponse response) {
 
 
         // 设置响应报头信息

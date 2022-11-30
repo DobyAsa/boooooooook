@@ -18,9 +18,9 @@ public class PermissionInterceptor implements HandlerInterceptor {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
         Admin admin = (Admin) session.getAttribute("admin");
-        if(user != null && user.getUsername() != null ){
+        if (user != null && user.getUsername() != null) {
             return true;
-        }else {
+        } else {
             response.sendRedirect(request.getContextPath() + "/book/index");
             return false;
         }

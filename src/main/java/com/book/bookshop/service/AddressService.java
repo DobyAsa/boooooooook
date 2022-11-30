@@ -7,5 +7,5 @@ import org.springframework.stereotype.Service;
 
 
 @Service
-public class AddressService extends ServiceImpl<AddressMapper,Address> {
+public class AddressService extends ServiceImpl<AddressMapper, Address> {
 }

@@ -61,7 +61,7 @@ public class CartController {
 
     //跳转至购物车
     @RequestMapping("/list")
-    public String toCart(Integer page,HttpSession session, Model model) {
+    public String toCart(Integer page, HttpSession session, Model model) {
         User user = (User) session.getAttribute("user");
         List<CartVo> cartVos = cartService.findCartByUser(user.getId());
 
@@ -69,7 +69,7 @@ public class CartController {
         UserCartVo userCartVo = cartService.wrapperCart(cartVos);
         session.setAttribute("userCartInfo", userCartVo);
 
-        RecBook.recBook(page,model,bookService);
+        RecBook.recBook(page, model, bookService);
 
         model.addAttribute("cartList", cartVos);
         return "cart";
@@ -116,7 +116,7 @@ public class CartController {
         Cart cart = cartService.getById(cartId);
         Book book = bookMapper.selectById(cart.getBookId());
         book.setCount(book.getCount() - 1);
-        if (book.getCount() < 0){
+        if (book.getCount() < 0) {
             return "fail";//库存不足
         }
         bookMapper.updateById(book);
@@ -132,15 +132,15 @@ public class CartController {
         Cart cart = cartService.getById(cartId);
         Book book = bookMapper.selectById(cart.getBookId());
         //购物车添加，库存减少
-        if (count>cart.getCount()){
-            if (book.getCount()-(count-cart.getCount())<0){
+        if (count > cart.getCount()) {
+            if (book.getCount() - (count - cart.getCount()) < 0) {
                 return book.getCount().toString();
             }
-            book.setCount(book.getCount()-(count-cart.getCount()));
+            book.setCount(book.getCount() - (count - cart.getCount()));
         }
         //购物车减少，库存增加
-        if (count<cart.getCount()){
-            book.setCount(book.getCount()+(cart.getCount()-count));
+        if (count < cart.getCount()) {
+            book.setCount(book.getCount() + (cart.getCount() - count));
         }
         bookMapper.updateById(book);
         return "success";

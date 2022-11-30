@@ -2,7 +2,6 @@ package com.book.bookshop.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.book.bookshop.entity.Admin;
-import com.book.bookshop.entity.User;
 import org.springframework.stereotype.Repository;
 
 /**

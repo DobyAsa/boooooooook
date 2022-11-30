@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <title>图书详情</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/dist/css/bootstrap.min.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/css/index.css}"/>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/animate.css}"/>
+    <link rel="stylesheet" th:href="@{/dist/css/bootstrap.min.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/index.css}" type="text/css"/>
+    <link rel="stylesheet" th:href="@{/css/animate.css}" type="text/css"/>
     <link rel="stylesheet" th:href="@{/layui/css/layui.css}">
 
 </head>
@@ -36,21 +36,24 @@
         <div class="row">
             <div class="col-sm-12 col-md-6">
                 <div class="thumbnail">
-                    <a><img src="images/yuannideqingchunbufumengxiang.jpg" th:src="@{'/public/'+ ${book.imgUrl}}" style="height: 200px;" alt="通用的占位符缩略图"></a>
+                    <a><img alt="通用的占位符缩略图" src="images/yuannideqingchunbufumengxiang.jpg"
+                            style="height: 200px;" th:src="@{'/images/'+ ${book.imgUrl}}"></a>
                     <div class="caption">
                         <h3 th:text="${book.name}">愿你的青春不负梦想</h3>
-                        <p>双十一特价,包邮哟!亲<img th:src="@{/images/3.gif}" style="width: 24px;height: 24px;"></p>
+                        <p>双十一特价,包邮哟!亲<img style="width: 24px;height: 24px;" th:src="@{/images/3.gif}"></p>
                         <p>
                         <div style="margin-bottom: 5px;width: 100px;">
-                            <input type="number" id="bookCount" class="form-control" placeholder="购买数量" min="1" max="100"
-                                   onclick="selectByCount(this)">
+                            <input class="form-control" id="bookCount" max="100" min="1" onclick="selectByCount(this)"
+                                   placeholder="购买数量"
+                                   type="number">
                         </div>
                         <div style="clear: both;">
                             <!--<input type="number" class="form-control" placeholder="请输入" min="1" max="100" onclick="selectByCount(this)">-->
-                                <!--<a href="confirm_order.html" class="btn btn-default" role="button" visibility="hidden">
-                                <span class="glyphicon glyphicon-usd"></span> 立即购买
-                            </a>-->
-                            <a href="javascript:void(0)" th:onclick="addCart([[${book.id}]])" class="btn btn-warning" role="button">
+                            <!--<a href="confirm_order.html" class="btn btn-default" role="button" visibility="hidden">
+                            <span class="glyphicon glyphicon-usd"></span> 立即购买
+                        </a>-->
+                            <a class="btn btn-warning" href="javascript:void(0)" role="button"
+                               th:onclick="addCart([[${book.id}]])">
                                 <span class="glyphicon glyphicon-shopping-cart"></span> 加入购物车
                             </a>
                         </div>
@@ -62,14 +65,22 @@
             <div class="col-sm-12 col-md-6">
                 <div class="thumbnail">
                     <ul class="list-group">
-						<li class="list-group-item"><span class="text-success">图书名称: <span th:text="${book.name}">愿你的青春不负梦想</span></span></li>
-                        <li class="list-group-item"><span class="text-info">作者: </span><span th:text="${book.author}"></span></li>
-                        <li class="list-group-item"><span class="text-info">出版日期：<span th:text="${#dates.format(book.publishDate,'yyyy年MM月')}"></span></span></li>
-                        <li class="list-group-item"><span class="text-info">出版社: </span><span th:text="${book.publisher}"></span></li>
-                        <li class="list-group-item"><span class="text-info">库存: </span><span th:text="${book.count}"></span></li>
+                        <li class="list-group-item"><span class="text-success">图书名称: <span th:text="${book.name}">愿你的青春不负梦想</span></span>
+                        </li>
+                        <li class="list-group-item"><span class="text-info">作者: </span><span
+                                th:text="${book.author}"></span></li>
+                        <li class="list-group-item"><span class="text-info">出版日期：<span
+                                th:text="${#dates.format(book.publishDate,'yyyy年MM月')}"></span></span></li>
+                        <li class="list-group-item"><span class="text-info">出版社: </span><span
+                                th:text="${book.publisher}"></span></li>
+                        <li class="list-group-item"><span class="text-info">库存: </span><span
+                                th:text="${book.count}"></span></li>
                         <li class="list-group-item"><span class="text-info"
-												  style="text-decoration: line-through;">原价:￥</span><span style="text-decoration: line-through;"><span th:text="${book.oldPrice}"></span></span></li>
-                        <li class="list-group-item"><span class="text-info">现价:￥</span><span th:text="${book.newPrice}">$21.6元</span></li>
+                                                          style="text-decoration: line-through;">原价:￥</span><span
+                                style="text-decoration: line-through;"><span th:text="${book.oldPrice}"></span></span>
+                        </li>
+                        <li class="list-group-item"><span class="text-info">现价:￥</span><span
+                                th:text="${book.newPrice}">$21.6元</span></li>
                         <li class="list-group-item"><span class="text-info">简介:</span>
                             <span th:text="${book.info}">50年心路历程×25年创业思考×80场演讲精华，与不甘平庸的你，谈谈如何度过不悔的青春，实现你心中的梦想。</span>
                         </li>
@@ -82,37 +93,39 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                    <a data-parent="#accordion" data-toggle="collapse" href="#collapseTwo">
                         展开详细信息
                     </a>
                 </h4>
             </div>
-            <div id="collapseTwo" class="panel-collapse collapse">
+            <div class="panel-collapse collapse" id="collapseTwo">
                 <div class="panel-body">
                     <!--tab选项卡 begin-->
-                    <ul id="myTab" class="nav nav-tabs">
+                    <ul class="nav nav-tabs" id="myTab">
                         <li class="active">
-                            <a href="#home" data-toggle="tab">
+                            <a data-toggle="tab" href="#home">
                                 商品详情
                             </a>
                         </li>
                         <li>
-                            <a href="#ios" data-toggle="tab"> <span class="badge pull-right" th:text="${commentCount}">50</span>累计评价</a>
+                            <a data-toggle="tab" href="#ios"> <span class="badge pull-right" th:text="${commentCount}">50</span>累计评价</a>
                         </li>
                     </ul>
-                    <div id="myTabContent" class="tab-content">
+                    <div class="tab-content" id="myTabContent">
                         <div class="tab-pane fade in active" id="home">
                             <p>
                                 <em>产品参数：</em>
                             </p>
                             <div class="row">
                                 <div class="col-sm-12 col-md-6">
-                                    <ul class="nav navbar-collapse" style="line-height: 3" ;>
+                                    <ul ; class="nav navbar-collapse" style="line-height: 3">
                                         <li class="text-info">ISBN: <span th:text="${book.isbn}"></span></li>
                                         <li class="text-info">书名:<span th:text="${book.name}"></span></li>
                                         <li class="text-info">定价: <span th:text="${book.newPrice}"></span>元</li>
                                         <li class="text-info">出版社名称: <span th:text="${book.publisher}"></span></li>
-                                        <li class="text-info">出版时间: <span th:text="${#calendars.format(book.publishDate,'yyyy-MM-dd')}"></span></li>
+                                        <li class="text-info">出版时间: <span
+                                                th:text="${#calendars.format(book.publishDate,'yyyy-MM-dd')}"></span>
+                                        </li>
                                         <li class="text-info">作者: <span th:text="${book.author}"></span></li>
                                         <li class="text-info">库存: <span th:text="${book.count}"></span></li>
                                         <li class="text-info">简介: <span th:text="${book.info}"></span></li>
@@ -133,14 +146,14 @@
                                 </li>
                             </ul>
                             </p>
-<!--                            <p>
-                            <ul class="pager">
-                                <li>
-                                    <a href="# ">&larr;上一页</a>
-                                    <a href="# ">下一页 &rarr;</a>
-                                </li>
-                            </ul>
-                            </p>-->
+                            <!--                            <p>
+                                                        <ul class="pager">
+                                                            <li>
+                                                                <a href="# ">&larr;上一页</a>
+                                                                <a href="# ">下一页 &rarr;</a>
+                                                            </li>
+                                                        </ul>
+                                                        </p>-->
                         </div>
                     </div>
                     <!--tab选项卡 end-->
@@ -153,35 +166,40 @@
     <!--右边-->
     <div class="col-md-4 col-sm-3 col-xs-8">
         <!--猜你喜欢-->
-<!--        <div th:replace="common/guessLike :: guessLike" id="recBook"></div>-->
-        <div>
-            <span class="text-info"><span class="glyphicon glyphicon-heart"></span><span
-                    style="font-size: 20px; ">精品推荐</span></span>
-            <div class="row" id="love">
-                <div class="col-sm-12 col-md-12 wow fadeInRight animated" th:each="book:${recBook}">
-                    <div class="thumbnail">
-                        <a th:href="@{/book/detail(id=${book.id})}">
-                            <img th:src="@{'/public/' + ${book.imgUrl}}" style="height: 200px; " alt="通用的占位符缩略图 "></a>
-                        <div class="caption ">
-                            <h3 th:text="${book.name}">小道理：分寸之间</h3>
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <ul class="pager ">
-                        <li><a th:href="@{/book/detail(page=1,id=${book.id})}">首页</a></li>
-                        <li ><a th:href="@{/book/detail(page=${pre},id=${book.id})}" th:style="${cur == 1} ? 'pointer-events:none':''" >&laquo;</a></li>
-                        <li th:each="i:${#numbers.sequence(1,pages)}">
-                            <a th:href="@{/book/detail(page=${i},id=${book.id})}" th:text="${i}">2</a>
-                        </li>
-                        <li><a th:href="@{/book/detail(page=${next},id=${book.id})}" th:style="${cur == pages} ? 'pointer-events:none':''"  >&raquo;</a></li>
-                        <li><a th:href="@{/book/detail(page=${pages},id=${book.id})}" style="border: 1px solid #ddd;" >尾页</a></li>
-                        <li><a style="border: 0px;margin-left: 0px;" th:text="${'当前页'+cur+'/'+pages+'总页'}">当前页3/5总页</a></li>
+        <!--        <div th:replace="common/guessLike :: guessLike" id="recBook"></div>-->
+        <!--        <div>-->
+        <!--            <span class="text-info"><span class="glyphicon glyphicon-heart"></span>-->
+        <!--                <span style="font-size: 20px; ">精品推荐</span></span>-->
+        <!--            <div class="row" id="love">-->
+        <!--                <div class="col-sm-12 col-md-12 wow fadeInRight animated" th:each="book:${recBook}">-->
+        <!--                    <div class="thumbnail">-->
+        <!--                        <a th:href="@{/book/detail(id=${book.id})}">-->
+        <!--                            <img alt="通用的占位符缩略图 " style="height: 200px; "-->
+        <!--                                 th:src="@{'/images/' + ${book.imgUrl}}"></a>-->
+        <!--                        <div class="caption ">-->
+        <!--                            <h3 th:text="${book.name}">小道理：分寸之间</h3>-->
+        <!--                        </div>-->
+        <!--                    </div>-->
+        <!--                </div>-->
+        <!--                <div>-->
+        <!--                    <ul class="pager ">-->
+        <!--                        <li><a th:href="@{/book/detail(page=1,id=${book.id})}">首页</a></li>-->
+        <!--                        <li><a th:href="@{/book/detail(page=${pre},id=${book.id})}"-->
+        <!--                               th:style="${cur == 1} ? 'pointer-events:none':''">&laquo;</a></li>-->
+        <!--                        <li th:each="i:${#numbers.sequence(1,pages)}">-->
+        <!--                            <a th:href="@{/book/detail(page=${i},id=${book.id})}" th:text="${i}">2</a>-->
+        <!--                        </li>-->
+        <!--                        <li><a th:href="@{/book/detail(page=${next},id=${book.id})}"-->
+        <!--                               th:style="${cur == pages} ? 'pointer-events:none':''">&raquo;</a></li>-->
+        <!--                        <li><a style="border: 1px solid #ddd;"-->
+        <!--                               th:href="@{/book/detail(page=${pages},id=${book.id})}">尾页</a></li>-->
+        <!--                        <li><a style="border: 0px;margin-left: 0px;"-->
+        <!--                               th:text="${'当前页'+cur+'/'+pages+'总页'}">当前页3/5总页</a></li>-->
 
-                    </ul>
-                </div>
-            </div>
-        </div>
+        <!--                    </ul>-->
+        <!--                </div>-->
+        <!--            </div>-->
+        <!--        </div>-->
     </div>
 </div>
 
@@ -189,12 +207,12 @@
     <!--首页底部信息 begin-->
     <div th:replace="common/footer :: footer"></div>
 </div>
-    <!--登录注册模态框-->
-    <div th:replace="common/bookModal :: bookModal"></div>
+<!--登录注册模态框-->
+<div th:replace="common/bookModal :: bookModal"></div>
 
-<script th:src="@{/js/details.js}" type="text/javascript" charset="utf-8"></script>
+<script charset="utf-8" th:src="@{/js/details.js}" type="text/javascript"></script>
 <script src="dist/js/jquery.min.js" th:src="@{/dist/js/jquery.min.js}"></script>
-<script src="js/carousel.js" th:src="@{/js/carousel.js}" type="text/javascript" charset="utf-8"></script>
+<script charset="utf-8" src="js/carousel.js" th:src="@{/js/carousel.js}" type="text/javascript"></script>
 <script src="dist/js/bootstrap.min.js" th:src="@{/dist/js/bootstrap.min.js}"></script>
 <script src="js/wow.js" th:src="@{/js/wow.js}"></script>
 <script th:src="@{/js/login_reg.js}"></script>
@@ -209,67 +227,69 @@
     if (!(/msie [6|7|8|9]/i.test(navigator.userAgent))) {
         new WOW().init();
     }
-    ;
+
 
     $(function () {
         // $("#orderData").load(contextPath + "/admin/getOrderListData",queryData(1,''))
         $("#recBook").load(contextPath + "/book/getRecBook")
     })
+
     //加入购物车
     function addCart(bookId) {
         //验证是否已经登录
-        if (user == null||user == 'undefined'||user == ''){
-            layer.msg('请登录！', {icon: 7,anim:6});
+        if (user == null || user == 'undefined' || user == '') {
+            layer.msg('请登录！', {icon: 7, anim: 6});
             return;
         }
         //验证购买的数量
         var bookNum = $("#bookCount").val();
-        if (bookNum == ''||bookNum == 'undefined'){
-            layer.msg('请输入购买数量！', {icon: 7,anim:6});
-            return ;
-        }
-        var reg = new RegExp("^\\+?[1-9][0-9]*$");//正整数
-        if (!reg.test(bookNum)){
-            layer.msg('请输入正整数！', {icon: 7,anim:6});
+        if (bookNum == '' || bookNum == 'undefined') {
+            layer.msg('请输入购买数量！', {icon: 7, anim: 6});
             return;
         }
-        if (bookNum>bookCount){
-            layer.msg('库存不足！', {icon: 7,anim:6});
+        var reg = new RegExp("^\\+?[1-9][0-9]*$");//正整数
+        if (!reg.test(bookNum)) {
+            layer.msg('请输入正整数！', {icon: 7, anim: 6});
+            return;
+        }
+        if (bookNum > bookCount) {
+            layer.msg('库存不足！', {icon: 7, anim: 6});
             return;
         }
         //加入购物车
         $.ajax({
-            url:contextPath + "/cart/addCart",
-            method:"post",
-            data:{"count":bookNum,"bookId":bookId,"userId":user.id},
-            success:function (data) {
-                if (data=='success'){
-                    layer.confirm('成功加入购物车！数量：'+bookNum, {
+            url: contextPath + "/cart/addCart",
+            method: "post",
+            data: {"count": bookNum, "bookId": bookId, "userId": user.id},
+            success: function (data) {
+                if (data == 'success') {
+                    layer.confirm('成功加入购物车！数量：' + bookNum, {
                         btn: ['确定'] //可以无限个按钮
-                        ,btn3: function(index, layero){
+                        , btn3: function (index, layero) {
                             //按钮【按钮三】的回调
                         }
-                    }, function(index, layero){
+                    }, function (index, layero) {
                         //按钮【按钮一】的回调
                         location.reload();
-                    }, function(index){
+                    }, function (index) {
                         //按钮【按钮二】的回调
                     });
                 }
             }
         })
     }
+
     //刷新验证码
-    function refreshCode(){
-        $("#mycode").attr("src","/book/getCode?time="+new Date().getTime());
+    function refreshCode() {
+        $("#mycode").attr("src", "/book/getCode?time=" + new Date().getTime());
     }
 
     //根据图书名搜索
     function searchBookName() {
         var inputBookName = $("#inputBookName").val();
-        if (inputBookName != ''){
+        if (inputBookName != '') {
             window.location.href = contextPath + "/book/searchBook?inputBookName=" + inputBookName;
-        }else layer.msg('查找内容不为空！', {icon: 7,anim:6});
+        } else layer.msg('查找内容不为空！', {icon: 7, anim: 6});
     }
 
 </script>
